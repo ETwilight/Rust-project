@@ -39,7 +39,7 @@
   * `KickPlayer(Player player)`
   * `InvitePlayer(Player player)`
 
-* Class ChatroomManager: Used for managing, creating, searching and deleting multiple chat rooms. Use a map< key: int roomID,  value: Chatroom room> to manage them.
+* `Class ChatroomManager`: Used for managing, creating, searching and deleting multiple chat rooms. Use a map< key: int roomID,  value: Chatroom room> to manage them.
   * `Create(Chatroom room)`
   * `Delete(Chatroom room)`
   * `Search(int roomID)`
