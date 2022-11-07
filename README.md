@@ -29,31 +29,31 @@
 
 **Chat Server System**
 
-* Struct Message: Convey Properties such as text, userID, time that needed for sending a message
-* Class User: UserName, UserID and other properties that needed for a player’
-* Class Event(): Used for build channel<Message>, addListener(), receive and send message.
+* `Struct Message`: Convey Properties such as text, userID, time that needed for sending a message
+* `Class User`: UserName, UserID and other properties that needed for a player’
+* `Class Event()`: Used for build channel<Message>, addListener(), receive and send message.
 
 * Class Chatroom: a Chatroom class that contains everything needed for a chatroom
-  * WaitForPlayers()
-  * Host()
-  * KickPlayer(Player player)
-  * InvitePlayer(Player player)
+  * `WaitForPlayers()`
+  * `Host()`
+  * `KickPlayer(Player player)`
+  * `InvitePlayer(Player player)`
 
 * Class ChatroomManager: Used for managing, creating, searching and deleting multiple chat rooms. Use a map< key: int roomID,  value: Chatroom room> to manage them.
-  * Create(Chatroom room)
-  * Delete(Chatroom room)
-  * Search(int roomID)
-  * Join(Chatroom room)
-* Class DatabaseInteraction: A class for interacting with databases
+  * `Create(Chatroom room)`
+  * `Delete(Chatroom room)`
+  * `Search(int roomID)`
+  * `Join(Chatroom room)`
+* `Class DatabaseInteraction`: A class for interacting with databases
 
 **Game Loop System**
   
 * Game Loop
 * Class GameState
 * Role Assign
-* Struct AbstractRole: int id, Player&, Chatroom&, bool alive
-* Struct VagrantRole extends AbstractRole: xxx 
-* Struct RusterRole extends AbstractRole: xxx
+* `Struct AbstractRole`: `int id`, `Player&`, `Chatroom&`, `bool alive`
+* `Struct VagrantRole` extends `AbstractRole: xxx`
+* `Struct RusterRole` extends `AbstractRole: xxx`
 * Role Specific Chat (Use tag to set visibility)
 * Different roles process
 * Win/Lose Condition/Detection
