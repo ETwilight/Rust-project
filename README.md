@@ -4,8 +4,11 @@
 **Team MemoryLeak**: Yichen Liu (yichen32), (pg22), Weijia Zhang (weijia4)
 
 ## Project Introduction
+
 *Motivation*: To learn about the technical skills required in practical multithreading and chatroom servers, team collaboration in coding, as well as deployment of rust projects. 
+
 *Goal*: Chatroom that supports multiplayer and creation and running of multiple simultaneous chatrooms based on similar rules to "Werewolves of Miller's Hollow"
+
 *Short Description*: Multithreaded chat server/client and chatrooms for a mystery game similar to the "Werewolves of Miller's Hollow."
 
 ## Game Description
