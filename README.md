@@ -20,9 +20,9 @@
 ## Technical Overview
 
 **Concepts**
--[] Multithreading
--[] Chat server
--[] Docker/server rust deployment
+- [ ] Multithreading
+- [ ] Chat server
+- [ ] Docker/server rust deployment
 
 **Libraries and Tools Used**
 * Tokio-rs: Asynchronous networked rust application
