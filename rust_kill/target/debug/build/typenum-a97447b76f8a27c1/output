@@ -1,0 +1,2 @@
+cargo:rustc-env=TYPENUM_BUILD_CONSTS=d:\StudyLife\Github\Rust-project\rust_kill\target\debug\build\typenum-a97447b76f8a27c1\out\consts.rs
+cargo:rustc-env=TYPENUM_BUILD_OP=d:\StudyLife\Github\Rust-project\rust_kill\target\debug\build\typenum-a97447b76f8a27c1\out\op.rs
