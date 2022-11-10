@@ -11,7 +11,6 @@ use rocket::tokio::select;
 
 
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
-#[cfg_attr(test, derive(PartialEq, UriDisplayQuery))]
 #[serde(crate = "rocket::serde")]
 struct Message{
     #[field(validate = len(..30))]
@@ -26,7 +25,6 @@ struct Message{
 fn post(form: Form<Message>, quene: &State<Sender<Message>>){
     //A send "fails" if there are no active subscribers
     let _res = quene.send(form.into_inner());
-
 } 
 /// Returns an infinite stream of server-sent events. Each event is a message
 /// pulled from a broadcast queue sent by the `post` handler.
