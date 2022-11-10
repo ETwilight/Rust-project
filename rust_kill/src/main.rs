@@ -1,45 +1,54 @@
 #[macro_use] extern crate rocket;
+#[cfg(test)] mod tests;
 
-use rocket::{tokio::sync::broadcast::{channel, Sender, error::RecvError}, serde::{Serialize, Deserialize}, State, Shutdown, response::stream::{EventStream, Event}, fs::{relative, FileServer}};
+use rocket::{State, Shutdown};
+use rocket::fs::{relative, FileServer};
 use rocket::form::Form;
+use rocket::response::stream::{EventStream, Event};
+use rocket::serde::{Serialize, Deserialize};
+use rocket::tokio::sync::broadcast::{channel, Sender, error::RecvError};
 use rocket::tokio::select;
 
 
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
+#[cfg_attr(test, derive(PartialEq, UriDisplayQuery))]
 #[serde(crate = "rocket::serde")]
- struct Message{
+struct Message{
     #[field(validate = len(..30))]
-    pub room_name:String, //Maximum Length is 30 for a roomName
+    pub room:String, //Maximum Length is 30 for a roomName
     #[field(validate = len(..20))]
     pub username:String, //Maximum Length is 20 for a username
     pub message:String,
 }
 
+/// Receive a message from a form submission and broadcast it to any receivers.
 #[post("/message", data = "<form>")]
 fn post(form: Form<Message>, quene: &State<Sender<Message>>){
     //A send "fails" if there are no active subscribers
     let _res = quene.send(form.into_inner());
 
 } 
-
-#[get("/evenets")]
-async fn events(quene: &State<Sender<Message>>, mut end: Shutdown) -> EventStream![]{
-    let mut rx = quene.subscribe(); //Create a receiver
-    EventStream!{
-        loop{
-            let msg = select! //Select wait on multiple branches and returns as soon as one of them complete
-            {
-                msg = rx.recv() => match msg{
+/// Returns an infinite stream of server-sent events. Each event is a message
+/// pulled from a broadcast queue sent by the `post` handler.
+#[get("/events")]
+async fn events(queue: &State<Sender<Message>>, mut end: Shutdown) -> EventStream![] {
+    let mut rx = queue.subscribe();
+    EventStream! {
+        loop {
+            let msg = select! {
+                msg = rx.recv() => match msg {
                     Ok(msg) => msg,
                     Err(RecvError::Closed) => break,
-                    Err(RecvError::Lagged(_))=> continue, //skip to the next iteration
+                    Err(RecvError::Lagged(_)) => continue,
                 },
-                _ = &mut end => break, //shutdown
+                _ = &mut end => break,
             };
+
             yield Event::json(&msg);
         }
     }
 }
+
  
 #[launch]
 fn rocket() -> _ {
