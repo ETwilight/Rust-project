@@ -1,60 +1,46 @@
-#[macro_use] extern crate rocket;
-#[cfg(test)] mod tests;
+use mini_redis::{Connection, Frame};
+use tokio::net::{TcpListener, TcpStream};
+use bytes::Bytes;
+use std::collections::HashMap;
+use std::sync::{Arc, Mutex};
 
-use rocket::{State, Shutdown};
-use rocket::fs::{relative, FileServer};
-use rocket::form::Form;
-use rocket::response::stream::{EventStream, Event};
-use rocket::serde::{Serialize, Deserialize};
-use rocket::tokio::sync::broadcast::{channel, Sender, error::RecvError};
-use rocket::tokio::select;
+type Db = Arc<Mutex<HashMap<String, Bytes>>>;
 
-
-#[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
-#[cfg_attr(test, derive(PartialEq, UriDisplayQuery))]
-#[serde(crate = "rocket::serde")]
-struct Message{
-    #[field(validate = len(..30))]
-    pub room:String, //Maximum Length is 30 for a roomName
-    #[field(validate = len(..20))]
-    pub username:String, //Maximum Length is 20 for a username
-    pub message:String,
+#[tokio::main]
+async fn main() {
+  let listener = TcpListener::bind("10.215.0.189:6379").await.unwrap();
+  println!("Listening");
+  let db = Arc::new(Mutex::new(HashMap::new()));
+  loop {
+    let (socket, _) = listener.accept().await.unwrap();
+    let db = db.clone();
+    println!("Accepted");
+    tokio::spawn(async move {
+      process(socket, db).await;
+    });
+  }
 }
 
-/// Receive a message from a form submission and broadcast it to any receivers.
-#[post("/message", data = "<form>")]
-fn post(form: Form<Message>, quene: &State<Sender<Message>>){
-    //A send "fails" if there are no active subscribers
-    let _res = quene.send(form.into_inner());
-
-} 
-/// Returns an infinite stream of server-sent events. Each event is a message
-/// pulled from a broadcast queue sent by the `post` handler.
-#[get("/events")]
-async fn events(queue: &State<Sender<Message>>, mut end: Shutdown) -> EventStream![] {
-    let mut rx = queue.subscribe();
-    EventStream! {
-        loop {
-            let msg = select! {
-                msg = rx.recv() => match msg {
-                    Ok(msg) => msg,
-                    Err(RecvError::Closed) => break,
-                    Err(RecvError::Lagged(_)) => continue,
-                },
-                _ = &mut end => break,
-            };
-
-            yield Event::json(&msg);
+async fn process(socket: TcpStream, db: Db) {
+  use mini_redis::Command::{self, Get, Set};
+  let mut connection = Connection::new(socket);
+  while let Some(frame) = connection.read_frame().await.unwrap() {
+    let response = match Command::from_frame(frame).unwrap() {
+      Set(cmd) => {
+        let mut db = db.lock().unwrap();
+        db.insert(cmd.key().to_string(),cmd.value().clone());
+        Frame::Simple("OK".to_string())
+      }
+      Get(cmd) => {
+        let mut db = db.lock().unwrap();
+        if let Some(value) = db.get(cmd.key()) {
+          Frame::Bulk(value.clone().into())
+        } else {
+          Frame::Null
         }
-    }
+      }
+      cmd => panic!("unimplemented {:?}", cmd),
+    };
+    connection.write_frame(&response).await.unwrap();
+  }
 }
-
- 
-#[launch]
-fn rocket() -> _ {
-    rocket::build()
-        .manage(channel::<Message>(1024).0) //Store the sender 
-        .mount("/", routes![post, events])
-        .mount("/", FileServer::from(relative!("static"))) //It will be saved in a folder called "static"
-}
-

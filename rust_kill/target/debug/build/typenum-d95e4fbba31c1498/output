@@ -1,2 +1,2 @@
-cargo:rustc-env=TYPENUM_BUILD_CONSTS=D:\StudyLife\Github\Rust-project\rust_kill\target\debug\build\typenum-d95e4fbba31c1498\out\consts.rs
-cargo:rustc-env=TYPENUM_BUILD_OP=D:\StudyLife\Github\Rust-project\rust_kill\target\debug\build\typenum-d95e4fbba31c1498\out\op.rs
+cargo:rustc-env=TYPENUM_BUILD_CONSTS=D:\Projects\GitHub\uiuc\Rust-project\rust_kill\target\debug\build\typenum-d95e4fbba31c1498\out\consts.rs
+cargo:rustc-env=TYPENUM_BUILD_OP=D:\Projects\GitHub\uiuc\Rust-project\rust_kill\target\debug\build\typenum-d95e4fbba31c1498\out\op.rs
