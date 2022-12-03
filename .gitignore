@@ -2,5 +2,5 @@
 /rust_kill/target/*
 /rust_kill/target/
 /rust_kill/Cargo.lock
-/.vs/*
-/.vs/
+/rust_kill/.vs/*
+/rust_kill/.vs/
