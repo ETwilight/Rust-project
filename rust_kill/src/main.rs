@@ -53,6 +53,6 @@ fn rocket() -> _ {
     rocket::build()
         .manage(channel::<Message>(1024).0) //Store the sender 
         .mount("/", routes![post, events])
-        .mount("/", FileServer::from(relative!("static"))) //It will be saved in a folder called "static"
+        .mount("/", FileServer::from(relative!("/static"))) //It will be saved in a folder called "static"
 }
 

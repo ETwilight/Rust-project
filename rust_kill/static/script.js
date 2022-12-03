@@ -128,10 +128,8 @@ function setConnectedStatus(status) {
 function init() {
   // Initialize some rooms.
   addRoom("lobby");
-  addRoom("rocket");
   changeRoom("lobby");
   addMessage("lobby", "Rocket", "Howdy! Open another browser tab, send a message.", true);
-  addMessage("rocket", "Rocket", "Howdy and Welcome Back! This is another room.", true);
 
   // Set up the form handler.
   newMessageForm.addEventListener("submit", (e) => {
