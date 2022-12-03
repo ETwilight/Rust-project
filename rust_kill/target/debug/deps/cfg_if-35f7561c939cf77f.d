@@ -1,5 +1,0 @@
-d:\StudyLife\Github\Rust-project\rust_kill\target\debug\deps\cfg_if-35f7561c939cf77f.rmeta: C:\Users\zhang\.cargo\registry\src\github.com-1ecc6299db9ec823\cfg-if-1.0.0\src\lib.rs
-
-d:\StudyLife\Github\Rust-project\rust_kill\target\debug\deps\cfg_if-35f7561c939cf77f.d: C:\Users\zhang\.cargo\registry\src\github.com-1ecc6299db9ec823\cfg-if-1.0.0\src\lib.rs
-
-C:\Users\zhang\.cargo\registry\src\github.com-1ecc6299db9ec823\cfg-if-1.0.0\src\lib.rs:
