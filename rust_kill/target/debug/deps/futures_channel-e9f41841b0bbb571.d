@@ -1,0 +1,10 @@
+c:\Users\Twilight\desktop\projects\UIUC\rust\rust-project\rust_kill\target\debug\deps\futures_channel-e9f41841b0bbb571.rmeta: C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\futures-channel-0.3.25\src\lib.rs C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\futures-channel-0.3.25\src\lock.rs C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\futures-channel-0.3.25\src\mpsc\mod.rs C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\futures-channel-0.3.25\src\mpsc\queue.rs C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\futures-channel-0.3.25\src\mpsc\sink_impl.rs C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\futures-channel-0.3.25\src\oneshot.rs
+
+c:\Users\Twilight\desktop\projects\UIUC\rust\rust-project\rust_kill\target\debug\deps\futures_channel-e9f41841b0bbb571.d: C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\futures-channel-0.3.25\src\lib.rs C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\futures-channel-0.3.25\src\lock.rs C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\futures-channel-0.3.25\src\mpsc\mod.rs C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\futures-channel-0.3.25\src\mpsc\queue.rs C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\futures-channel-0.3.25\src\mpsc\sink_impl.rs C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\futures-channel-0.3.25\src\oneshot.rs
+
+C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\futures-channel-0.3.25\src\lib.rs:
+C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\futures-channel-0.3.25\src\lock.rs:
+C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\futures-channel-0.3.25\src\mpsc\mod.rs:
+C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\futures-channel-0.3.25\src\mpsc\queue.rs:
+C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\futures-channel-0.3.25\src\mpsc\sink_impl.rs:
+C
