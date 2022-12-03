@@ -11,4 +11,5 @@ C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\base64-0.13.1\
 C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\base64-0.13.1\src\write\mod.rs:
 C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\base64-0.13.1\src\write\encoder.rs:
 C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\base64-0.13.1\src\write\encoder_string_writer.rs:
-C:\Users\Twilight\.cargo\regist
+C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\base64-0.13.1\src\encode.rs:
+C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\base64-0.13.1\src\decode.rs:

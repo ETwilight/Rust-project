@@ -44,16 +44,22 @@ async fn events(queue: &State<Sender<Message>>, mut end: Shutdown) -> EventStrea
     }
 }
 
+mod server;
+mod client;
+
 #[rocket::main]
 async fn main() -> Result<(), rocket::Error> {
     //server_addr tbd
     let server_addr = "127.0.0.1";
     let client_addr = "127.0.0.1";
 
+    // server connection in parallel, currently in main, will be transferred
+    let server = server::host::host(server_addr.to_string().clone()).await.unwrap();
     // client connection, currently in main, will be transferred
-    let client = redis::Client::open("redis://".to_string()+server_addr).unwrap();
-    let con = client.get_connection().unwrap();
+    let client = client::connect::connect(server_addr.clone()).await.unwrap(); //local
+    let client2 = client::connect::connect("10.213.0.176".clone()).await.unwrap(); //LAN
 
+    
     // a custom rocket build
     let figment = rocket::Config::figment()
         .merge(("address", client_addr))

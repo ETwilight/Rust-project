@@ -12,4 +12,5 @@ C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\ryu-1.0.11\src
 C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\ryu-1.0.11\src\f2s.rs:
 C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\ryu-1.0.11\src\f2s_intrinsics.rs:
 C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\ryu-1.0.11\src\pretty\mod.rs:
-C:\Users\Twilight\.cargo\registr
+C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\ryu-1.0.11\src\pretty\exponent.rs:
+C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\ryu-1.0.11\src\pretty\mantissa.rs:

@@ -24,4 +24,7 @@ C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.5.0\s
 C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.5.0\src\memmem\rarebytes.rs:
 C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.5.0\src\memmem\twoway.rs:
 C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.5.0\src\memmem\util.rs:
-C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.5.0\src\
+C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.5.0\src\memmem\vector.rs:
+C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.5.0\src\memmem\x86\mod.rs:
+C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.5.0\src\memmem\x86\avx.rs:
+C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\memchr-2.5.0\src\memmem\x86\sse.rs:

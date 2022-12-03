@@ -17,4 +17,6 @@ C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\encoding_rs-0.
 C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\encoding_rs-0.8.31\src\x_user_defined.rs:
 C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\encoding_rs-0.8.31\src\ascii.rs:
 C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\encoding_rs-0.8.31\src\data.rs:
-C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec8
+C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\encoding_rs-0.8.31\src\handles.rs:
+C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\encoding_rs-0.8.31\src\variant.rs:
+C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\encoding_rs-0.8.31\src\mem.rs:

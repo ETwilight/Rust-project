@@ -14,4 +14,5 @@ C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\typenum-1.15.0
 c:\Users\Twilight\desktop\projects\UIUC\rust\rust-project\rust_kill\target\debug\build\typenum-d95e4fbba31c1498\out\op.rs:
 c:\Users\Twilight\desktop\projects\UIUC\rust\rust-project\rust_kill\target\debug\build\typenum-d95e4fbba31c1498\out\consts.rs:
 
-# env-dep:TYPENUM_BUILD_CONS
+# env-dep:TYPENUM_BUILD_CONSTS=c:\\Users\\Twilight\\desktop\\projects\\UIUC\\rust\\rust-project\\rust_kill\\target\\debug\\build\\typenum-d95e4fbba31c1498\\out\\consts.rs
+# env-dep:TYPENUM_BUILD_OP=c:\\Users\\Twilight\\desktop\\projects\\UIUC\\rust\\rust-project\\rust_kill\\target\\debug\\build\\typenum-d95e4fbba31c1498\\out\\op.rs

@@ -6,4 +6,5 @@ C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\polyval-0.6.0\
 C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\polyval-0.6.0\src\backend.rs:
 C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\polyval-0.6.0\src\backend\soft64.rs:
 C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\polyval-0.6.0\src\mulx.rs:
-C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\polyval-0.6.0\src\backend\autodetect.rs
+C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\polyval-0.6.0\src\backend\autodetect.rs:
+C:\Users\Twilight\.cargo\registry\src\github.com-1ecc6299db9ec823\polyval-0.6.0\src\backend\clmul.rs:
