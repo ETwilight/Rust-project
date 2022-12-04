@@ -1,4 +1,22 @@
 use tokio::{net::{TcpListener, TcpStream}, task::JoinHandle, io::{BufWriter, AsyncWriteExt}};
+use serde::{Serialize, Deserialize};
+#[path="../utils.rs"]
+mod utils;
+
+ 
+#[derive(Serialize, Deserialize, Debug)]
+struct Person {
+    person_id: i32,
+    person_name: String
+}
+ 
+#[derive(Serialize, Deserialize, Debug)]
+struct User {
+    user_id: i32,
+    user_name: String,
+    user_password: String,
+    user_person: Person
+}
 
 pub async fn start(server_addr: &str) -> Result<JoinHandle<()>, ()>{
     // the main thread to return
@@ -8,17 +26,9 @@ pub async fn start(server_addr: &str) -> Result<JoinHandle<()>, ()>{
         loop {
             let (socket, _) = listener.accept().await.unwrap();
             println!("accepted");
-            serverWrite(socket).await.unwrap();
+            utils::serverWrite(socket).await.unwrap();
             println!("written");
         }
     });
     Ok(task)
-}
-
-async fn serverWrite(socket: TcpStream) -> Result<(), ()>{
-    let mut writer = BufWriter::new(socket);
-    //writer.write(&(3741_i32.to_ne_bytes())).await.expect("err1");
-    writer.write(b"Howdy").await.expect("err2");
-    writer.flush().await.expect("err3");
-    return Ok(())
 }

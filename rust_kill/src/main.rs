@@ -49,7 +49,6 @@ async fn events(queue: &State<Sender<Message>>, mut end: Shutdown) -> EventStrea
         }
     }
 }
-
 mod server;
 mod client;
 mod game;
