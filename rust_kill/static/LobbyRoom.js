@@ -1,20 +1,5 @@
-//import GetStatus from "./script";
 
-function openClient() {
-document.getElementById("f2").style.display = "block";
-}
 
-function openHost() {
-document.getElementById("f1").style.display = "block";
-}
-
-function closeClient() {
-document.getElementById("f2").style.display = "none";
-}
-
-function closeHost() {
-document.getElementById("f1").style.display = "none";
-}
 
 function HostInput() {
     let form = document.querySelector('#hostform');
@@ -30,7 +15,7 @@ function HostInput() {
       
             fetch("/playerInfo", {
               method: "POST",   
-              body: new URLSearchParams({ room, username, message }),
+              body: new URLSearchParams({ username, serverIP, serverIP}),
             }).then((response) => {
               if (response.ok) console.log("OK");
             });
@@ -38,7 +23,6 @@ function HostInput() {
         return;
         
     })
-    
 } 
 
 function ClientInput() {
@@ -51,11 +35,11 @@ function ClientInput() {
         object[key] = value;
         });
         var jsondat = JSON.stringify(object);
-        console.log(jsondat);
-
+        console.log(STATE.connected);
+        console.log("GET STATUS: %s ", GetStatus());
             fetch("/playerInfo", {
               method: "POST",
-              body: new URLSearchParams({ room, username, message }),
+              body: new URLSearchParams({ username, clientIP, serverIP }),
             }).then((response) => {
               if (response.ok) console.log("OK");
             });
@@ -64,5 +48,5 @@ function ClientInput() {
 
 } 
 
-console.log(GetStatus());
+//console.log(GetStatus());
 

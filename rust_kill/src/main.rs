@@ -35,7 +35,6 @@ struct PlayerInfo {
 }
 
 
-
 /// Receive a message from a form submission and broadcast it to any receivers.
 #[post("/message", data = "<form>")]
 fn post(form: Form<Message>, quene: &State<Sender<Message>>){
@@ -106,8 +105,6 @@ async fn main() -> Result<(), rocket::Error> {
     // client connection, currently in main, will be transferred
     //let client = client::connect::connect(server_addr.clone(), "ThgilTac").await.unwrap();
 
-    println!("here");
-
     // a custom rocket build
     
     let figment = rocket::Config::figment()
@@ -120,8 +117,6 @@ async fn main() -> Result<(), rocket::Error> {
         .manage(channel::<PlayerInfo>(1025).0)
         .mount("/", routes![post_player_info, event_player_info])
         .mount("/", FileServer::from(relative!("/static"))).launch().await.unwrap();
-
-
     Ok(())
 }
 

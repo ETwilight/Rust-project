@@ -24,6 +24,7 @@ var STATE = {
   connected: false,
 }
 
+
 var player = {
   name: "Guest",
   ip: "",
@@ -97,6 +98,8 @@ function AddMessage(room, username, message, push = false) {
     messagesDiv.appendChild(node);
   }
 }
+
+
 
 // Subscribe to the event source at `uri` with exponential backoff reconnect.
 function MessageSubscribe(uri) {
@@ -224,6 +227,12 @@ function Init() {
   // Subscribe to server-sent events.
   MessageSubscribe("/message/event");
   PlayerInfoSubscribe("/playerInfo/event")
+  
 }
 
+// export {AddMessage, GetStatus};
+
+
 Init();
+
+
