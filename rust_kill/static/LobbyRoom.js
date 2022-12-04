@@ -16,26 +16,38 @@ function closeHost() {
 document.getElementById("f1").style.display = "none";
 }
 
-function save() {
+function HostInput() {
     let form = document.querySelector('#hostform');
-    let data = new FormData(form);
-    var object = {};
-    data.forEach(function(value, key){
-    object[key] = value;
-    });
-    var jsondat = JSON.stringify(object);
+    form.addEventListener("submit", (e)=>{
+        //e.preventDefault();
+        let data = new FormData(form);
+        var object = {};
+        data.forEach(function(value, key){
+        object[key] = value;
+        });
+        var jsondat = JSON.stringify(object);
+        console.log(jsondat);
+        
+        return;
+        
+    })
     
+
 } 
 
-function save2() {
+function ClientInput() {
     let form = document.querySelector('#clientform');
-    let data = new FormData(form);
-    var object = {};
-    data.forEach(function(value, key){
-    object[key] = value;
-    });
-    var jsondat = JSON.stringify(object);
-    let userObj = JSON.parse(jsondat);
-    console.log(userObj);
+    form.addEventListener("submit", (e)=>{
+        //e.preventDefault();
+        let data = new FormData(form);
+        var object = {};
+        data.forEach(function(value, key){
+        object[key] = value;
+        });
+        var jsondat = JSON.stringify(object);
+        console.log(jsondat);
+        return;
+    })
+
 } 
 
