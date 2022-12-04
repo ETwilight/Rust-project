@@ -208,7 +208,7 @@ function AddRoomListener(){
   })
 }
 
-export default function GetStatus(){
+function GetStatus(){
   return STATE.connected;
 }
 
