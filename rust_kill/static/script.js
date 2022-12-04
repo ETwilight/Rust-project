@@ -104,7 +104,6 @@ function Subscribe(uri) {
 
   function Connect(uri) {
     const events = new EventSource(uri);
-
     events.addEventListener("message", (ev) => {
       console.log("raw data", JSON.stringify(ev.data));
       const msg = JSON.parse(ev.data);
