@@ -1,4 +1,7 @@
 #[macro_use] extern crate rocket;
+use std::process::exit;
+
+use redis::Commands;
 use rocket::{State, Shutdown};
 use rocket::fs::{relative, FileServer};
 use rocket::form::Form;
@@ -6,6 +9,8 @@ use rocket::response::stream::{EventStream, Event};
 use rocket::serde::{Serialize, Deserialize};
 use rocket::tokio::sync::broadcast::{channel, Sender, error::RecvError};
 use rocket::tokio::select;
+use tokio::io::{self, AsyncWriteExt};
+use tokio::time::sleep;
 
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
@@ -44,7 +49,6 @@ async fn events(queue: &State<Sender<Message>>, mut end: Shutdown) -> EventStrea
         }
     }
 }
-
 mod server;
 mod client;
 mod game;
@@ -52,17 +56,19 @@ mod game;
 #[rocket::main]
 async fn main() -> Result<(), rocket::Error> {
     //server_addr tbd
-    let server_addr = "127.0.0.1";
+    let server_addr = "192.168.178.127";
     let client_addr = "127.0.0.1";
 
     // server connection in parallel, currently in main, will be transferred
-    let server = server::host::host(server_addr.to_string().clone()).await.unwrap();
-    // client connection, currently in main, will be transferred
-    let client = client::connect::connect(server_addr.clone()).await.unwrap(); //local
-    let client2 = client::connect::connect("10.214.0.42".clone()).await.unwrap(); //LAN
+    let server = server::host::start(server_addr.clone()).await.unwrap();
 
-    
+    // client connection, currently in main, will be transferred
+    let client = client::connect::connect(server_addr.clone(), "ThgilTac").await.unwrap();
+
+    println!("here");
+
     // a custom rocket build
+    /*
     let figment = rocket::Config::figment()
         .merge(("address", client_addr))
         .merge(("port", 8000));
@@ -70,7 +76,10 @@ async fn main() -> Result<(), rocket::Error> {
     let _rocket = rocket::custom(figment).mount("/", routes![/* .. */])
         .manage(channel::<Message>(1024).0) //Store the sender 
         .mount("/", routes![post, events])
-        .mount("/", FileServer::from(relative!("/static"))).launch().await?;
+        .mount("/", FileServer::from(relative!("/static"))).launch().await.unwrap();
+    */
+    while 1 == 1 {
 
+    }
     Ok(())
 }
