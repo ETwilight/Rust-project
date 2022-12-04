@@ -1,2 +1,6 @@
 #ignore the build files in target directory because even if you upload them, the fingerprint and all build files are still different.
+/rust_kill/target/*
 /rust_kill/target/
+/rust_kill/Cargo.lock
+/rust_kill/.vs/*
+/rust_kill/.vs/
