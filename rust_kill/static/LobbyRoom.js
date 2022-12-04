@@ -36,6 +36,5 @@ function save2() {
     });
     var jsondat = JSON.stringify(object);
     let userObj = JSON.parse(jsondat);
-    console.log(userObj);
 } 
 

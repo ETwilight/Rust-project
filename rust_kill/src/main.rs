@@ -1,4 +1,7 @@
 #[macro_use] extern crate rocket;
+#[cfg(test)] mod tests;
+
+use rocket::serde::json::serde_json;
 use rocket::{State, Shutdown};
 use rocket::fs::{relative, FileServer};
 use rocket::form::Form;
@@ -6,6 +9,7 @@ use rocket::response::stream::{EventStream, Event};
 use rocket::serde::{Serialize, Deserialize};
 use rocket::tokio::sync::broadcast::{channel, Sender, error::RecvError};
 use rocket::tokio::select;
+
 
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
@@ -17,6 +21,32 @@ struct Message{
     pub message:String,
 }
 
+#[derive(Clone, FromForm, Serialize, Deserialize)]
+#[serde(crate = "rocket::serde")]
+struct InitializeHost{
+    pub hostname: String,
+    pub hostip: String,
+}
+
+#[post("/InitializeHost", data = "<host>")]
+fn init(host: Form<InitializeHost>, queue: &State<Sender<InitializeHost>>) {
+    let _info = queue.send(host.into_inner());
+}
+
+#[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
+#[serde(crate = "rocket::serde")]
+struct PlayerInfo {
+    pub username: String,
+    pub clientip: String,
+    pub serverip: String,
+}
+
+#[post("/PlayerInfo", data = "<info>")]
+fn setplayer(info: Form<PlayerInfo>, queue: &State<Sender<PlayerInfo>>) {
+    let _info = queue.send(info.into_inner());
+    //println!("{:?} {:?} {:?}",info.username, info.clientip, info.serverip);
+}
+
 
 /// Receive a message from a form submission and broadcast it to any receivers.
 #[post("/message", data = "<form>")]
@@ -24,8 +54,13 @@ fn post(form: Form<Message>, quene: &State<Sender<Message>>){
     //A send "fails" if there are no active subscribers
     let _res = quene.send(form.into_inner());
 } 
+
+
+
+
 /// Returns an infinite stream of server-sent events. Each event is a message
 /// pulled from a broadcast queue sent by the `post` handler.
+
 #[get("/events")]
 async fn events(queue: &State<Sender<Message>>, mut end: Shutdown) -> EventStream![] {
     let mut rx = queue.subscribe();
@@ -45,32 +80,13 @@ async fn events(queue: &State<Sender<Message>>, mut end: Shutdown) -> EventStrea
     }
 }
 
-mod server;
-mod client;
-mod game;
 
-#[rocket::main]
-async fn main() -> Result<(), rocket::Error> {
-    //server_addr tbd
-    let server_addr = "127.0.0.1";
-    let client_addr = "127.0.0.1";
-
-    // server connection in parallel, currently in main, will be transferred
-    let server = server::host::host(server_addr.to_string().clone()).await.unwrap();
-    // client connection, currently in main, will be transferred
-    let client = client::connect::connect(server_addr.clone()).await.unwrap(); //local
-    let client2 = client::connect::connect("10.214.0.42".clone()).await.unwrap(); //LAN
-
-    
-    // a custom rocket build
-    let figment = rocket::Config::figment()
-        .merge(("address", client_addr))
-        .merge(("port", 8000));
-
-    let _rocket = rocket::custom(figment).mount("/", routes![/* .. */])
+ 
+#[launch]
+fn rocket() -> _ {
+    rocket::build()
         .manage(channel::<Message>(1024).0) //Store the sender 
         .mount("/", routes![post, events])
-        .mount("/", FileServer::from(relative!("/static"))).launch().await?;
-
-    Ok(())
+        .mount("/", FileServer::from(relative!("/static"))) //It will be saved in a folder called "static"
 }
+
