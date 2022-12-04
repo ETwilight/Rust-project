@@ -1,4 +1,3 @@
-import Start from './Game.js';
 
 let roomListDiv = document.getElementById('room-list');
 let messagesDiv = document.getElementById('messages');
@@ -189,8 +188,8 @@ function Init() {
   AddRoomListener();
 
   // Subscribe to server-sent events.
-  Subscribe("/events");
-  Start();
+  Subscribe("/events/message");
+
 }
 
 Init();
