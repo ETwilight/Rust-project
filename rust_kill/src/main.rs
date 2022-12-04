@@ -1,6 +1,10 @@
 #[macro_use] extern crate rocket;
 #[cfg(test)] mod tests;
 
+use std::process::exit;
+
+use redis::Commands;
+
 use rocket::{State, Shutdown};
 use rocket::fs::{relative, FileServer};
 use rocket::form::Form;
@@ -8,6 +12,8 @@ use rocket::response::stream::{EventStream, Event};
 use rocket::serde::{Serialize, Deserialize};
 use rocket::tokio::sync::broadcast::{channel, Sender, error::RecvError};
 use rocket::tokio::select;
+use tokio::io::{self, AsyncWriteExt};
+use tokio::time::sleep;
 
 
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
@@ -87,13 +93,38 @@ async fn events(queue: &State<Sender<Message>>, mut end: Shutdown) -> EventStrea
     }
 }
 
+mod server;
+mod client;
+mod game;
 
- 
-#[launch]
-fn rocket() -> _ {
-    rocket::build()
+#[rocket::main]
+async fn main() -> Result<(), rocket::Error> {
+    //server_addr tbd
+    let server_addr = "192.168.178.127";
+    let client_addr = "127.0.0.1";
+
+    // server connection in parallel, currently in main, will be transferred
+    let server = server::host::start(server_addr.clone()).await.unwrap();
+
+    // client connection, currently in main, will be transferred
+    let client = client::connect::connect(server_addr.clone(), "ThgilTac").await.unwrap();
+
+    println!("here");
+
+    // a custom rocket build
+    /*
+    let figment = rocket::Config::figment()
+        .merge(("address", client_addr))
+        .merge(("port", 8000));
+
+    let _rocket = rocket::custom(figment).mount("/", routes![/* .. */])
         .manage(channel::<Message>(1024).0) //Store the sender 
         .mount("/", routes![post, events])
-        .mount("/", FileServer::from(relative!("/static"))) //It will be saved in a folder called "static"
+        .mount("/", FileServer::from(relative!("/static"))).launch().await.unwrap();
+    */
+    while 1 == 1 {
+
+    }
+    Ok(())
 }
 
