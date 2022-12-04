@@ -22,33 +22,14 @@ pub async fn start(server_addr: &str) -> Result<JoinHandle<()>, ()>{
     // the main thread to return
     let task = tokio::spawn(async move{
         let listener = TcpListener::bind("0.0.0.0".to_string() + ":8080").await.unwrap();
-        println!("started");
+        println!("SERVER STARTS");
         loop {
             let (mut socket, _) = listener.accept().await.unwrap();
             let (mut reader, mut writer) = socket.into_split();
-            println!("accepted");
-            utils::serverWrite(&mut writer, "howdy".to_string()).await.unwrap();
-            utils::serverWrite(&mut writer, "howdy".to_string()).await.unwrap();
-            utils::serverWrite(&mut writer, "howdy".to_string()).await.unwrap();
-            utils::serverWrite(&mut writer, "howdy".to_string()).await.unwrap();
-            println!("written");
+            println!("STARTS TO HANDLE NEW PLAYER:");
+            utils::serverWriteToClient(&mut writer, "howdy").await.unwrap();
             tokio::spawn(async move{
-                loop{
-                    let mut red = BufReader::new(&mut reader);
-                    let raw= red.fill_buf().await;
-                    let received = match raw{
-                        Ok(rec) => rec.to_vec(),
-                        Err(e) => continue,
-                    };
-                    let len = received.len();
-                    if len == 0 {
-                        continue;
-                    }
-                    // Mark the bytes read as consumed so the buffer will not return them in a subsequent read
-                    red.consume(len);
-                    let msg = String::from_utf8(received).expect("unwrap read err");
-                    println!("server get: {}", msg);
-                }
+                utils::serverRead(&mut reader, &mut writer, "REPLY-").await;
             }).await.unwrap();
         }
     });

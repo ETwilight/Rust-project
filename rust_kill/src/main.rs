@@ -65,10 +65,7 @@ async fn main() -> Result<(), rocket::Error> {
     // client connection, currently in main, will be transferred
     let client = client::connect::connect(server_addr.clone(), "ThgilTac").await.unwrap();
 
-    println!("here");
-
     // a custom rocket build
-    /*
     let figment = rocket::Config::figment()
         .merge(("address", client_addr))
         .merge(("port", 8000));
@@ -77,9 +74,5 @@ async fn main() -> Result<(), rocket::Error> {
         .manage(channel::<Message>(1024).0) //Store the sender 
         .mount("/", routes![post, events])
         .mount("/", FileServer::from(relative!("/static"))).launch().await.unwrap();
-    */
-    while 1 == 1 {
-
-    }
     Ok(())
 }
