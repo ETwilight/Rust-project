@@ -1,4 +1,5 @@
 import Start from './Game.js';
+
 let roomListDiv = document.getElementById('room-list');
 let messagesDiv = document.getElementById('messages');
 let newMessageForm = document.getElementById('new-message');
@@ -174,6 +175,9 @@ function AddRoomListener(){
   })
 }
 
+function GetStatus(){
+  return STATE.connected;
+}
 
 function Init() {
   // Initialize the room.

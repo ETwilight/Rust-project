@@ -1,7 +1,6 @@
 #[macro_use] extern crate rocket;
 #[cfg(test)] mod tests;
 
-use rocket::serde::json::serde_json;
 use rocket::{State, Shutdown};
 use rocket::fs::{relative, FileServer};
 use rocket::form::Form;
@@ -21,18 +20,6 @@ struct Message{
     pub message:String,
 }
 
-#[derive(Clone, FromForm, Serialize, Deserialize)]
-#[serde(crate = "rocket::serde")]
-struct InitializeHost{
-    pub hostname: String,
-    pub hostip: String,
-}
-
-#[post("/InitializeHost", data = "<host>")]
-fn init(host: Form<InitializeHost>, queue: &State<Sender<InitializeHost>>) {
-    let _info = queue.send(host.into_inner());
-}
-
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
 struct PlayerInfo {
@@ -41,11 +28,6 @@ struct PlayerInfo {
     pub serverip: String,
 }
 
-#[post("/PlayerInfo", data = "<info>")]
-fn setplayer(info: Form<PlayerInfo>, queue: &State<Sender<PlayerInfo>>) {
-    let _info = queue.send(info.into_inner());
-    //println!("{:?} {:?} {:?}",info.username, info.clientip, info.serverip);
-}
 
 
 /// Receive a message from a form submission and broadcast it to any receivers.
@@ -53,15 +35,40 @@ fn setplayer(info: Form<PlayerInfo>, queue: &State<Sender<PlayerInfo>>) {
 fn post(form: Form<Message>, quene: &State<Sender<Message>>){
     //A send "fails" if there are no active subscribers
     let _res = quene.send(form.into_inner());
+
 } 
 
+// #[post("/playerInfo", data = "<form>")]
+// fn postPlayerInfo(form: Form<PlayerInfo>, quene: &State<Sender<PlayerInfo>>){
+//     let _res = quene.send(form.into_inner());
+//     //println!("{} days", 31)
+// } 
+
+// #[get("/events/playerInfo")]
+// async fn eventPlayerInfo(queue: &State<Sender<PlayerInfo>>, mut end: Shutdown) -> EventStream![] {
+//     let mut rx = queue.subscribe();
+//     EventStream! {
+//         loop {
+//             let msg = select! {
+//                 msg = rx.recv() => match msg {
+//                     Ok(msg) => msg,
+//                     Err(RecvError::Closed) => break,
+//                     Err(RecvError::Lagged(_)) => continue,
+//                 },
+//                 _ = &mut end => break,
+//             };
+
+//             yield Event::json(&msg);
+//         }
+//     }
+// }
 
 
 
 /// Returns an infinite stream of server-sent events. Each event is a message
 /// pulled from a broadcast queue sent by the `post` handler.
 
-#[get("/events")]
+#[get("/events/message")]
 async fn events(queue: &State<Sender<Message>>, mut end: Shutdown) -> EventStream![] {
     let mut rx = queue.subscribe();
     EventStream! {
