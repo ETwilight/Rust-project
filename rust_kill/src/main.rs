@@ -100,31 +100,29 @@ mod game;
 #[rocket::main]
 async fn main() -> Result<(), rocket::Error> {
     //server_addr tbd
-    let server_addr = "192.168.178.127";
+    let server_addr = "192.168.178.83";
     let client_addr = "127.0.0.1";
 
     // server connection in parallel, currently in main, will be transferred
     let server = server::host::start(server_addr.clone()).await.unwrap();
 
     // client connection, currently in main, will be transferred
-    let client = client::connect::connect(server_addr.clone(), "ThgilTac").await.unwrap();
+    //let client = client::connect::connect(server_addr.clone(), "ThgilTac").await.unwrap();
 
     println!("here");
 
     // a custom rocket build
-    /*
+    
     let figment = rocket::Config::figment()
         .merge(("address", client_addr))
         .merge(("port", 8000));
-
+    
     let _rocket = rocket::custom(figment).mount("/", routes![/* .. */])
         .manage(channel::<Message>(1024).0) //Store the sender 
         .mount("/", routes![post, events])
         .mount("/", FileServer::from(relative!("/static"))).launch().await.unwrap();
-    */
-    while 1 == 1 {
 
-    }
+
     Ok(())
 }
 
