@@ -7,6 +7,10 @@ edition = "2021"
 
 [dependencies]
 rocket = { version = "0.5.0-rc.1", features = ["json"] }
+tokio = { version = "1", features = ["full"] }
+redis = "0.22.1"
+mini-redis = "0.4"
+bytes = "1"
 
 [dev-dependencies]
 rand = "0.8"
