@@ -1,2 +1,2 @@
 pub mod turn;
-pub mod gameLoop;
+pub mod game_loop;
