@@ -22,6 +22,7 @@ struct Message{
     pub message:String,
 }
 
+
 /// Receive a message from a form submission and broadcast it to any receivers.
 #[post("/message", data = "<form>")]
 fn post(form: Form<Message>, quene: &State<Sender<Message>>){
@@ -51,6 +52,7 @@ async fn events(queue: &State<Sender<Message>>, mut end: Shutdown) -> EventStrea
 
 mod server;
 mod client;
+mod game;
 
 #[rocket::main]
 async fn main() -> Result<(), rocket::Error> {
@@ -61,6 +63,7 @@ async fn main() -> Result<(), rocket::Error> {
     // server connection in parallel, currently in main, will be transferred
     let server = server::host::start(server_addr.clone()).await.unwrap();
     // client connection, currently in main, will be transferred
+    
     let client = client::connect::connect(server_addr.clone(), server_addr.clone()).await.unwrap(); //local
     //let client2 = client::connect::connect("10.213.0.176".clone(), "10.213.0.176".clone()).await.unwrap(); //LAN
     //client2.set("", 1);
