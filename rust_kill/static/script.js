@@ -89,9 +89,8 @@ function subscribe(uri) {
 
   function connect(uri) {
     const events = new EventSource(uri);
-
     events.addEventListener("message", (ev) => {
-      console.log("raw data", JSON.stringify(ev.data));
+      //console.log("raw data", JSON.stringify(ev.data));
       console.log("decoded data", JSON.stringify(JSON.parse(ev.data)));
       const msg = JSON.parse(ev.data);
       if (!"message" in msg || !"room" in msg || !"username" in msg) return;
