@@ -99,7 +99,7 @@ function AddMessage(room, username, message, push = false) {
 }
 
 // Subscribe to the event source at `uri` with exponential backoff reconnect.
-function Subscribe(uri) {
+function MessageSubscribe(uri) {
   var retryTime = 1;
 
   function Connect(uri) {
@@ -110,6 +110,40 @@ function Subscribe(uri) {
       console.log("decoded data", JSON.stringify(msg));
       if (!"message" in msg || !"room" in msg || !"username" in msg) return;
       AddMessage(msg.room, msg.username, msg.message, true);
+    });
+
+    events.addEventListener("open", () => {
+      SetConnectedStatus(true);
+      console.log(`connected to event stream at ${uri}`);
+      retryTime = 1;
+    });
+
+    events.addEventListener("error", () => {
+      SetConnectedStatus(false);
+      events.close();
+
+      let timeout = retryTime;
+      retryTime = Math.min(64, retryTime * 2);
+      console.log(`connection lost. attempting to reconnect in ${timeout}s`);
+      setTimeout(() => Connect(uri), (() => timeout * 1000)());
+    });
+  }
+
+  Connect(uri);
+}
+
+// Subscribe to the event source at `uri` with exponential backoff reconnect.
+function PlayerInfoSubscribe(uri) {
+  var retryTime = 1;
+
+  function Connect(uri) {
+    const events = new EventSource(uri);
+    events.addEventListener("message", (ev) => {
+      console.log("raw data", JSON.stringify(ev.data));
+      const msg = JSON.parse(ev.data);
+      console.log("decoded data", JSON.stringify(msg));
+      if (!"username" in msg || !"clientIP" in msg || !"serverIP" in msg) return;
+      AddMessage("lobby", msg.username, msg.clientIP, true);
     });
 
     events.addEventListener("open", () => {
@@ -174,7 +208,7 @@ function AddRoomListener(){
   })
 }
 
-function GetStatus(){
+export default function GetStatus(){
   return STATE.connected;
 }
 
@@ -188,8 +222,8 @@ function Init() {
   AddRoomListener();
 
   // Subscribe to server-sent events.
-  Subscribe("/events/message");
-
+  MessageSubscribe("/message/event");
+  PlayerInfoSubscribe("/playerInfo/event")
 }
 
 Init();

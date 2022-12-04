@@ -1,5 +1,3 @@
-
-
 function openClient() {
 document.getElementById("f2").style.display = "block";
 }
@@ -27,12 +25,18 @@ function HostInput() {
         });
         var jsondat = JSON.stringify(object);
         console.log(jsondat);
-        
+      
+            fetch("/playerInfo", {
+              method: "POST",   
+              body: new URLSearchParams({ room, username, message }),
+            }).then((response) => {
+              if (response.ok) console.log("OK");
+            });
+          
         return;
         
     })
     
-
 } 
 
 function ClientInput() {
@@ -46,6 +50,13 @@ function ClientInput() {
         });
         var jsondat = JSON.stringify(object);
         console.log(jsondat);
+    
+            fetch("/playerInfo", {
+              method: "POST",
+              body: new URLSearchParams({ room, username, message }),
+            }).then((response) => {
+              if (response.ok) console.log("OK");
+            });
         return;
     })
 
