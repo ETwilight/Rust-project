@@ -1,4 +1,4 @@
-import Start from './Game.js';
+
 let roomListDiv = document.getElementById('room-list');
 let messagesDiv = document.getElementById('messages');
 let newMessageForm = document.getElementById('new-message');
@@ -104,7 +104,6 @@ function Subscribe(uri) {
 
   function Connect(uri) {
     const events = new EventSource(uri);
-
     events.addEventListener("message", (ev) => {
       console.log("raw data", JSON.stringify(ev.data));
       const msg = JSON.parse(ev.data);
@@ -175,6 +174,9 @@ function AddRoomListener(){
   })
 }
 
+function GetStatus(){
+  return STATE.connected;
+}
 
 function Init() {
   // Initialize the room.
@@ -186,8 +188,8 @@ function Init() {
   AddRoomListener();
 
   // Subscribe to server-sent events.
-  Subscribe("/events");
-  Start();
+  Subscribe("/events/message");
+
 }
 
 Init();

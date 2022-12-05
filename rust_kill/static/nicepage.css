@@ -16560,7 +16560,6 @@ html {
 }
 .u-body {
   font-size: 1rem;
-  line-height: 1.6;
 }
 .u-body h1,
 .u-body h2,
@@ -30262,11 +30261,13 @@ li.active > a.u-button-style.u-button-style.u-border-active-palette-1-light-3 {
 .u-border-palette-1-base,
 .u-separator-palette-1-base:after {
   border-color: #478ac9;
+  border-width: 0;
   stroke: #478ac9;
 }
 .u-button-style.u-border-palette-1-base {
   border-color: #478ac9 !important;
   color: #478ac9 !important;
+  
   background-color: transparent !important;
 }
 .u-button-style.u-border-palette-1-base:hover,

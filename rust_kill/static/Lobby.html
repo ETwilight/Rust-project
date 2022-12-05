@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html style="font-size: 16px;" lang="en"><head>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
     <meta name="keywords" content="">
@@ -49,20 +50,50 @@
         </nav>
         <img class="u-image u-image-default u-image-1" src="images/Screenshot2022-12-02202250.png" alt="" data-image-width="957" data-image-height="280">
       </div></header>
+
     <section class="u-clearfix u-section-1" id="sec-1c39">
       <div class="u-clearfix u-sheet u-sheet-1">
-        <a href="Menu.html" class="u-black u-border-none u-btn u-btn-round u-button-style u-hover-grey-50 u-radius-50 u-btn-1">Back</a>
+        <a href="index.html" class="u-black u-border-none u-btn u-btn-round u-button-style u-hover-grey-50 u-radius-50 u-btn-1">Back</a>
         <h3 class="u-text u-text-default u-text-1">Lobby</h3>
         <div class="u-border-3 u-border-palette-1-base u-container-style u-group u-group-1">
           <div class="u-container-layout u-valign-bottom u-container-layout-1">
-            <a href="Room.html" class="u-btn u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-2">Host</a>
-            <a href="Room.html" class="u-btn u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-3">Join</a>
+            <button class="u-btn u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-2" onclick="openHost();closeClient()">Host</button>
+            <button class="u-btn u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-3" onclick="openClient();closeHost()">Join</button>
           </div>
         </div>
       </div>
     </section>
+
+
+    <script src="LobbyRoom.js"></script>
     
+    <div class="form-popup1" id="f1">
+      <form id = "hostform" action="Room.html#top" class="form-container">
+        <label for="host"><b>Name</b></label>
+        <input id = "hostname" type="text" placeholder="Enter Name" name="host" required>
+        <label for="hostip"><b>Local IP</b></label>
+        <input id = "hostip" type="text" placeholder="x.x.x.x" name="hostip" required>
+        <button type="submit" onclick="HostInput();" class="btn" >Login</button>
+        <button id = "test1" type="button" class="btn cancel" onclick="closeHost()">Close</button>
+      </form>
+    </div>
+
+    <div class="form-popup2" id = "f2">
+      <form id="clientform" action="Room.html#top" class="form-container">
+        <label for="cname"><b>Name</b></label>
+        <input id = "clientname" type="text" placeholder="Enter Name" name="cname" required>
+        <label for="clientip"><b>Local IP</b></label>
+        <input id = "clientip" type="text" placeholder="x.x.x.x" name="clientip" required>
+        <label for="serverip"><b>Server IP</b></label>
+        <input id = "serverip" type="text" placeholder="x.x.x.x" name="serverip" required>
+        <button id = "test2" onclick="ClientInput();" type="submit" class="btn">Login</button>
+        <button type="button" class="btn cancel" onclick="closeClient()">Close</button>
+      </form>
+    </div>
+
     
+
+
     <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-54ee"><div class="u-clearfix u-sheet u-sheet-1"></div></footer>
     
   
