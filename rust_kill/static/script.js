@@ -24,7 +24,6 @@ var STATE = {
   connected: false,
 }
 
-
 var player = {
   name: "Guest",
   ip: "",

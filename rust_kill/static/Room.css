@@ -17,8 +17,9 @@
 }
 
 .u-section-1 .u-list-1 {
-  width: 122px;
+  width: 100px;
   margin: -42px auto 0 139px;
+  
 }
 
 .u-section-1 .u-repeater-1 {
@@ -113,6 +114,9 @@
 
 .u-section-1 .u-container-layout-5 {
   padding: 10px;
+  max-height: 500px;
+  overflow-y: hidden;
+  position:
 }
 
 .u-section-1 .u-list-4 {
