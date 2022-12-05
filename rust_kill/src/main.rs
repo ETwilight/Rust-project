@@ -4,6 +4,7 @@
 use std::process::exit;
 
 use redis::Commands;
+use rocket::log::LogLevel;
 use rocket::response::Debug;
 use rocket::{State, Shutdown};
 use rocket::fs::{relative, FileServer};
@@ -41,6 +42,7 @@ struct PlayerInfo {
 fn post(form: Form<Message>, quene: &State<Sender<Message>>){
     //A send "fails" if there are no active subscribers
     let _res = quene.send(form.into_inner());
+
 } 
 
  #[post("/playerInfo", data = "<form>")]
@@ -95,8 +97,8 @@ mod client;
 
 #[rocket::main]
 async fn main() -> Result<(), rocket::Error> {
-    //server_addr tbd
-    let server_addr = "10.213.0.176";
+    //server_addr tbd1
+    let server_addr = "10.200.0.210";
     let client_addr = "127.0.0.1";
 
     // server connection in parallel, currently in main, will be transferred
@@ -105,25 +107,24 @@ async fn main() -> Result<(), rocket::Error> {
     // client connection, currently in main, will be transferred
     let client1 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac1").await.unwrap();
     let client2 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac2").await.unwrap();
-    let client3 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac3").await.unwrap();
-    let client4 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac4").await.unwrap();
-    let client5 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac5").await.unwrap();
-    let client6 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac6").await.unwrap();
+    //let client3 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac3").await.unwrap();
+    //let client4 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac4").await.unwrap();
+    //let client5 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac5").await.unwrap();
+    //let client6 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac6").await.unwrap();
 
-    while(true) {}
     // a custom rocket build
-/*
+
     let figment = rocket::Config::figment()
         .merge(("address", client_addr))
-        .merge(("port", 8000));
-    
-    let _rocket = rocket::custom(figment).mount("/", routes![/* .. */])
+        .merge(("port", 8000))
+        .merge(("log_level", LogLevel::Debug));
+    let _rocket = rocket::custom(figment)
         .manage(channel::<Message>(1024).0) //Store the sender 
         .mount("/", routes![post, events])
         .manage(channel::<PlayerInfo>(1025).0)
         .mount("/", routes![post_player_info, event_player_info])
         .mount("/", FileServer::from(relative!("/static"))).launch().await.unwrap();
-*/
+    print!("Howdy there!");
     Ok(())
 }
 
