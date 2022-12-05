@@ -28,12 +28,11 @@ function HostInput() {
     var parsedjson = JSON.parse(jsondata);
     const username = parsedjson["username"];
     const serverip = parsedjson["serverip"];
-    const clientip = serverip;
     console.log("username: "+username);
     console.log("serverip: "+serverip);
     fetch("/playerInfo", {
       method: "POST",
-      body: new URLSearchParams({username, clientip, serverip}),
+      body: new URLSearchParams({username, serverip}),
     }).then((response) => {
       if (response.ok) console.log("OK");
     });
@@ -57,13 +56,12 @@ function ClientInput() {
     var parsedjson = JSON.parse(jsondata);
     const username = parsedjson["username"];
     const serverip = parsedjson["serverip"];
-    const clientip = parsedjson["clientip"];
+    //const clientip = parsedjson["clientip"];
     console.log("username: "+username);
-    console.log("serverip: "+clientip);
     console.log("serverip: "+serverip);
     fetch("/playerInfo", {
       method: "POST",
-      body: new URLSearchParams({username, clientip, serverip}),
+      body: new URLSearchParams({username, serverip}),
     }).then((response) => {
       if (response.ok) console.log("OK");
     });
