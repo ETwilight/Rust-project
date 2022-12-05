@@ -69,7 +69,7 @@
 | Date | Task |
 | ------------- | ------------- |
 | November 15      | Tasks up to Chatroom                       |
-| November 30       |  Complete Chat Server System and Game Loop  |
+| November 30       |  Complete Chat Server System and Game Website  |
 | December 5     |  Finish Game Loop System | 
  
 
