@@ -135,15 +135,15 @@ function MessageSubscribe(uri) {
 // Subscribe to the event source at `uri` with exponential backoff reconnect.
 function PlayerInfoSubscribe(uri) {
   var retryTime = 1;
-
+  
   function Connect(uri) {
     const events = new EventSource(uri);
     events.addEventListener("message", (ev) => {
       console.log("raw data", JSON.stringify(ev.data));
       const msg = JSON.parse(ev.data);
       console.log("decoded data", JSON.stringify(msg));
-      if (!"username" in msg || !"clientIP" in msg || !"serverIP" in msg) return;
-      AddMessage("lobby", msg.username, msg.clientIP, true);
+      if (!"username" in msg || !"clientip" in msg || !"serverip" in msg) return;
+      AddMessage("lobby", msg.username, msg.username+" has joined the chatroom", true);
     });
 
     events.addEventListener("open", () => {
@@ -161,8 +161,9 @@ function PlayerInfoSubscribe(uri) {
       console.log(`connection lost. attempting to reconnect in ${timeout}s`);
       setTimeout(() => Connect(uri), (() => timeout * 1000)());
     });
+    console.log(events);
   }
-
+ 
   Connect(uri);
 }
 
