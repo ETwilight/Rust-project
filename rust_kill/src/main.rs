@@ -1,8 +1,7 @@
 #[macro_use] extern crate rocket;
 #[cfg(test)] mod tests;
 
-use std::process::exit;
-
+use tokio::time::Duration;
 use redis::Commands;
 use rocket::log::LogLevel;
 use rocket::response::Debug;
@@ -31,27 +30,32 @@ struct Message{
 #[serde(crate = "rocket::serde")]
 struct PlayerInfo {
     pub username: String,
-    pub clientIP: String,
-    pub serverIP: String,
+    pub clientip: String,
+    pub serverip: String,
 }
 
 
 
 /// Receive a message from a form submission and broadcast it to any receivers.
 #[post("/message", data = "<form>")]
-fn post(form: Form<Message>, quene: &State<Sender<Message>>){
+fn post(form: Form<Message>, queue: &State<Sender<Message>>){
     //A send "fails" if there are no active subscribers
-    let _res = quene.send(form.into_inner());
+    let _res = queue.send(form.into_inner());
 
 } 
 
  #[post("/playerInfo", data = "<form>")]
- fn post_player_info(form: Form<PlayerInfo>, quene: &State<Sender<PlayerInfo>>){
-    let _res = quene.send(form.into_inner());
+ async fn post_player_info(form: Form<PlayerInfo>, queue: &State<Sender<PlayerInfo>>){
+    sleep(Duration::from_millis(1000)).await;
+    print!("Howdy Whore");
+    let _res = queue.send(form.into_inner());
  } 
 
+
+
   #[get("/playerInfo/event")]
- fn event_player_info(queue: &State<Sender<PlayerInfo>>, mut end: Shutdown) -> EventStream![] {
+ async fn event_player_info(queue: &State<Sender<PlayerInfo>>, mut end: Shutdown) -> EventStream![] {
+    print!("Get event");
       let mut rx = queue.subscribe();
       EventStream! {
           loop {
