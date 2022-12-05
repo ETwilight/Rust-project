@@ -13,6 +13,9 @@ use rocket::serde::{Serialize, Deserialize};
 use rocket::tokio::sync::broadcast::{channel, Sender, error::RecvError};
 use rocket::tokio::select;
 use tokio::io::{self, AsyncWriteExt};
+use tokio::join;
+use tokio::net::tcp::{OwnedReadHalf, OwnedWriteHalf};
+use tokio::sync::mpsc;
 use tokio::time::sleep;
 
 
@@ -95,25 +98,39 @@ async fn events(queue: &State<Sender<Message>>, mut end: Shutdown) -> EventStrea
 
 mod server;
 mod client;
+#[path="utils.rs"]
+mod utils;
+#[path="Game/mod.rs"]
+mod game;
 
 #[rocket::main]
 async fn main() -> Result<(), rocket::Error> {
     //server_addr tbd
     let server_addr = "10.213.0.176";
     let client_addr = "127.0.0.1";
-
     // server connection in parallel, currently in main, will be transferred
-    let server = server::host::start(server_addr.clone()).await.unwrap();
+    //let (tx_main, mut rx_main) = mpsc::channel::<(OwnedReadHalf, OwnedWriteHalf)>(6);
+    let server = server::host::start(server_addr.clone());//, tx_main);
+    // let recv = tokio::spawn(async move{
+    //     loop{
+    //         let rec = rx_main.recv().await;
+    //         if rec.is_none() {
+    //             break;
+    //         }
+    //         //let mut recv = rec.unwrap();
+    //         //utils::serverWriteToClient(&mut recv.1, "a").await.unwrap();
+    //     }
+    // });
+    join!(server);
 
     // client connection, currently in main, will be transferred
     let client1 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac1").await.unwrap();
-    let client2 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac2").await.unwrap();
-    let client3 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac3").await.unwrap();
-    let client4 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac4").await.unwrap();
-    let client5 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac5").await.unwrap();
-    let client6 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac6").await.unwrap();
-
-    while(true) {}
+    let client2 = client::connect::connect(server_addr.clone(), "127.0.0.2", "ThgilTac2").await.unwrap();
+    let client3 = client::connect::connect(server_addr.clone(), "127.0.0.3", "ThgilTac3").await.unwrap();
+    let client4 = client::connect::connect(server_addr.clone(), "127.0.0.4", "ThgilTac4").await.unwrap();
+    let client5 = client::connect::connect(server_addr.clone(), "127.0.0.5", "ThgilTac5").await.unwrap();
+    let client6 = client::connect::connect(server_addr.clone(), "127.0.0.6", "ThgilTac6").await.unwrap();
+    while(true){}
     // a custom rocket build
 /*
     let figment = rocket::Config::figment()

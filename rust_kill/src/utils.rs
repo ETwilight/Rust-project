@@ -1,3 +1,5 @@
+use std::sync::Arc;
+
 use rocket::serde;
 use tokio::{net::tcp::{OwnedWriteHalf, OwnedReadHalf}, io::{BufWriter, AsyncWriteExt, BufReader, AsyncBufReadExt}, sync::mpsc::Sender};
 
@@ -50,7 +52,7 @@ pub async fn serverResponse(reader: &mut OwnedReadHalf, writer: &mut OwnedWriteH
             }
         };
         if flag {
-            println!("receive error");
+            print!("receive error\n");
             return;
         }
         let len = received.len();
@@ -72,9 +74,9 @@ pub async fn serverResponse(reader: &mut OwnedReadHalf, writer: &mut OwnedWriteH
             let (kd,vd) = decode(m);
             if kd == cmd_from {
                 flag = true;
-                println!("{} : {}", message, vd);
-                tx.send(vd.to_string()).await.unwrap();
+                print!("{} : {}\n", message, vd);
                 serverWriteToClient(writer, encode(cmd_back, vd).as_str()).await.unwrap();
+                tx.send(vd.to_string()).await.unwrap();
             }
         }
         if flag{
@@ -96,7 +98,7 @@ pub async fn clientResponse(reader: &mut OwnedReadHalf, cmd_from: &str, message:
             }
         };
         if flag {
-            println!("receive error of clientResponse");
+            print!("receive error of clientResponse\n");
             return;
         }
         let len = received.len();
@@ -118,7 +120,7 @@ pub async fn clientResponse(reader: &mut OwnedReadHalf, cmd_from: &str, message:
             let (kd,vd) = decode(m);
             if kd == cmd_from {
                 flag = true;
-                println!("{} : {}", message, vd);
+                //print!("{} : {}\n", message, vd);
                 //tx.send(vd.to_string()).await.unwrap();
             }
         }
