@@ -4,3 +4,5 @@
 /rust_kill/Cargo.lock
 /rust_kill/.vs/*
 /rust_kill/.vs/
+/rust_kill/.DS_Store
+/rust_kill/src/.DS_Store
