@@ -106,11 +106,11 @@ mod game;
 #[rocket::main]
 async fn main() -> Result<(), rocket::Error> {
     //server_addr tbd
-    let server_addr = "10.213.0.176";
+    let server_addr = "192.168.178.53";
     let client_addr = "127.0.0.1";
     // server connection in parallel, currently in main, will be transferred
     //let (tx_main, mut rx_main) = mpsc::channel::<(OwnedReadHalf, OwnedWriteHalf)>(6);
-    let server = server::host::start(server_addr.clone());//, tx_main);
+    //let server = server::host::start(server_addr.clone());//, tx_main);
     // let recv = tokio::spawn(async move{
     //     loop{
     //         let rec = rx_main.recv().await;
@@ -121,15 +121,12 @@ async fn main() -> Result<(), rocket::Error> {
     //         //utils::serverWriteToClient(&mut recv.1, "a").await.unwrap();
     //     }
     // });
-    join!(server);
+    //join!(server);
 
     // client connection, currently in main, will be transferred
-    let client1 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac1").await.unwrap();
-    let client2 = client::connect::connect(server_addr.clone(), "127.0.0.2", "ThgilTac2").await.unwrap();
-    let client3 = client::connect::connect(server_addr.clone(), "127.0.0.3", "ThgilTac3").await.unwrap();
-    let client4 = client::connect::connect(server_addr.clone(), "127.0.0.4", "ThgilTac4").await.unwrap();
-    let client5 = client::connect::connect(server_addr.clone(), "127.0.0.5", "ThgilTac5").await.unwrap();
-    let client6 = client::connect::connect(server_addr.clone(), "127.0.0.6", "ThgilTac6").await.unwrap();
+    let client1 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac4").await.unwrap();
+    let client2 = client::connect::connect(server_addr.clone(), "127.0.0.2", "ThgilTac5").await.unwrap();
+    let client3 = client::connect::connect(server_addr.clone(), "127.0.0.3", "ThgilTac6").await.unwrap();
     while(true){}
     // a custom rocket build
 /*
