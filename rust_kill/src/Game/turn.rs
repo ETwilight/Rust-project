@@ -3,7 +3,7 @@ use rocket::form::FromForm;
 
 #[derive(Debug, Clone, FromFormField, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
-enum TurnState{
+pub enum TurnState{
     StartTurn, //Default turn before GameStart
     WolfTurn,
     WitchTurn,
@@ -11,11 +11,11 @@ enum TurnState{
     SpeakTurn,
     VoteTurn,
     LastWordTurn,
-    EndTurn, //The tur after game ends
+    EndTurn, //The turn after game ends
 }
 
 impl TurnState {
-    fn as_str(&self) -> &'static str {
+    pub fn as_str(&self) -> &'static str {
         match self {
             TurnState::StartTurn => "StartTurn",
             TurnState::WolfTurn => "WolfTurn",
@@ -31,7 +31,7 @@ impl TurnState {
 
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
-struct Turn{
+pub struct Turn{
     pub turn_state: TurnState,
 }
 
