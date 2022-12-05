@@ -1,3 +1,5 @@
+//import GetStatus from "./script";
+
 function openClient() {
 document.getElementById("f2").style.display = "block";
 }
@@ -50,7 +52,7 @@ function ClientInput() {
         });
         var jsondat = JSON.stringify(object);
         console.log(jsondat);
-    
+
             fetch("/playerInfo", {
               method: "POST",
               body: new URLSearchParams({ room, username, message }),
@@ -61,4 +63,6 @@ function ClientInput() {
     })
 
 } 
+
+console.log(GetStatus());
 
