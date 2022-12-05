@@ -31,8 +31,8 @@ struct Message{
 #[serde(crate = "rocket::serde")]
 struct PlayerInfo {
     pub username: String,
-    pub clientIP: String,
-    pub serverIP: String,
+    pub clientip: String,
+    pub serverip: String,
 }
 
 
@@ -49,6 +49,12 @@ fn post(form: Form<Message>, quene: &State<Sender<Message>>){
  fn post_player_info(form: Form<PlayerInfo>, quene: &State<Sender<PlayerInfo>>){
     let _res = quene.send(form.into_inner());
  } 
+
+ #[get("/Debug/Howdy")]
+ fn howdy(){
+    
+ }
+
 
   #[get("/playerInfo/event")]
  fn event_player_info(queue: &State<Sender<PlayerInfo>>, mut end: Shutdown) -> EventStream![] {
