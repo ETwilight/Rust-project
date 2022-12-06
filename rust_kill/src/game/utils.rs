@@ -10,7 +10,7 @@ use crate::Message;
 
 use super::game_info::{Player, RoleType};
 
-fn send_message(queue: Sender<Message>, name:String, text:String) -> Result<JoinHandle<()>, ()>{
+pub fn send_message(queue: Sender<Message>, name:String, text:String) -> Result<JoinHandle<()>, ()>{
     let task = tokio::spawn(async move{
         let msg = Message{
             room: "rustkill".to_string(),
@@ -22,12 +22,12 @@ fn send_message(queue: Sender<Message>, name:String, text:String) -> Result<Join
     return Ok(task)
 }
 
-async fn send_dealy_mesage(queue: Sender<Message>, text:String, millisecond:u64) -> Result<JoinHandle<()>, ()>{
+pub async fn send_delay_message(queue: Sender<Message>, name:String, text:String, millisecond:u64) -> Result<JoinHandle<()>, ()>{
     let task = tokio::spawn(async move{
         sleep(Duration::from_millis(millisecond)).await;
         let msg = Message{
             room: "rustkill".to_string(),
-            username: "Howdy".to_string(),
+            username: name,
             message: text.to_string()
         };
         queue.send(msg).unwrap();
@@ -35,10 +35,10 @@ async fn send_dealy_mesage(queue: Sender<Message>, text:String, millisecond:u64)
     return Ok(task)
 }
 
-fn mute(player:Player){
+pub fn mute(player:Player){
     
 }
-fn mute_all(){
+pub fn mute_all(){
 
 }
 
