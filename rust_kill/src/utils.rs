@@ -74,9 +74,11 @@ pub async fn serverResponse(reader: &mut OwnedReadHalf, writer: &mut OwnedWriteH
             let (kd,vd) = decode(m);
             if kd == cmd_from {
                 flag = true;
-                print!("{} : {}\n", message, vd);
-                serverWriteToClient(writer, encode(cmd_back, vd).as_str()).await.unwrap();
-                tx.send(vd.to_string()).await.unwrap();
+                if cmd_from == "REG" {
+                    print!("{} : {}\n", message, vd);
+                    serverWriteToClient(writer, encode(cmd_back, vd).as_str()).await.unwrap();
+                    tx.send(vd.to_string()).await.unwrap();
+                }
             }
         }
         if flag{

@@ -109,27 +109,15 @@ async fn main() -> Result<(), rocket::Error> {
     let server_addr = "192.168.178.53";
     let client_addr = "127.0.0.1";
     // server connection in parallel, currently in main, will be transferred
-    //let (tx_main, mut rx_main) = mpsc::channel::<(OwnedReadHalf, OwnedWriteHalf)>(6);
-    //let server = server::host::start(server_addr.clone());//, tx_main);
-    // let recv = tokio::spawn(async move{
-    //     loop{
-    //         let rec = rx_main.recv().await;
-    //         if rec.is_none() {
-    //             break;
-    //         }
-    //         //let mut recv = rec.unwrap();
-    //         //utils::serverWriteToClient(&mut recv.1, "a").await.unwrap();
-    //     }
-    // });
-    //join!(server);
+    let server = server::host::start(server_addr.clone()).await.unwrap();
 
     // client connection, currently in main, will be transferred
     let client1 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac4").await.unwrap();
     let client2 = client::connect::connect(server_addr.clone(), "127.0.0.2", "ThgilTac5").await.unwrap();
     let client3 = client::connect::connect(server_addr.clone(), "127.0.0.3", "ThgilTac6").await.unwrap();
-    while(true){}
+    
     // a custom rocket build
-/*
+
     let figment = rocket::Config::figment()
         .merge(("address", client_addr))
         .merge(("port", 8000));
@@ -138,7 +126,7 @@ async fn main() -> Result<(), rocket::Error> {
         .manage(channel::<Message>(1024).0) //Store the sender 
         .mount("/", routes![post, events])
         .mount("/", FileServer::from(relative!("/static"))).launch().await.unwrap();
-*/
+
     Ok(())
 }
 
