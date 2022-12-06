@@ -1,6 +1,9 @@
 #[macro_use] extern crate rocket;
 #[cfg(test)] mod tests;
-mod game;
+mod server;
+mod client;
+#[path="utils.rs"]
+mod utils;
 
 
 use tokio::task::JoinHandle;
@@ -16,6 +19,9 @@ use rocket::serde::{Serialize, Deserialize};
 use rocket::tokio::sync::broadcast::{channel, Sender, error::RecvError};
 use rocket::tokio::select;
 use tokio::io::{self, AsyncWriteExt};
+use tokio::join;
+use tokio::net::tcp::{OwnedReadHalf, OwnedWriteHalf};
+use tokio::sync::mpsc;
 use tokio::time::sleep;
 
 
@@ -104,30 +110,20 @@ async fn events(queue: &State<Sender<Message>>, mut end: Shutdown) -> EventStrea
     }
 }
 
-mod server;
-mod client;
 
 #[rocket::main]
 async fn main() -> Result<(), rocket::Error> {
-
     //server_addr tbd1
-    let server_addr = "192.168.178.127";
+    let server_addr = "10.195.247.228";
     let client_addr = "127.0.0.1";
-
     // server connection in parallel, currently in main, will be transferred
-    //let server = server::host::start(server_addr.clone()).await.unwrap();
+    let _ = server::host::start(server_addr.clone()).await.unwrap();
 
     // client connection, currently in main, will be transferred
-
-    //let client1 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac1").await.unwrap();
-    //let client2 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac2").await.unwrap();
-    //let client3 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac3").await.unwrap();
-
-    //let client4 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac4").await.unwrap();
-    //let client5 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac5").await.unwrap();
-    //let client6 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac6").await.unwrap();
-
+    let _ = client::connect(server_addr.clone(), "127.0.0.1", "ThgilTac1").await.unwrap();
     // a custom rocket build
+    while(true){}
+    /*
     let message_channel = channel::<Message>(1024).0;
     start_mesage(message_channel.clone()).await.unwrap();
     let figment = rocket::Config::figment()
@@ -142,6 +138,7 @@ async fn main() -> Result<(), rocket::Error> {
         .mount("/", FileServer::from(relative!("/static"))).launch().await.unwrap();
 
     print!("Howdy there!");
+    */
     Ok(())
 }
 

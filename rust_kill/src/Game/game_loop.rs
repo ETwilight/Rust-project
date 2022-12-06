@@ -24,5 +24,3 @@ pub fn update(room:&mut Room){
 pub fn assign_role(){
 
 }
-
-
