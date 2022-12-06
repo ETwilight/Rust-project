@@ -4,13 +4,14 @@ use tokio::{net::TcpStream, task::JoinHandle};
 #[path="game/game_info.rs"]
 mod game_info;
 
-use crate::client::game_info::{Player, RoleType, ClientInfo};
+use crate::{client::game_info::{Player, RoleType, ClientInfo}, Message};
 
 use self::room::connectRoom;
+use rocket::tokio::sync::broadcast::Sender;
 #[path="utils.rs"]
 mod utils;
 
-pub async fn connect(server_addr: &str, client_addr: &str, client_name: &str) -> Result<JoinHandle<()>, ()>{
+pub async fn connect(server_addr: &str, client_addr: &str, client_name: &str, sender: Sender<Message>) -> Result<JoinHandle<()>, ()>{
     let clt = TcpStream::connect((server_addr.to_string() + ":8080").as_str()).await.unwrap();
     let (mut reader, mut writer) = clt.into_split();
     let player = Player {
@@ -45,7 +46,7 @@ pub async fn connect(server_addr: &str, client_addr: &str, client_name: &str) ->
             };
             cinfo = serde_json::from_str(&rm.1).expect("json deserialize failed");
         }
-        connectRoom(cinfo.room.room_name.clone()).await;
+        connectRoom(cinfo.room.room_name.clone(), sender).await;
     });
     Ok(client)
 }

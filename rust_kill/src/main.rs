@@ -29,7 +29,7 @@ use tokio::time::sleep;
 
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
-struct Message{
+pub struct Message{
     #[field(validate = len(..30))]
     pub room:String, //Maximum Length is 30 for a roomName
     #[field(validate = len(..20))]
@@ -39,7 +39,7 @@ struct Message{
 
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
-struct UserInfo {
+pub struct UserInfo {
     pub username: String,
     pub serverip: String,
 }
@@ -136,21 +136,21 @@ async fn main() -> Result<(), rocket::Error> {
     let server_addr = "10.195.87.52";
     let client_addr = "127.0.0.1";
     // server connection in parallel, currently in main, will be transferred
-    //let _ = server::host::start(server_addr.clone()).await.unwrap();
+    let _ = server::host::start(server_addr.clone()).await.unwrap();
 
     // client connection, currently in main, will be transferred
     
-    let _ = client::connect(server_addr.clone(), "127.0.0.1", "ThgilTac1").await.unwrap();
-    let _ = client::connect(server_addr.clone(), "127.0.0.1", "ThgilTac1").await.unwrap();
-    let _ = client::connect(server_addr.clone(), "127.0.0.1", "ThgilTac1").await.unwrap();
-    let _ = client::connect(server_addr.clone(), "127.0.0.1", "ThgilTac1").await.unwrap();
-    //let _ = client::connect(server_addr.clone(), "127.0.0.1", "ThgilTac1").await.unwrap();
-    //let _ = client::connect(server_addr.clone(), "127.0.0.1", "ThgilTac1").await.unwrap();
+
 
     // a custom rocket build
     //while(true){}
     //let room_channel = channel::<Room>(1024).0;
     let message_channel = channel::<Message>(1024).0;
+    // a custom rocket build
+
+    let _ = client::connect(server_addr.clone(), "127.0.0.1", "ThgilTac1", message_channel.clone()).await.unwrap();
+    let _ = client::connect(server_addr.clone(), "127.0.0.1", "ThgilTac2", message_channel.clone()).await.unwrap();
+
     let figment = rocket::Config::figment()
         .merge(("address", client_addr))
         .merge(("port", 8000))
@@ -162,7 +162,6 @@ async fn main() -> Result<(), rocket::Error> {
         .mount("/", routes![post_player_info, event_player_info])
         .mount("/", FileServer::from(relative!("/static"))).launch().await.unwrap();
 
-    
     Ok(())
 }
 
