@@ -97,6 +97,8 @@ function AddMessage(room, username, message, push = false) {
   }
 }
 
+
+
 // Subscribe to the event source at `uri` with exponential backoff reconnect.
 function MessageSubscribe(uri) {
   var retryTime = 1;
@@ -224,6 +226,12 @@ function Init() {
   // Subscribe to server-sent events.
   MessageSubscribe("/message/event");
   PlayerInfoSubscribe("/playerInfo/event")
+  
 }
 
+// export {AddMessage, GetStatus};
+
+
 Init();
+
+

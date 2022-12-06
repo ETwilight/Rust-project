@@ -24,8 +24,9 @@ body::-webkit-scrollbar {
 }
 
 .u-section-1 .u-list-1 {
-  width: 122px;
+  width: 100px;
   margin: -42px auto 0 139px;
+  
 }
 
 .u-section-1 .u-repeater-1 {
@@ -122,9 +123,8 @@ main {
   max-height: 500px;
   overflow-y: auto;
   position: absolute; 
+
 }
-
-
 
 .u-section-1 .u-container-layout-5 {
   overflow: hidden;

@@ -6,8 +6,6 @@ use self::{game_loop::Player, turn::Turn};
 pub mod turn;
 pub mod game_loop;
 
-
-
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
 pub struct Room{
