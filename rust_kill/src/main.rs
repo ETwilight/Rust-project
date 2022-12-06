@@ -1,10 +1,17 @@
 #[macro_use] extern crate rocket;
 #[cfg(test)] mod tests;
+mod game;
+mod server;
+mod client;
+#[path="utils.rs"]
+mod utils;
+mod Game;
 
-use std::process::exit;
-
+use tokio::task::JoinHandle;
+use tokio::time::Duration;
 use redis::Commands;
-
+use rocket::log::LogLevel;
+use rocket::response::Debug;
 use rocket::{State, Shutdown};
 use rocket::fs::{relative, FileServer};
 use rocket::form::Form;
@@ -41,43 +48,55 @@ struct PlayerInfo {
 
 /// Receive a message from a form submission and broadcast it to any receivers.
 #[post("/message", data = "<form>")]
-fn post(form: Form<Message>, quene: &State<Sender<Message>>){
+fn post(form: Form<Message>, queue: &State<Sender<Message>>){
     //A send "fails" if there are no active subscribers
-    let _res = quene.send(form.into_inner());
+    let _res = queue.send(form.into_inner());
 
 } 
 
-// #[post("/playerInfo", data = "<form>")]
-// fn postPlayerInfo(form: Form<PlayerInfo>, quene: &State<Sender<PlayerInfo>>){
-//     let _res = quene.send(form.into_inner());
-//     //println!("{} days", 31)
-// } 
-
-// #[get("/events/playerInfo")]
-// async fn eventPlayerInfo(queue: &State<Sender<PlayerInfo>>, mut end: Shutdown) -> EventStream![] {
-//     let mut rx = queue.subscribe();
-//     EventStream! {
-//         loop {
-//             let msg = select! {
-//                 msg = rx.recv() => match msg {
-//                     Ok(msg) => msg,
-//                     Err(RecvError::Closed) => break,
-//                     Err(RecvError::Lagged(_)) => continue,
-//                 },
-//                 _ = &mut end => break,
-//             };
-
-//             yield Event::json(&msg);
-//         }
-//     }
-// }
+ #[post("/playerInfo", data = "<form>")]
+ async fn post_player_info(form: Form<PlayerInfo>, queue: &State<Sender<PlayerInfo>>){
+    sleep(Duration::from_millis(1000)).await;
+    let _res = queue.send(form.into_inner());
+ } 
 
 
 
+  #[get("/playerInfo/event")]
+ async fn event_player_info(queue: &State<Sender<PlayerInfo>>, mut end: Shutdown) -> EventStream![] {
+    print!("Get event");
+      let mut rx = queue.subscribe();
+      EventStream! {
+          loop {
+              let msg = select! {
+                  msg = rx.recv() => match msg {
+                      Ok(msg) => msg,
+                      Err(RecvError::Closed) => break,
+                      Err(RecvError::Lagged(_)) => continue,
+                  },
+                 _ = &mut end => break,
+              };
+              yield Event::json(&msg);
+          }
+      }
+  }
+
+async fn Howdy(queue: Sender<Message>) -> Result<JoinHandle<()>, ()>{
+    let task = tokio::spawn(async move{
+        sleep(Duration::from_millis(10000)).await;
+        let msg = Message{
+            room: "lobby".to_string(),
+            username: "Howdy".to_string(),
+            message: "Hey I am Howdy".to_string()
+        };
+        queue.send(msg).unwrap();
+    });
+    return Ok(task)
+}
 /// Returns an infinite stream of server-sent events. Each event is a message
 /// pulled from a broadcast queue sent by the `post` handler.
-
-#[get("/events/message")]
+  
+#[get("/message/event")]
 async fn events(queue: &State<Sender<Message>>, mut end: Shutdown) -> EventStream![] {
     let mut rx = queue.subscribe();
     EventStream! {
@@ -90,43 +109,41 @@ async fn events(queue: &State<Sender<Message>>, mut end: Shutdown) -> EventStrea
                 },
                 _ = &mut end => break,
             };
-
             yield Event::json(&msg);
         }
     }
 }
 
-mod server;
-mod client;
-#[path="utils.rs"]
-mod utils;
-#[path="Game/mod.rs"]
-mod game;
 
 #[rocket::main]
 async fn main() -> Result<(), rocket::Error> {
-    //server_addr tbd
-    let server_addr = "192.168.178.53";
+    //server_addr tbd1
+    let server_addr = "10.195.247.228";
     let client_addr = "127.0.0.1";
     // server connection in parallel, currently in main, will be transferred
-    let server = server::host::start(server_addr.clone()).await.unwrap();
+    let _ = server::host::start(server_addr.clone()).await.unwrap();
 
     // client connection, currently in main, will be transferred
-    let client1 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac4").await.unwrap();
-    let client2 = client::connect::connect(server_addr.clone(), "127.0.0.2", "ThgilTac5").await.unwrap();
-    let client3 = client::connect::connect(server_addr.clone(), "127.0.0.3", "ThgilTac6").await.unwrap();
-    
+    let _ = client::connect(server_addr.clone(), "127.0.0.1", "ThgilTac1").await.unwrap();
     // a custom rocket build
-
+    while(true){}
+    /*
+    let message_channel = channel::<Message>(1024).0;
+    Howdy(message_channel.clone()).await.unwrap();
+    
     let figment = rocket::Config::figment()
         .merge(("address", client_addr))
-        .merge(("port", 8000));
-    
-    let _rocket = rocket::custom(figment).mount("/", routes![/* .. */])
-        .manage(channel::<Message>(1024).0) //Store the sender 
+        .merge(("port", 8000))
+        .merge(("log_level", LogLevel::Debug));
+    let _rocket = rocket::custom(figment)
+        .manage(message_channel) //Store the sender 
         .mount("/", routes![post, events])
+        .manage(channel::<PlayerInfo>(1024).0)
+        .mount("/", routes![post_player_info, event_player_info])
         .mount("/", FileServer::from(relative!("/static"))).launch().await.unwrap();
 
+    print!("Howdy there!");
+    */
     Ok(())
 }
 

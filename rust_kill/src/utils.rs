@@ -39,7 +39,7 @@ pub async fn clientWrite(socket: &mut OwnedWriteHalf, msg: &str) -> Result<(), (
     return Ok(())
 }
 
-pub async fn serverResponse(reader: &mut OwnedReadHalf, writer: &mut OwnedWriteHalf, cmd_from: &str, cmd_back: &str, message: &str, tx: Sender<String>) {
+pub async fn serverResponse(reader: &mut OwnedReadHalf, writer: &mut OwnedWriteHalf, cmd_from: &str, cmd_back: &str, message: &str, tx: Sender<String>) -> Result<String, String>{
     loop {
         let mut red = BufReader::new(&mut *reader);
         let raw= red.fill_buf().await;
@@ -52,8 +52,7 @@ pub async fn serverResponse(reader: &mut OwnedReadHalf, writer: &mut OwnedWriteH
             }
         };
         if flag {
-            print!("receive error\n");
-            return;
+            return Err("error receiving".to_string());
         }
         let len = received.len();
         if len == 0 {
@@ -64,6 +63,7 @@ pub async fn serverResponse(reader: &mut OwnedReadHalf, writer: &mut OwnedWriteH
         let msg: String = String::from_utf8(received).expect("unwrap read err");
         let mut msgs : Vec<&str> = msg.split(spliter()).collect();
         let mut flag = false;
+        let mut tret = "".to_string();
         for m in msgs {
             if m.len() == 0 {
                 continue;
@@ -78,31 +78,27 @@ pub async fn serverResponse(reader: &mut OwnedReadHalf, writer: &mut OwnedWriteH
                     print!("{} : {}\n", message, vd);
                     serverWriteToClient(writer, encode(cmd_back, vd).as_str()).await.unwrap();
                     tx.send(vd.to_string()).await.unwrap();
+                    return Ok(vd.to_string());
                 }
             }
         }
         if flag{
-            return;
+            return Ok(tret);
         }
     }
 }
 
-pub async fn clientResponse(reader: &mut OwnedReadHalf, cmd_from: &str, message: &str) {//, tx: Sender<String>) {
+pub async fn clientResponse(reader: &mut OwnedReadHalf, cmd_from: &str, message: &str) -> Result<String, String>{
+    let mut red = BufReader::new(&mut *reader);
     loop {
-        let mut red = BufReader::new(&mut *reader);
         let raw= red.fill_buf().await;
         let mut flag = false;
         let received = match raw{
             Ok(rec) => rec.to_vec(),
             Err(e) => {
-                flag = true;
-                vec!()
+                return Err("receive error of clientResponse\n".to_string());
             }
         };
-        if flag {
-            print!("receive error of clientResponse\n");
-            return;
-        }
         let len = received.len();
         if len == 0 {
             continue;
@@ -111,7 +107,7 @@ pub async fn clientResponse(reader: &mut OwnedReadHalf, cmd_from: &str, message:
         red.consume(len);
         let msg: String = String::from_utf8(received).expect("unwrap read err");
         let mut msgs : Vec<&str> = msg.split(spliter()).collect();
-        let mut flag = false;
+        let mut flag_auth = false;
         for m in msgs {
             if m.len() == 0 {
                 continue;
@@ -121,13 +117,11 @@ pub async fn clientResponse(reader: &mut OwnedReadHalf, cmd_from: &str, message:
             }
             let (kd,vd) = decode(m);
             if kd == cmd_from {
-                flag = true;
-                //print!("{} : {}\n", message, vd);
-                //tx.send(vd.to_string()).await.unwrap();
+                if cmd_from == "AUTH" || cmd_from == "ROOM"{
+                    print!("{} : {}\n", message, vd);
+                    return Ok(vd.to_string())
+                }
             }
-        }
-        if flag{
-            return;
         }
     }
 }
