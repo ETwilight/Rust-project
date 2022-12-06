@@ -113,16 +113,18 @@ mod client;
 async fn main() -> Result<(), rocket::Error> {
 
     //server_addr tbd1
-    let server_addr = "10.200.0.210";
+    let server_addr = "192.168.178.127";
     let client_addr = "127.0.0.1";
 
     // server connection in parallel, currently in main, will be transferred
     //let server = server::host::start(server_addr.clone()).await.unwrap();
 
     // client connection, currently in main, will be transferred
+
     //let client1 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac1").await.unwrap();
     //let client2 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac2").await.unwrap();
     //let client3 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac3").await.unwrap();
+
     //let client4 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac4").await.unwrap();
     //let client5 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac5").await.unwrap();
     //let client6 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac6").await.unwrap();
