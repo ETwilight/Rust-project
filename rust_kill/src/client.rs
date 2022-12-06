@@ -1,21 +1,23 @@
 pub mod room;
-use tokio::{net::TcpStream, task::JoinHandle, sync::mpsc};
+use tokio::{net::TcpStream, task::JoinHandle};
 
-use crate::game::{Room, ClientInfo};
+#[path="game/game_info.rs"]
+mod game_info;
+
+use crate::client::game_info::{Player, RoleType, ClientInfo};
 
 use self::room::connectRoom;
 #[path="utils.rs"]
 mod utils;
-#[path="game/mod.rs"]
-mod game;
 
 pub async fn connect(server_addr: &str, client_addr: &str, client_name: &str) -> Result<JoinHandle<()>, ()>{
     let clt = TcpStream::connect((server_addr.to_string() + ":8080").as_str()).await.unwrap();
     let (mut reader, mut writer) = clt.into_split();
-    let player = game::game_loop::Player {
+    let player = Player {
         name: client_name.to_string(),
         ip: client_addr.to_string(),
-        role: game::game_loop::RoleType::Undecided,
+        role: RoleType::Undecided,
+        state: None,
     };
     let player_info = serde_json::to_string(&player);
     if player_info.is_err() {

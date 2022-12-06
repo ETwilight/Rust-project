@@ -1,21 +1,26 @@
-
-
+body {
+  background: url(./images/flat-design-werewolf-moon-background_52683-95044-1.webp) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
 /* The popup form - hidden by default */
 .form-popup1 {
   display: none;
   position: fixed;
-  bottom: 20vh;
-  margin-left: 22vw;
+  margin-left: 30vw;
   float:center;
   border: 3px solid #f1f1f1;
   z-index: 9;
+  bottom: 30vh;
 }
 
 .form-popup2 {
   display: none;
   position: fixed;
-  bottom: 21vh;
-  margin-left: 58vw;
+  bottom: 30vh;
+  margin-left: 51vw;
   float:center;
   border: 3px solid #f1f1f1;
   z-index: 9;
@@ -67,6 +72,7 @@
 
 .u-section-1 .u-sheet-1 {
   min-height: 600px;
+  
 }
 
 .u-section-1 .u-btn-1 {
@@ -83,6 +89,8 @@
   font-size: 3rem;
   font-weight: 700;
   margin: 11px auto 0;
+  margin-top: 20vh;
+  padding-bottom: 5vh;
 }
 
 .u-section-1 .u-group-1 {
@@ -93,6 +101,8 @@
 
 .u-section-1 .u-container-layout-1 {
   padding: 0;
+  margin-left: 100;
+  width: 50vw;
 }
 
 .u-section-1 .u-btn-2 {

@@ -1,6 +1,9 @@
- .u-section-1 {
-  background-image: url("images/blood-cement-wall-concrete-surface-texture-background-copy-space_51524-11509.jpg");
-  background-position: 50% 50%;
+.u-section-1 {
+  FONT-WEIGHT: 200;
+  background-image: url(images/blood-cement-wall-concrete-surface-texture-background-copy-space_51524-11509.jpg);
+  background-position: 40% 40%;
+  height: 100vh;
+  width: 100vw;
 }
 
 .u-section-1 .u-sheet-1 {
