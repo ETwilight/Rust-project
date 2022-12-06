@@ -2,7 +2,7 @@ use tokio::{net::TcpListener, task::JoinHandle, io::{BufReader, AsyncBufReadExt}
 use serde::{Serialize, Deserialize};
 #[path="../utils.rs"]
 mod utils;
-#[path="../Game/mod.rs"]
+#[path="../game/mod.rs"]
 mod game;
 
 pub async fn start(server_addr: &str) -> Result<JoinHandle<()>, ()>{
