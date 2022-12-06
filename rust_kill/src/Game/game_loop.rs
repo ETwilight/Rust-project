@@ -26,6 +26,7 @@ pub fn update(room:&mut Room){
     room.game_state.turn.turn_state = room.game_state.turn.turn_state.next();
 }
 
+
 pub fn assign_role(players :&mut Vec<Player>){
     let mut vec = vec![RoleType::Wolf, RoleType::Wolf, RoleType::Witch, RoleType::Prophet, RoleType::Civilian, RoleType::Civilian];
     // Create a random number generator
@@ -36,7 +37,6 @@ pub fn assign_role(players :&mut Vec<Player>){
         players[i].role = vec[i].clone();
     }
 }
-
 
 
 
