@@ -1,8 +1,8 @@
 #[macro_use] extern crate rocket;
 #[cfg(test)] mod tests;
 mod game;
-crate::game::turn::TurnState;
 
+use Game::turn::TurnState;
 use tokio::task::JoinHandle;
 use tokio::time::Duration;
 use redis::Commands;
@@ -39,18 +39,20 @@ struct PlayerInfo {
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
 struct PlayerState {
-    is_turn: bool,
-    is_muted: bool,
-    turn_type: TurnState,
-    is_speaking: bool,
+    pub is_turn: bool,
+    pub is_muted: bool,
+    pub is_speaking: bool,
 }
 
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
 struct GameState {
-    is_alive: bool,
+    pub turn_type: TurnState,
+    pub voting: bool,
 }
 
+
+//GameState
 /// Receive a message from a form submission and broadcast it to any receivers.
 #[post("/message", data = "<form>")]
 fn post(form: Form<Message>, queue: &State<Sender<Message>>){
@@ -63,7 +65,6 @@ fn post(form: Form<Message>, queue: &State<Sender<Message>>){
     sleep(Duration::from_millis(1000)).await;
     let _res = queue.send(form.into_inner());
  } 
-
 
 
   #[get("/playerInfo/event")]
