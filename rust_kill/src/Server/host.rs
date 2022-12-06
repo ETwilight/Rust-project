@@ -2,7 +2,7 @@ use tokio::{net::TcpListener, task::JoinHandle, io::{BufReader, AsyncBufReadExt}
 use serde::{Serialize, Deserialize};
 #[path="../utils.rs"]
 mod utils;
-#[path="../game/mod.rs"]
+#[path="../game.rs"]
 mod game;
 
 pub async fn start(server_addr: &str) -> Result<JoinHandle<()>, ()>{
@@ -35,7 +35,7 @@ pub async fn start(server_addr: &str) -> Result<JoinHandle<()>, ()>{
                 break;
             }
             let recv = rec.unwrap();
-            let playerInfo: game::game_loop::Player = serde_json::from_str(&recv).expect("json deserialize failed");
+            let playerInfo: game::game_info::Player = serde_json::from_str(&recv).expect("json deserialize failed");
             println!("Player Info: {}", playerInfo.name);
         }
     });
