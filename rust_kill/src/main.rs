@@ -36,6 +36,9 @@ struct UserInfo {
     pub serverip: String,
 }
 
+
+
+
 /// Receive a message from a form submission and broadcast it to any receivers.
 #[post("/message", data = "<form>")]
 fn post(form: Form<Message>, queue: &State<Sender<Message>>){

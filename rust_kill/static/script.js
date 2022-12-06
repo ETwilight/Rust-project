@@ -227,9 +227,9 @@ function GetStatus(){
 
 function Init() {
   // Initialize the room.
-  AddRoom("lobby");
-  ChangeRoom("lobby");
-  AddMessage("lobby", "Rocket", "Howdy! Open another browser tab, send a message.", true);
+  AddRoom("rustkill");
+  ChangeRoom("rustkill");
+  AddMessage("rustkill", "Rocket", "Howdy! Open another browser tab, send a message.", true);
 
   AddMessageListener();
   AddRoomListener();

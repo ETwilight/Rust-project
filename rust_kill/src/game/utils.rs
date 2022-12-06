@@ -6,6 +6,8 @@ use tokio::{sync::broadcast::Sender, task::JoinHandle};
 
 use crate::Message;
 
+use super::game_info::{Player, RoleType};
+
 fn send_mesage(queue: Sender<Message>, text:String) -> Result<JoinHandle<()>, ()>{
     let task = tokio::spawn(async move{
         let msg = Message{
@@ -17,3 +19,12 @@ fn send_mesage(queue: Sender<Message>, text:String) -> Result<JoinHandle<()>, ()
     });
     return Ok(task)
 }
+
+
+fn mute(player:Player){
+    
+}
+fn mute_all(){
+
+}
+
