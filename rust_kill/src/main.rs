@@ -114,13 +114,16 @@ async fn events(queue: &State<Sender<Message>>, mut end: Shutdown) -> EventStrea
 #[rocket::main]
 async fn main() -> Result<(), rocket::Error> {
     //server_addr tbd1
-    let server_addr = "10.195.247.228";
+    let server_addr = "10.195.87.52";
     let client_addr = "127.0.0.1";
     // server connection in parallel, currently in main, will be transferred
-    let _ = server::host::start(server_addr.clone()).await.unwrap();
+    //let _ = server::host::start(server_addr.clone()).await.unwrap();
 
     // client connection, currently in main, will be transferred
+    
     let _ = client::connect(server_addr.clone(), "127.0.0.1", "ThgilTac1").await.unwrap();
+    let _ = client::connect(server_addr.clone(), "127.0.0.1", "ThgilTac2").await.unwrap();
+    
     // a custom rocket build
     while(true){}
     /*

@@ -88,7 +88,7 @@ pub async fn serverResponse(reader: &mut OwnedReadHalf, writer: &mut OwnedWriteH
     }
 }
 
-pub async fn clientResponse(reader: &mut OwnedReadHalf, cmd_from: &str, message: &str) -> Result<String, String>{
+pub async fn clientResponse(reader: &mut OwnedReadHalf, cmd_from: &str, message: &str) -> Result<(String, String), String>{
     let mut red = BufReader::new(&mut *reader);
     loop {
         let raw= red.fill_buf().await;
@@ -108,6 +108,8 @@ pub async fn clientResponse(reader: &mut OwnedReadHalf, cmd_from: &str, message:
         let msg: String = String::from_utf8(received).expect("unwrap read err");
         let mut msgs : Vec<&str> = msg.split(spliter()).collect();
         let mut flag_auth = false;
+        let mut res = "";
+        let mut key = "";
         for m in msgs {
             if m.len() == 0 {
                 continue;
@@ -116,12 +118,23 @@ pub async fn clientResponse(reader: &mut OwnedReadHalf, cmd_from: &str, message:
                 continue;
             }
             let (kd,vd) = decode(m);
+            key = kd;
             if kd == cmd_from {
                 if cmd_from == "AUTH" || cmd_from == "ROOM"{
                     print!("{} : {}\n", message, vd);
-                    return Ok(vd.to_string())
+                    if res == "" {
+                        res = vd;
+                    }
+                    continue;
                 }
             }
+            if cmd_from == "AUTH" && kd == "ROOM" && res != "" {
+                print!("{} : {}\n", message, vd);
+                res = vd;
+                continue;
+            }
+            return Err("Unexpected Command".to_string());
         }
+        return Ok((key.to_string(), res.to_string()));
     }
 }

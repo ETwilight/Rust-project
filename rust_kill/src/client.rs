@@ -32,13 +32,19 @@ pub async fn connect(server_addr: &str, client_addr: &str, client_name: &str) ->
     let client = tokio::spawn(async move{
         let auth = match utils::clientResponse(&mut reader, "AUTH", "client get").await {
             Ok(r) => r,
-            Err(_) => panic!("Cannot connect!"),
+            Err(e) => panic!("{}", e),
         };
-        let rm = match utils::clientResponse(&mut reader, "ROOM", "room info get").await {
-            Ok(r) => r,
-            Err(_) => panic!("Buggy Code!"),
-        };
-        let cinfo : ClientInfo = serde_json::from_str(&rm).expect("json deserialize failed");
+        let cinfo : ClientInfo;
+        if auth.0 == "ROOM" {
+            cinfo = serde_json::from_str(&auth.1).expect("json deserialize failed");
+        }
+        else {
+            let rm = match utils::clientResponse(&mut reader, "ROOM", "room info get").await {
+                Ok(r) => r,
+                Err(e) => panic!("{}", e),
+            };
+            cinfo = serde_json::from_str(&rm.1).expect("json deserialize failed");
+        }
         connectRoom(cinfo.room.room_name.clone()).await;
     });
     Ok(client)
