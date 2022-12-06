@@ -4,7 +4,9 @@ mod server;
 mod client;
 #[path="utils.rs"]
 mod utils;
-
+#[path = "game/game_info.rs"]
+mod game_info;
+use crate::game_info::{Room};
 
 use tokio::task::JoinHandle;
 use tokio::time::Duration;
@@ -42,9 +44,37 @@ pub struct UserInfo {
     pub serverip: String,
 }
 
+
+#[post("/room", data = "<form>")]
+fn post_room(form: Form<Room>, queue: &State<Sender<Room>>){
+    //A send "fails" if there are no active subscribers
+    let _res = queue.send(form.into_inner());
+} 
+
+
+#[get("/room/event")]
+async fn event_room(queue: &State<Sender<Room>>, mut end: Shutdown) -> EventStream![] {
+   print!("Get event");
+     let mut rx = queue.subscribe();
+     EventStream! {
+         loop {
+             let msg = select! {
+                 msg = rx.recv() => match msg {
+                     Ok(msg) => msg,
+                     Err(RecvError::Closed) => break,
+                     Err(RecvError::Lagged(_)) => continue,
+                 },
+                _ = &mut end => break,
+             };
+             yield Event::json(&msg);
+         }
+     }
+ }
+
+
 /// Receive a message from a form submission and broadcast it to any receivers.
 #[post("/message", data = "<form>")]
-fn post(form: Form<Message>, queue: &State<Sender<Message>>){
+fn post_message(form: Form<Message>, queue: &State<Sender<Message>>){
     //A send "fails" if there are no active subscribers
     let _res = queue.send(form.into_inner());
 } 
@@ -77,18 +107,7 @@ fn post(form: Form<Message>, queue: &State<Sender<Message>>){
   }
 
 
-async fn start_mesage(queue: Sender<Message>) -> Result<JoinHandle<()>, ()>{
-    let task = tokio::spawn(async move{
-        sleep(Duration::from_millis(10000)).await;
-        let msg = Message{
-            room: "lobby".to_string(),
-            username: "Howdy".to_string(),
-            message: "Hey I am Howdy".to_string()
-        };
-        queue.send(msg).unwrap();
-    });
-    return Ok(task)
-}
+
 /// Returns an infinite stream of server-sent events. Each event is a message
 /// pulled from a broadcast queue sent by the `post` handler.
   
@@ -117,14 +136,17 @@ async fn main() -> Result<(), rocket::Error> {
     let server_addr = "10.195.87.52";
     let client_addr = "127.0.0.1";
     // server connection in parallel, currently in main, will be transferred
-    //let _ = server::host::start(server_addr.clone()).await.unwrap();
+    let _ = server::host::start(server_addr.clone()).await.unwrap();
 
     // client connection, currently in main, will be transferred
     
+
+
     // a custom rocket build
-    
+    //while(true){}
+    //let room_channel = channel::<Room>(1024).0;
     let message_channel = channel::<Message>(1024).0;
-    start_mesage(message_channel.clone()).await.unwrap();
+    // a custom rocket build
 
     let _ = client::connect(server_addr.clone(), "127.0.0.1", "ThgilTac1", message_channel.clone()).await.unwrap();
     let _ = client::connect(server_addr.clone(), "127.0.0.1", "ThgilTac2", message_channel.clone()).await.unwrap();
@@ -135,12 +157,11 @@ async fn main() -> Result<(), rocket::Error> {
         .merge(("log_level", LogLevel::Debug));
     let _rocket = rocket::custom(figment)
         .manage(message_channel) //Store the sender 
-        .mount("/", routes![post, events])
+        .mount("/", routes![post_message, events])
         .manage(channel::<UserInfo>(1024).0)
         .mount("/", routes![post_player_info, event_player_info])
         .mount("/", FileServer::from(relative!("/static"))).launch().await.unwrap();
 
-    print!("Howdy there!");
     Ok(())
 }
 

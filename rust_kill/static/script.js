@@ -18,7 +18,7 @@ const PlayerState = {
   Leave: "Leave",
 }
 var STATE = {
-  currentRoom: "lobby",
+  currentRoom: "rustkill",
   rooms: {}, //A dictionary
   connected: false,
 }
@@ -144,7 +144,7 @@ function PlayerInfoSubscribe(uri) {
       const msg = JSON.parse(ev.data);
       console.log("decoded data", JSON.stringify(msg));
       if (!"username" in msg || !"serverip" in msg) return;
-      AddMessage("lobby", msg.username, msg.username+" has joined the chatroom", true);
+      AddMessage("rustkill", msg.username, msg.username+" has joined the chatroom", true);
     });
 
     events.addEventListener("open", () => {
@@ -227,9 +227,9 @@ function GetStatus(){
 
 function Init() {
   // Initialize the room.
-  AddRoom("lobby");
-  ChangeRoom("lobby");
-  AddMessage("lobby", "Rocket", "Howdy! Open another browser tab, send a message.", true);
+  AddRoom("rustkill");
+  ChangeRoom("rustkill");
+  AddMessage("rustkill", "Rocket", "Howdy! Open another browser tab, send a message.", true);
 
   AddMessageListener();
   AddRoomListener();

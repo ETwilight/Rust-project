@@ -13,6 +13,7 @@ mini-redis = "0.4"
 bytes = "1"
 serde = { version = "1.0.126", features = ["derive"] }
 serde_json = "1.0.64"
+rand = "0.8.4"
 
 [dev-dependencies]
 rand = "0.8"
