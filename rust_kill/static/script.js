@@ -26,7 +26,7 @@ var STATE = {
 var player = {
   name: "Guest",
   ip: "",
-  id: "0",
+  id: 1,
   status: PlayerState.Alive,
   isSpeaking: false, //if it's the player's turn, it will be true
 }
@@ -143,7 +143,7 @@ function PlayerInfoSubscribe(uri) {
       console.log("raw data", JSON.stringify(ev.data));
       const msg = JSON.parse(ev.data);
       console.log("decoded data", JSON.stringify(msg));
-      if (!"username" in msg || !"clientip" in msg || !"serverip" in msg) return;
+      if (!"username" in msg || !"serverip" in msg) return;
       AddMessage("lobby", msg.username, msg.username+" has joined the chatroom", true);
     });
 
@@ -168,6 +168,17 @@ function PlayerInfoSubscribe(uri) {
   Connect(uri);
 }
 
+// OnLoad will sent post to rust when the javascript start
+function OnLoad(){
+  if (STATE.connected) {
+    fetch("/message", {
+      method: "POST",
+      body: new URLSearchParams({ room, username, message }),
+    }).then((response) => {
+      if (response.ok) console.log("PageOnLoad");
+    });
+  }
+}
 // Set the connection status: `true` for connected, `false` for disconnected.
 function SetConnectedStatus(status) {
   STATE.connected = status;

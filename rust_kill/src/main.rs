@@ -2,6 +2,7 @@
 #[cfg(test)] mod tests;
 mod game;
 
+
 use Game::turn::TurnState;
 use tokio::task::JoinHandle;
 use tokio::time::Duration;
@@ -31,24 +32,9 @@ struct Message{
 
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
-struct PlayerInfo {
+struct UserInfo {
     pub username: String,
-    pub clientip: String,
     pub serverip: String,
-}
-#[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
-#[serde(crate = "rocket::serde")]
-struct PlayerState {
-    pub is_turn: bool,
-    pub is_muted: bool,
-    pub is_speaking: bool,
-}
-
-#[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
-#[serde(crate = "rocket::serde")]
-struct GameState {
-    pub turn_type: TurnState,
-    pub voting: bool,
 }
 
 
@@ -61,14 +47,14 @@ fn post(form: Form<Message>, queue: &State<Sender<Message>>){
 } 
 
  #[post("/playerInfo", data = "<form>")]
- async fn post_player_info(form: Form<PlayerInfo>, queue: &State<Sender<PlayerInfo>>){
+ async fn post_player_info(form: Form<UserInfo>, queue: &State<Sender<UserInfo>>){
     sleep(Duration::from_millis(1000)).await;
     let _res = queue.send(form.into_inner());
  } 
 
 
   #[get("/playerInfo/event")]
- async fn event_player_info(queue: &State<Sender<PlayerInfo>>, mut end: Shutdown) -> EventStream![] {
+ async fn event_player_info(queue: &State<Sender<UserInfo>>, mut end: Shutdown) -> EventStream![] {
     print!("Get event");
       let mut rx = queue.subscribe();
       EventStream! {
@@ -86,7 +72,8 @@ fn post(form: Form<Message>, queue: &State<Sender<Message>>){
       }
   }
 
-async fn Howdy(queue: Sender<Message>) -> Result<JoinHandle<()>, ()>{
+
+async fn start_mesage(queue: Sender<Message>) -> Result<JoinHandle<()>, ()>{
     let task = tokio::spawn(async move{
         sleep(Duration::from_millis(10000)).await;
         let msg = Message{
@@ -144,7 +131,7 @@ async fn main() -> Result<(), rocket::Error> {
 
     // a custom rocket build
     let message_channel = channel::<Message>(1024).0;
-    Howdy(message_channel.clone()).await.unwrap();
+    start_mesage(message_channel.clone()).await.unwrap();
     let figment = rocket::Config::figment()
         .merge(("address", client_addr))
         .merge(("port", 8000))
@@ -152,7 +139,7 @@ async fn main() -> Result<(), rocket::Error> {
     let _rocket = rocket::custom(figment)
         .manage(message_channel) //Store the sender 
         .mount("/", routes![post, events])
-        .manage(channel::<PlayerInfo>(1024).0)
+        .manage(channel::<UserInfo>(1024).0)
         .mount("/", routes![post_player_info, event_player_info])
         .mount("/", FileServer::from(relative!("/static"))).launch().await.unwrap();
 
