@@ -1,9 +1,16 @@
+body::-webkit-scrollbar {
+  display: none;
+}
+
  .u-section-1 {
   background-image: none;
+  min-height: 100vh;
 }
 
 .u-section-1 .u-sheet-1 {
-  min-height: 800px;
+  min-height: 100px;
+  overflow: hiden;
+  
 }
 
 .u-section-1 .u-btn-1 {
@@ -17,8 +24,9 @@
 }
 
 .u-section-1 .u-list-1 {
-  width: 122px;
+  width: 100px;
   margin: -42px auto 0 139px;
+  
 }
 
 .u-section-1 .u-repeater-1 {
@@ -111,8 +119,16 @@
   grid-gap: 47px 47px;
 }
 
+main {
+  max-height: 500px;
+  overflow-y: auto;
+  position: absolute; 
+
+}
+
 .u-section-1 .u-container-layout-5 {
-  padding: 10px;
+  overflow: hidden;
+  position: relative;
 }
 
 .u-section-1 .u-list-4 {
@@ -186,17 +202,59 @@
 
 .u-section-1 .u-list-5 {
   width: 692px;
-  margin: 0 auto 54px;
+  margin: 0 auto 54px;7
 }
 
 .u-section-1 .u-repeater-5 {
   min-height: 52px;
   grid-template-columns: 100%;
   grid-gap: 47px 47px;
+  padding-top: 5%;
 }
 
 .u-section-1 .u-container-layout-9 {
   padding: 10px;
+  
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+  width: 600px;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+
+.indicator {
+  text-align: center;
+}
+
+.playerStatus {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 50%;
+  overflow: hidden;
+  transform: rotate(45deg);
+}
+
+.role {
+  padding: 3px;
+  border-radius: 50%;
+}
+
+#speaking {
+  background: green;
+}
+
+#muted {
+  background: red:
+}
+
+#dead {
+  background: black;
 }
 
 @media (max-width: 767px) {
