@@ -73,7 +73,7 @@ fn post(form: Form<Message>, queue: &State<Sender<Message>>){
       }
   }
 
-async fn Howdy(queue: Sender<Message>) -> Result<JoinHandle<()>, ()>{
+async fn start_mesage(queue: Sender<Message>) -> Result<JoinHandle<()>, ()>{
     let task = tokio::spawn(async move{
         sleep(Duration::from_millis(10000)).await;
         let msg = Message{
@@ -129,7 +129,7 @@ async fn main() -> Result<(), rocket::Error> {
 
     // a custom rocket build
     let message_channel = channel::<Message>(1024).0;
-    Howdy(message_channel.clone()).await.unwrap();
+    start_mesage(message_channel.clone()).await.unwrap();
     let figment = rocket::Config::figment()
         .merge(("address", client_addr))
         .merge(("port", 8000))

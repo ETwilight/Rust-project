@@ -167,6 +167,17 @@ function PlayerInfoSubscribe(uri) {
   Connect(uri);
 }
 
+// OnLoad will sent post to rust when the javascript start
+function OnLoad(){
+  if (STATE.connected) {
+    fetch("/message", {
+      method: "POST",
+      body: new URLSearchParams({ room, username, message }),
+    }).then((response) => {
+      if (response.ok) console.log("PageOnLoad");
+    });
+  }
+}
 // Set the connection status: `true` for connected, `false` for disconnected.
 function SetConnectedStatus(status) {
   STATE.connected = status;
