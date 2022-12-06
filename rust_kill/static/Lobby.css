@@ -1,10 +1,15 @@
-
-
+body {
+  background: url(./images/flat-design-werewolf-moon-background_52683-95044-1.webp) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
 /* The popup form - hidden by default */
 .form-popup1 {
   display: none;
   position: fixed;
-  margin-left: 37vw;
+  margin-left: 30vw;
   float:center;
   border: 3px solid #f1f1f1;
   z-index: 9;
@@ -67,6 +72,7 @@
 
 .u-section-1 .u-sheet-1 {
   min-height: 600px;
+  
 }
 
 .u-section-1 .u-btn-1 {
