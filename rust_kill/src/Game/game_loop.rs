@@ -6,7 +6,7 @@ use super::game_info::Room;
 
 
 pub fn update(room:&mut Room){
-    match room.turn.turn_state{
+    match room.game_state.turn.turn_state{
         super::game_info::TurnType::StartTurn => {
             assign_role();
         },
@@ -18,7 +18,7 @@ pub fn update(room:&mut Room){
         super::game_info::TurnType::LastWordTurn => todo!(),
         super::game_info::TurnType::EndTurn => todo!(),
     }
-    room.turn.turn_state = room.turn.turn_state.next();
+    room.game_state.turn.turn_state = room.game_state.turn.turn_state.next();
 }
 
 pub fn assign_role(){

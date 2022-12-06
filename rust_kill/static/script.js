@@ -26,7 +26,7 @@ var STATE = {
 var player = {
   name: "Guest",
   ip: "",
-  id: "0",
+  id: 1,
   status: PlayerState.Alive,
   isSpeaking: false, //if it's the player's turn, it will be true
 }
@@ -143,7 +143,7 @@ function PlayerInfoSubscribe(uri) {
       console.log("raw data", JSON.stringify(ev.data));
       const msg = JSON.parse(ev.data);
       console.log("decoded data", JSON.stringify(msg));
-      if (!"username" in msg || !"clientip" in msg || !"serverip" in msg) return;
+      if (!"username" in msg || !"serverip" in msg) return;
       AddMessage("lobby", msg.username, msg.username+" has joined the chatroom", true);
     });
 
