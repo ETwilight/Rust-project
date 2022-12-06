@@ -2,6 +2,7 @@
 #[cfg(test)] mod tests;
 mod game;
 
+use tokio::task::JoinHandle;
 use tokio::time::Duration;
 use redis::Commands;
 use rocket::log::LogLevel;
@@ -48,7 +49,6 @@ fn post(form: Form<Message>, queue: &State<Sender<Message>>){
  #[post("/playerInfo", data = "<form>")]
  async fn post_player_info(form: Form<PlayerInfo>, queue: &State<Sender<PlayerInfo>>){
     sleep(Duration::from_millis(1000)).await;
-    print!("Howdy Whore");
     let _res = queue.send(form.into_inner());
  } 
 
@@ -73,8 +73,18 @@ fn post(form: Form<Message>, queue: &State<Sender<Message>>){
       }
   }
 
-
-
+async fn Howdy(queue: Sender<Message>) -> Result<JoinHandle<()>, ()>{
+    let task = tokio::spawn(async move{
+        sleep(Duration::from_millis(10000)).await;
+        let msg = Message{
+            room: "lobby".to_string(),
+            username: "Howdy".to_string(),
+            message: "Hey I am Howdy".to_string()
+        };
+        queue.send(msg).unwrap();
+    });
+    return Ok(task)
+}
 /// Returns an infinite stream of server-sent events. Each event is a message
 /// pulled from a broadcast queue sent by the `post` handler.
   
@@ -91,7 +101,6 @@ async fn events(queue: &State<Sender<Message>>, mut end: Shutdown) -> EventStrea
                 },
                 _ = &mut end => break,
             };
-
             yield Event::json(&msg);
         }
     }
@@ -102,33 +111,38 @@ mod client;
 
 #[rocket::main]
 async fn main() -> Result<(), rocket::Error> {
+
     //server_addr tbd1
     let server_addr = "192.168.178.127";
     let client_addr = "127.0.0.1";
 
     // server connection in parallel, currently in main, will be transferred
-    let server = server::host::start(server_addr.clone()).await.unwrap();
+    //let server = server::host::start(server_addr.clone()).await.unwrap();
 
     // client connection, currently in main, will be transferred
-    let client1 = client::connect::connect(server_addr.clone(), "127.0.0.4", "ThgilTac4").await.unwrap();
-    let client2 = client::connect::connect(server_addr.clone(), "127.0.0.5", "ThgilTac5").await.unwrap();
-    let client3 = client::connect::connect(server_addr.clone(), "127.0.0.6", "ThgilTac6").await.unwrap();
+
+    //let client1 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac1").await.unwrap();
+    //let client2 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac2").await.unwrap();
+    //let client3 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac3").await.unwrap();
+
     //let client4 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac4").await.unwrap();
     //let client5 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac5").await.unwrap();
     //let client6 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac6").await.unwrap();
 
     // a custom rocket build
-
+    let message_channel = channel::<Message>(1024).0;
+    Howdy(message_channel.clone()).await.unwrap();
     let figment = rocket::Config::figment()
         .merge(("address", client_addr))
         .merge(("port", 8000))
         .merge(("log_level", LogLevel::Debug));
     let _rocket = rocket::custom(figment)
-        .manage(channel::<Message>(1024).0) //Store the sender 
+        .manage(message_channel) //Store the sender 
         .mount("/", routes![post, events])
-        .manage(channel::<PlayerInfo>(1025).0)
+        .manage(channel::<PlayerInfo>(1024).0)
         .mount("/", routes![post_player_info, event_player_info])
         .mount("/", FileServer::from(relative!("/static"))).launch().await.unwrap();
+
     print!("Howdy there!");
     Ok(())
 }

@@ -14,7 +14,8 @@ pub struct Room{
     #[field(validate = len(..30))]
     pub room_name:String,
     pub players: HashMap<i32, Player>, 
-    pub turn: Turn
+    pub turn: Turn,
+    //pub Listmessage
 }
 
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
