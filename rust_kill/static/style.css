@@ -61,9 +61,10 @@
   
   #content {
       flex: 7 100%;
-      overflow: auto;
       display: flex;
       flex-direction: column;
+      overflow: auto;
+      position: relative;
   }
   
   .message {
@@ -85,6 +86,8 @@
   #messages {
       padding: 10px 20px;
       flex: 1;
+      white-space: normal;
+      word-wrap: break-word;
   }
   
   form#new-message {
@@ -106,7 +109,7 @@
   }
   
   input {
-      padding: 0 10px;
+      padding: 0 5px;
   }
   
   input:focus {

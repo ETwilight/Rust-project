@@ -9,7 +9,6 @@ let roomTemplate = document.getElementById('room');
 let messageTemplate = document.getElementById('message');
 
 let messageField = newMessageForm.querySelector("#message");
-let usernameField = newMessageForm.querySelector("#username");
 let roomNameField = newRoomForm.querySelector("#name");
 
 
@@ -180,7 +179,7 @@ function AddMessageListener(){
   
       const room = STATE.currentRoom;
       const message = messageField.value;
-      const username = usernameField.value || "guest";
+      const username = "guest";
       if (!message || !username) return;
   
       if (STATE.connected) {

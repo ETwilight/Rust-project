@@ -47,7 +47,7 @@
             <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
           </div>
         </nav>
-        <img style="margin: 0 auto; width: 150px; height = 400px;" src="images/Screenshot2022-12-02202250.png" alt="" data-image-width="957" data-image-height="280">
+        <img style="margin: 0 auto; width: 220x; height:60px;" src="images/Screenshot2022-12-02202250.png" alt="" data-image-width="957" data-image-height="280">
       </div></header>
 
     <section class="u-clearfix u-section-1" id="sec-1c39">
@@ -68,9 +68,9 @@
     <div class="form-popup1" id="f1">
       <form id = "hostform" action="Room.html#top" class="form-container">
         <label for="host"><b>Name</b></label>
-        <input id = "hostname" type="text" placeholder="Enter Name" name="username" required>
+        <input id = "hostname" type="text" placeholder="Enter Name" name="username" maxlength="15" autocomplete="on" required>
         <label for="hostip"><b>Local IP</b></label>
-        <input id = "hostip" type="text" placeholder="x.x.x.x" name="serverip" required>
+        <input id = "hostip" type="text" placeholder="x.x.x.x" name="serverip" autocomplete="on" required>
         <button type="submit" onclick="HostInput();" class="btn" >Login</button>
         <button id = "test1" type="button" class="btn cancel" onclick="closeHost()">Close</button>
       </form>
@@ -79,11 +79,11 @@
     <div class="form-popup2" id = "f2">
       <form id="clientform" action="Room.html#top" class="form-container">
         <label for="cname"><b>Name</b></label>
-        <input id = "clientname" type="text" placeholder="Enter Name" name="username" required>
+        <input id = "clientname" type="text" placeholder="Enter Name" name="username" maxlength="15" autocomplete="on" required>
         <!--<label for="clientip"><b>Local IP</b></label>
         <input id = "clientip" type="text" placeholder="x.x.x.x" name="clientip" required>-->
         <label for="serverip"><b>Server IP</b></label>
-        <input id = "serverip" type="text" placeholder="x.x.x.x" name="serverip" required>
+        <input id = "serverip" type="text" placeholder="x.x.x.x" name="serverip" autocomplete="on"  required>
         <button id = "test2" onclick="ClientInput();" type="submit" class="btn">Login</button>
         <button type="button" class="btn cancel" onclick="closeClient()">Close</button>
       </form>
