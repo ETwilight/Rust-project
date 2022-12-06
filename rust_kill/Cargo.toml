@@ -11,7 +11,6 @@ tokio = { version = "1", features = ["full"] }
 redis = "0.22.1"
 mini-redis = "0.4"
 bytes = "1"
-nodejs-sys = "0.14.0"
 serde = { version = "1.0.126", features = ["derive"] }
 serde_json = "1.0.64"
 

@@ -1,7 +1,7 @@
 #[macro_use] extern crate rocket;
 #[cfg(test)] mod tests;
 mod game;
-crate::game::turn::TurnState;
+
 
 use tokio::task::JoinHandle;
 use tokio::time::Duration;
@@ -41,7 +41,6 @@ struct PlayerInfo {
 struct PlayerState {
     is_turn: bool,
     is_muted: bool,
-    turn_type: TurnState,
     is_speaking: bool,
 }
 
