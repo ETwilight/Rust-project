@@ -3,7 +3,6 @@
 mod game;
 
 
-use Game::turn::TurnState;
 use tokio::task::JoinHandle;
 use tokio::time::Duration;
 use redis::Commands;
@@ -37,8 +36,6 @@ struct UserInfo {
     pub serverip: String,
 }
 
-
-//GameState
 /// Receive a message from a form submission and broadcast it to any receivers.
 #[post("/message", data = "<form>")]
 fn post(form: Form<Message>, queue: &State<Sender<Message>>){
@@ -51,6 +48,7 @@ fn post(form: Form<Message>, queue: &State<Sender<Message>>){
     sleep(Duration::from_millis(1000)).await;
     let _res = queue.send(form.into_inner());
  } 
+
 
 
   #[get("/playerInfo/event")]
