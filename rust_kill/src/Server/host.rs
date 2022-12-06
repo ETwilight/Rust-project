@@ -2,7 +2,7 @@ use tokio::{net::TcpListener, task::JoinHandle, io::{BufReader, AsyncBufReadExt}
 use serde::{Serialize, Deserialize};
 #[path="../utils.rs"]
 mod utils;
-#[path="../Game/mod.rs"]
+#[path="../game/mod.rs"]
 mod game;
 
 pub async fn start(server_addr: &str) -> Result<JoinHandle<()>, ()>{
@@ -21,6 +21,7 @@ pub async fn start(server_addr: &str) -> Result<JoinHandle<()>, ()>{
                     break;
                 }
                 let (socket, _) = listener.accept().await.unwrap();
+                print!("{}", socket.peer_addr().unwrap().ip());
                 let (mut reader, mut writer) = socket.into_split();
                 let txc = tx.clone();
                 let task = tokio::spawn(async move{

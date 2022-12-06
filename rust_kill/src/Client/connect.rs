@@ -1,7 +1,7 @@
 use tokio::{net::TcpStream, task::JoinHandle, sync::mpsc};
 #[path="../utils.rs"]
 mod utils;
-#[path="../Game/mod.rs"]
+#[path="../game/mod.rs"]
 mod game;
 
 pub async fn connect(server_addr: &str, client_addr: &str, client_name: &str) -> Result<JoinHandle<()>, ()>{
@@ -24,6 +24,7 @@ pub async fn connect(server_addr: &str, client_addr: &str, client_name: &str) ->
     
     let client = tokio::spawn(async move{
         utils::clientResponse(&mut reader, "AUTH", "client get").await;
+        
     });
 
     /*
