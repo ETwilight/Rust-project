@@ -21,30 +21,8 @@ pub struct Player{
     pub name:String,
     pub ip:String,
     pub role:RoleType,
+    pub state: Option<PlayerState>,
 }
-
-
-
-
-
-#[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
-#[serde(crate = "rocket::serde")]
-pub struct Room{
-    #[field(validate = len(..30))]
-    pub room_name:String,
-    pub players: HashMap<i32, Player>, 
-    pub turn: Turn,
-    //pub Listmessage
-}
-
-#[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
-#[serde(crate = "rocket::serde")]
-pub struct ClientInfo {
-    pub room: Room,
-    pub ts: TurnType,
-    pub idx: usize,
-}
-
 
 #[derive(Debug, Clone, FromFormField, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
@@ -96,3 +74,37 @@ pub struct Turn{
 }
 
 
+#[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
+#[serde(crate = "rocket::serde")]
+pub struct Room{
+    #[field(validate = len(..30))]
+    pub room_name:String,
+    pub players: HashMap<i32, Player>, 
+    pub game_state: GameState,
+    //pub Listmessage
+}
+
+#[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
+#[serde(crate = "rocket::serde")]
+pub struct ClientInfo {
+    pub room: Room,
+    pub ts: TurnType,
+    pub idx: usize,
+}
+
+
+
+#[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
+#[serde(crate = "rocket::serde")]
+pub struct GameState {
+    pub turn: Turn,
+}
+
+
+#[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
+#[serde(crate = "rocket::serde")]
+pub struct PlayerState {
+    pub is_turn: bool,
+    pub is_muted: bool,
+    pub is_speaking: bool,
+}

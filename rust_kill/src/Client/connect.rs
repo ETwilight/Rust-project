@@ -2,7 +2,7 @@ use tokio::{net::TcpStream, task::JoinHandle, sync::mpsc};
 #[path="../utils.rs"]
 mod utils;
 #[path="../game.rs"]
-mod game;
+pub mod game;
 
 pub async fn connect(server_addr: &str, client_addr: &str, client_name: &str) -> Result<JoinHandle<()>, ()>{
     let clt = TcpStream::connect((server_addr.to_string() + ":8080").as_str()).await.unwrap();
@@ -11,6 +11,7 @@ pub async fn connect(server_addr: &str, client_addr: &str, client_name: &str) ->
         name: client_name.to_string(),
         ip: client_addr.to_string(),
         role: game::game_info::RoleType::Undecided,
+        state: None,
     };
     let playerInfo = serde_json::to_string(&player);
     if playerInfo.is_err() {
