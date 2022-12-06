@@ -1,5 +1,6 @@
 #[macro_use] extern crate rocket;
 #[cfg(test)] mod tests;
+mod game;
 
 use tokio::time::Duration;
 use redis::Commands;
@@ -76,7 +77,7 @@ fn post(form: Form<Message>, queue: &State<Sender<Message>>){
 
 /// Returns an infinite stream of server-sent events. Each event is a message
 /// pulled from a broadcast queue sent by the `post` handler.
-
+  
 #[get("/message/event")]
 async fn events(queue: &State<Sender<Message>>, mut end: Shutdown) -> EventStream![] {
     let mut rx = queue.subscribe();

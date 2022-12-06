@@ -1,19 +1,26 @@
 use rocket::serde::{Serialize, Deserialize};
+use std::collections::HashMap;
+
+use self::{game_loop::Player, turn::Turn};
 
 pub mod turn;
 pub mod game_loop;
 
+
+
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
-pub struct GameInfo {
-    pub room: game_loop::Room,
-    pub ts: turn::TurnState,
+pub struct Room{
+    #[field(validate = len(..30))]
+    pub room_name:String,
+    pub players: HashMap<i32, Player>, 
+    pub turn: Turn
 }
 
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
 pub struct ClientInfo {
-    pub room: game_loop::Room,
+    pub room: Room,
     pub ts: turn::TurnState,
     pub idx: usize,
 }
