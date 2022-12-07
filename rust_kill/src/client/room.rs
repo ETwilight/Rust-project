@@ -8,12 +8,12 @@ mod game_info;
 mod game;
 
 
-use rocket::tokio::sync::broadcast::Sender;
+use rocket::{tokio::sync::broadcast::Sender, serde::json::Json};
 use crate::{client::room::game_info::Player, Message};
 
 
 // tell the javascript that it should connect to an empty room with name given in the room info
-pub async fn connectRoom(name: String, sender: Sender<Message>) {
+pub async fn connectRoom(name: String, sender: Sender<Json<Message>>) {
     print!("Successfully connect to room: {} \n", name);
     game::utils::send_delay_message(sender, "Whore".to_string(), name, 15000).await.unwrap();
 }

@@ -140,8 +140,8 @@ async fn main() -> Result<(), rocket::Error> {
     // a custom rocket build
 
 
-    //let _ = client::connect(server_addr.clone(), "127.0.0.1", "ThgilTac5", message_channel.clone()).await.unwrap();
-    //let _ = client::connect(server_addr.clone(), "127.0.0.1", "ThgilTac6", message_channel.clone()).await.unwrap();
+    let _ = client::connect(server_addr.clone(), "127.0.0.1", "ThgilTac5", message_channel.clone()).await.unwrap();
+    let _ = client::connect(server_addr.clone(), "127.0.0.1", "ThgilTac6", message_channel.clone()).await.unwrap();
 
 
     let figment = rocket::Config::figment()
