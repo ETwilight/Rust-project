@@ -145,9 +145,6 @@ async fn main() -> Result<(), rocket::Error> {
     let _ = client::connect(server_addr().as_str(), "ThgilTac1", message_channel.clone()).await.unwrap();
     let _ = client::connect(server_addr().as_str(), "ThgilTac2", message_channel.clone()).await.unwrap();
     let _ = client::connect(server_addr().as_str(), "ThgilTac3", message_channel.clone()).await.unwrap();
-    let _ = client::connect(server_addr().as_str(), "ThgilTac4", message_channel.clone()).await.unwrap();
-    let _ = client::connect(server_addr().as_str(), "ThgilTac5", message_channel.clone()).await.unwrap();
-    let _ = client::connect(server_addr().as_str(), "ThgilTac6", message_channel.clone()).await.unwrap();
     let figment = rocket::Config::figment()
         .merge(("address", client_addr))
         .merge(("port", 8000))
