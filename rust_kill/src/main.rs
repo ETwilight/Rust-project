@@ -8,11 +8,8 @@ mod utils;
 mod game_info;
 use crate::game_info::{Room};
 
-use tokio::task::JoinHandle;
 use tokio::time::Duration;
-use redis::Commands;
 use rocket::log::LogLevel;
-use rocket::response::Debug;
 use rocket::{State, Shutdown};
 use rocket::fs::{relative, FileServer};
 use rocket::form::Form;
@@ -20,10 +17,6 @@ use rocket::response::stream::{EventStream, Event};
 use rocket::serde::{Serialize, Deserialize};
 use rocket::tokio::sync::broadcast::{channel, Sender, error::RecvError};
 use rocket::tokio::select;
-use tokio::io::{self, AsyncWriteExt};
-use tokio::join;
-use tokio::net::tcp::{OwnedReadHalf, OwnedWriteHalf};
-use tokio::sync::mpsc;
 use tokio::time::sleep;
 
 
@@ -133,23 +126,17 @@ async fn events(queue: &State<Sender<Message>>, mut end: Shutdown) -> EventStrea
 #[rocket::main]
 async fn main() -> Result<(), rocket::Error> {
     //server_addr tbd1
-    let server_addr = "10.195.87.52";
+    let server_addr = "10.195.247.228";
     let client_addr = "127.0.0.1";
     // server connection in parallel, currently in main, will be transferred
-    let _ = server::host::start(server_addr.clone()).await.unwrap();
-
-    // client connection, currently in main, will be transferred
-    
-
-
+    let _ = server::host::start().await.unwrap();
     // a custom rocket build
-    //while(true){}
     //let room_channel = channel::<Room>(1024).0;
     let message_channel = channel::<Message>(1024).0;
     // a custom rocket build
 
-    let _ = client::connect(server_addr.clone(), "127.0.0.1", "ThgilTac1", message_channel.clone()).await.unwrap();
-    let _ = client::connect(server_addr.clone(), "127.0.0.1", "ThgilTac2", message_channel.clone()).await.unwrap();
+    let _ = client::connect(server_addr.clone(), "127.0.0.1", "ThgilTac5", message_channel.clone()).await.unwrap();
+    let _ = client::connect(server_addr.clone(), "127.0.0.1", "ThgilTac6", message_channel.clone()).await.unwrap();
 
     let figment = rocket::Config::figment()
         .merge(("address", client_addr))
