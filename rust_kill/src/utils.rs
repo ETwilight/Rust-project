@@ -152,9 +152,9 @@ where T: Serialize,
   return (a, type_name);
 }
 
-// fn string_to_struct<T>(s: &str) -> T
-// where
-//   T: Deserialize<'static>,
-// {
-//   serde_json::from_str(s).unwrap()
-// }
+fn string_to_struct<'de, T>(s: &'de String) -> T
+where
+  T: Deserialize<'de>,
+{
+  serde_json::from_str(s).unwrap()
+}
