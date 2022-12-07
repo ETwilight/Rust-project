@@ -9,7 +9,7 @@ use tokio::{sync::broadcast::Sender, task::JoinHandle, time::sleep};
 
 use crate::Message;
 
-use super::game_info::{Player, RoleType};
+use super::game_info::Player;
 
 pub fn send_message(queue: Sender<Json<Message>>, name:String, text:String) -> Result<JoinHandle<()>, ()>{
     let task = tokio::spawn(async move{
@@ -28,10 +28,11 @@ pub async fn send_delay_message(queue: Sender<Json<Message>>, name:String, text:
         sleep(Duration::from_millis(millisecond)).await;
         let msg = Message{
             room: "rustkill".to_string(),
-            username: name,
+            username: name.clone(),
             message: text.to_string()
         };
         queue.send(Json(msg)).unwrap();
+        sleep(Duration::from_millis(1000)).await;
     });
     return Ok(task)
 }

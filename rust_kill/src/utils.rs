@@ -7,13 +7,9 @@ use ::serde::{Serialize, Deserialize};
 use queues::{Queue, IsQueue};
 use tokio::{net::tcp::{OwnedWriteHalf, OwnedReadHalf}, io::{BufWriter, AsyncWriteExt, BufReader, AsyncBufReadExt}, sync::mpsc::Sender};
 
-pub fn spliter() -> char {
-    '\x03'
-}
+pub fn spliter() -> char {'\x03'}
 
-pub fn spliterKV() -> char {
-    '\x04'
-}
+pub fn spliterKV() -> char {'\x04'}
 
 pub fn encode(key: &str, val: &str) -> String {
     (key.to_string()+spliterKV().to_string().as_str())+val
@@ -46,13 +42,13 @@ pub async fn clientWrite(socket: &mut OwnedWriteHalf, msg: &str) -> Result<(), (
 use async_recursion::async_recursion;
 
 #[async_recursion]
-pub async fn server_response(mut red: BufReader<&'async_recursion mut OwnedReadHalf>, writer: &mut OwnedWriteHalf, mut cmd_from: Queue<String>, cmd_back: &str, message: &str, tx: Sender<String>) -> Result<String, String>{
+pub async fn server_response(mut red: BufReader<&'async_recursion mut OwnedReadHalf>, writer: &mut OwnedWriteHalf, mut cmd_from: Queue<String>, cmd_back: &str, message: &str) -> Result<String, String>{
     loop {
         let raw= red.fill_buf().await;
         let received = match raw{
             Ok(rec) => rec.to_vec(),
             Err(_) => {
-                return Err("receive error of clientResponse\n".to_string());
+                return Err("receive error of client_response\n".to_string());
             }
         };
         if received.len() == 0 {continue;}
@@ -76,11 +72,33 @@ pub async fn server_response(mut red: BufReader<&'async_recursion mut OwnedReadH
             return Err("Unexpected Command ".to_string() + kd);
         }
         if cmd_from.size() != 0 {
-            return server_response(red, writer, cmd_from, cmd_back, message, tx).await;
+            return server_response(red, writer, cmd_from, cmd_back, message).await;
         }
         serverWriteToClient(writer, encode(cmd_back, res).as_str()).await.unwrap();
-        tx.send(res.to_string()).await.unwrap();
         return Ok(res.to_string());
+    }
+}
+
+pub async fn read_all(mut red: BufReader<&mut OwnedReadHalf>) -> Result<(String, String), String>{
+    let mut res : Vec<(String, String)> = Vec::new();
+    loop {
+        let raw= red.fill_buf().await;
+        let received = match raw{
+            Ok(rec) => rec.to_vec(),
+            Err(_) => {
+                return Err("receive error of client_response\n".to_string());
+            }
+        };
+        if received.len() == 0 {continue;}
+        red.consume(received.len());
+        let msg: String = String::from_utf8(received).expect("unwrap read err");
+        let msgs : Vec<&str> = msg.split(spliter()).collect();
+        for m in msgs {
+            if m.len() == 0 {continue;}
+            if m.contains(spliter()) {continue;}
+            let (kd,vd) = decode(m);
+            return Ok((kd.to_string(), vd.to_string()));
+        }
     }
 }
 
@@ -91,7 +109,7 @@ pub async fn client_response(mut red: BufReader<&'async_recursion mut OwnedReadH
         let received = match raw{
             Ok(rec) => rec.to_vec(),
             Err(_) => {
-                return Err("receive error of clientResponse\n".to_string());
+                return Err("receive error of client_response\n".to_string());
             }
         };
         if received.len() == 0 {continue;}
@@ -122,7 +140,7 @@ fn print_type_of<T>(_: &T) {
 
 }
 
-fn struct_to_string<T>(obj: &T) -> (String, String)
+pub fn struct_to_string<T>(obj: &T) -> (String, String)
 where T: Serialize,
 {
   let a = serde_json::to_string(obj).unwrap();
@@ -130,7 +148,7 @@ where T: Serialize,
   return (a, type_name);
 }
 
-fn string_to_struct<'de, T>(s: &'de String) -> T
+pub fn string_to_struct<'de, T>(s: &'de String) -> T
 where
   T: Deserialize<'de>,
 {
