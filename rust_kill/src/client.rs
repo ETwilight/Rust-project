@@ -1,9 +1,16 @@
 pub mod room;
 use queues::queue;
+use tokio::net::TcpListener;
 use tokio::{net::TcpStream, task::JoinHandle, io::BufReader};
 
 #[path="game/game_info.rs"]
 mod game_info;
+
+#[path="game.rs"]
+mod game;
+
+use crate::server::host::client_addr;
+use crate::client::utils::encode;
 
 use crate::{client::game_info::{Player, RoleType, ClientInfo}, Message};
 
@@ -14,27 +21,56 @@ use queues::IsQueue;
 #[path="utils.rs"]
 mod utils;
 
-pub async fn connect(server_addr: &str, client_addr: &str, client_name: &str, sender: Sender<Json<Message>>) -> Result<JoinHandle<()>, ()>{
+pub async fn connect(server_addr: &str, client_name: &str, sender: Sender<Json<Message>>) -> Result<JoinHandle<()>, ()>{
     let clt = TcpStream::connect((server_addr.to_string() + ":8080").as_str()).await.unwrap();
     let (mut reader, mut writer) = clt.into_split();
     let player = Player {
         name: client_name.to_string(),
-        ip: client_addr.to_string(),
+        ip : "127.0.0.1".to_string(),
         role: RoleType::Undecided,
         state: None,
+        idx: 7,
     };
     let player_info = serde_json::to_string(&player);
     if player_info.is_err() {
         panic!("cannot serialize into playerInfo")
     }
     utils::clientWrite(&mut writer, utils::encode("REG", player_info.unwrap().as_str()).as_str()).await.unwrap();
+    let inner_sender = sender.clone();
     let client = tokio::spawn(async move{
         let auth = match utils::client_response(BufReader::new(&mut reader), queue!["AUTH".to_string(), "ROOM".to_string()], "client get").await {
             Ok(r) => r,
             Err(e) => panic!("{}", e),
         };
         let cinfo : ClientInfo = serde_json::from_str(&auth).expect("json deserialize failed");
-        connectRoom(cinfo.room.room_name.clone(), sender).await;
-    });
-    Ok(client)
+        connectRoom(cinfo.room.room_name.clone(), inner_sender).await;
+        client_addr(cinfo.room.players[0].to_owned().ip, cinfo.idx)
+    }).await.unwrap();
+    Ok(main_task(client, sender.clone()).await)
+}
+
+pub async fn main_task(client_addr: String, sender: Sender<Json<Message>>) -> JoinHandle<()>{
+    tokio::spawn(async move {
+        let listener = TcpListener::bind(client_addr.clone()).await.unwrap();
+        print!("here in spawn spawn\n");
+        loop {
+            let (socket, _) = listener.accept().await.unwrap();
+            // Process Server Events
+            let (mut reader, mut writer) = socket.into_split();
+            let (k, v) = utils::read_all(BufReader::new(&mut reader)).await.unwrap();
+            if k == "MSG".to_string() {
+                process_msg(v).await;
+            }
+        }
+    })
+}
+
+pub async fn send_msg(server_addr: &str, msg: String) -> Result<(), ()>{
+    let cstream = TcpStream::connect(server_addr.to_string() + ":8080").await.unwrap();
+    let writer = &mut cstream.into_split().1;
+    utils::clientWrite(writer, encode("MSG", msg.as_str()).as_str()).await
+}
+
+pub async fn process_msg(msg: String) {
+    // TODO
 }

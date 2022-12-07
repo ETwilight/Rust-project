@@ -21,6 +21,7 @@ pub struct Player{
     pub ip:String,
     pub role:RoleType,
     pub state: Option<PlayerState>,
+    pub idx: usize,
 }
 
 #[derive(Debug, Clone, FromFormField, Serialize, Deserialize)]
