@@ -5,12 +5,13 @@ use rocket::serde::{Serialize, Deserialize};
 #[derive(Debug, Clone, FromFormField, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
 pub enum RoleType{
+    Undecided,
     Civilian,
     Wolf,
     Witch,
     Prophet,
-    Undecided,
 }
+
 
 
 
