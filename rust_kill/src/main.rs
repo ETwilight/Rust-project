@@ -73,8 +73,8 @@ async fn event_room(queue: &State<Sender<Room>>, mut end: Shutdown) -> EventStre
 async fn post_message(form: Form<Message>, queue: &State<Sender<Json<Message>>>){
     //A send "fails" if there are no active subscribers
     let msg = form.into_inner();
-    let _res = queue.send(Json(msg));
-    let s = struct_to_string(&value).0;
+    //let _res = queue.send(Json(msg));
+    let s = struct_to_string(&msg).0;
     send_msg(server_addr().as_str(), s).await.unwrap();
 } 
 
