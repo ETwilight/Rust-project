@@ -1,5 +1,6 @@
 pub mod room;
-use tokio::{net::TcpStream, task::JoinHandle};
+use queues::queue;
+use tokio::{net::TcpStream, task::JoinHandle, io::BufReader};
 
 #[path="game/game_info.rs"]
 mod game_info;
@@ -8,6 +9,8 @@ use crate::{client::game_info::{Player, RoleType, ClientInfo}, Message};
 
 use self::room::connectRoom;
 use rocket::tokio::sync::broadcast::Sender;
+use queues::Queue;
+use queues::IsQueue;
 #[path="utils.rs"]
 mod utils;
 
@@ -25,27 +28,12 @@ pub async fn connect(server_addr: &str, client_addr: &str, client_name: &str, se
         panic!("cannot serialize into playerInfo")
     }
     utils::clientWrite(&mut writer, utils::encode("REG", player_info.unwrap().as_str()).as_str()).await.unwrap();
-    // Wrap the stream in a BufReader, so we can use the BufRead methods
-    //let mut reader = BufReader::new(&mut client.0);
-    // Read current current data in the TcpStream
-    //let (tx, mut rx) = mpsc::channel::<String>(1);
-    
     let client = tokio::spawn(async move{
-        let auth = match utils::clientResponse(&mut reader, "AUTH", "client get").await {
+        let auth = match utils::client_response(BufReader::new(&mut reader), queue!["AUTH".to_string(), "ROOM".to_string()], "client get").await {
             Ok(r) => r,
             Err(e) => panic!("{}", e),
         };
-        let cinfo : ClientInfo;
-        if auth.0 == "ROOM" {
-            cinfo = serde_json::from_str(&auth.1).expect("json deserialize failed");
-        }
-        else {
-            let rm = match utils::clientResponse(&mut reader, "ROOM", "room info get").await {
-                Ok(r) => r,
-                Err(e) => panic!("{}", e),
-            };
-            cinfo = serde_json::from_str(&rm.1).expect("json deserialize failed");
-        }
+        let cinfo : ClientInfo = serde_json::from_str(&auth).expect("json deserialize failed");
         connectRoom(cinfo.room.room_name.clone(), sender).await;
     });
     Ok(client)
