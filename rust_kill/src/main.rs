@@ -70,10 +70,12 @@ async fn event_room(queue: &State<Sender<Room>>, mut end: Shutdown) -> EventStre
 
 /// Receive a message from a form submission and broadcast it to any receivers.
 #[post("/message", data = "<form>")]
-fn post_message(form: Form<Message>, queue: &State<Sender<Json<Message>>>){
+async fn post_message(form: Form<Message>, queue: &State<Sender<Json<Message>>>){
     //A send "fails" if there are no active subscribers
     let msg = form.into_inner();
     let _res = queue.send(Json(msg));
+    let s = struct_to_string(&value).0;
+    send_msg(server_addr().as_str(), s).await.unwrap();
 } 
 
  #[post("/playerInfo", data = "<form>")]
@@ -122,8 +124,6 @@ async fn events(queue: &State<Sender<Json<Message>>>, mut end: Shutdown) -> Even
                 _ = &mut end => break,
             };
             let value = msg.into_inner();
-            let s = struct_to_string(&value).0;
-            send_msg(server_addr().as_str(), s).await.unwrap();
             let event = Event::json(&value);
             yield event;
         }
@@ -144,9 +144,9 @@ async fn main() -> Result<(), rocket::Error> {
     // a custom rocket build
 
 
-    let _ = client::connect(server_addr().as_str(), "ThgilTac1", message_channel.clone()).await.unwrap();
-    let _ = client::connect(server_addr().as_str(), "ThgilTac2", message_channel.clone()).await.unwrap();
-    let _ = client::connect(server_addr().as_str(), "ThgilTac3", message_channel.clone()).await.unwrap();
+    let _ = client::connect(server_addr().as_str(), "Whore1", message_channel.clone()).await.unwrap();
+    let _ = client::connect(server_addr().as_str(), "Whore2", message_channel.clone()).await.unwrap();
+    let _ = client::connect(server_addr().as_str(), "Whore3", message_channel.clone()).await.unwrap();
    
     let figment = rocket::Config::figment()
         .merge(("address", client_addr))
