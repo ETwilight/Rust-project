@@ -1,6 +1,7 @@
 use std::sync::Arc;
 
 use rocket::serde;
+use ::serde::{Serialize, Deserialize};
 use tokio::{net::tcp::{OwnedWriteHalf, OwnedReadHalf}, io::{BufWriter, AsyncWriteExt, BufReader, AsyncBufReadExt}, sync::mpsc::Sender};
 
 pub fn spliter() -> char {
@@ -138,3 +139,22 @@ pub async fn clientResponse(reader: &mut OwnedReadHalf, cmd_from: &str, message:
         return Ok((key.to_string(), res.to_string()));
     }
 }
+
+fn print_type_of<T>(_: &T) {
+
+}
+
+fn struct_to_string<T>(obj: &T) -> (String, String)
+where T: Serialize,
+{
+  let a = serde_json::to_string(obj).unwrap();
+  let type_name = std::any::type_name::<T>().to_string();
+  return (a, type_name);
+}
+
+// fn string_to_struct<T>(s: &str) -> T
+// where
+//   T: Deserialize<'static>,
+// {
+//   serde_json::from_str(s).unwrap()
+// }

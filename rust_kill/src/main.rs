@@ -25,7 +25,7 @@ use tokio::join;
 use tokio::net::tcp::{OwnedReadHalf, OwnedWriteHalf};
 use tokio::sync::mpsc;
 use tokio::time::sleep;
-
+use rocket::serde::json::Json;
 
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
@@ -43,6 +43,7 @@ pub struct UserInfo {
     pub username: String,
     pub serverip: String,
 }
+
 
 
 #[post("/room", data = "<form>")]
@@ -69,14 +70,15 @@ async fn event_room(queue: &State<Sender<Room>>, mut end: Shutdown) -> EventStre
              yield Event::json(&msg);
          }
      }
- }
+}
 
 
 /// Receive a message from a form submission and broadcast it to any receivers.
 #[post("/message", data = "<form>")]
-fn post_message(form: Form<Message>, queue: &State<Sender<Message>>){
+fn post_message(form: Form<Message>, queue: &State<Sender<Json<Message>>>){
     //A send "fails" if there are no active subscribers
-    let _res = queue.send(form.into_inner());
+    let msg = form.into_inner();
+    let _res = queue.send(Json(msg));
 } 
 
  #[post("/playerInfo", data = "<form>")]
@@ -112,7 +114,7 @@ fn post_message(form: Form<Message>, queue: &State<Sender<Message>>){
 /// pulled from a broadcast queue sent by the `post` handler.
   
 #[get("/message/event")]
-async fn events(queue: &State<Sender<Message>>, mut end: Shutdown) -> EventStream![] {
+async fn events(queue: &State<Sender<Json<Message>>>, mut end: Shutdown) -> EventStream![] {
     let mut rx = queue.subscribe();
     EventStream! {
         loop {
@@ -124,7 +126,9 @@ async fn events(queue: &State<Sender<Message>>, mut end: Shutdown) -> EventStrea
                 },
                 _ = &mut end => break,
             };
-            yield Event::json(&msg);
+            let value = msg.into_inner();
+            let event = Event::json(&value);
+            yield event;
         }
     }
 }
@@ -145,11 +149,13 @@ async fn main() -> Result<(), rocket::Error> {
     // a custom rocket build
     //while(true){}
     //let room_channel = channel::<Room>(1024).0;
-    let message_channel = channel::<Message>(1024).0;
+    let message_channel = channel::<Json<Message>>(1024).0;
     // a custom rocket build
 
-    let _ = client::connect(server_addr.clone(), "127.0.0.1", "ThgilTac1", message_channel.clone()).await.unwrap();
-    let _ = client::connect(server_addr.clone(), "127.0.0.1", "ThgilTac2", message_channel.clone()).await.unwrap();
+    //let _ = client::connect(server_addr.clone(), "127.0.0.1", "ThgilTac1", message_channel.clone()).await.unwrap();
+    //let _ = client::connect(server_addr.clone(), "127.0.0.1", "ThgilTac2", message_channel.clone()).await.unwrap();
+    //let _ = client::connect(server_addr.clone(), "127.0.0.1", "ThgilTac2", message_channel.clone()).await.unwrap();
+    //let _ = client::connect(server_addr.clone(), "127.0.0.1", "ThgilTac2", message_channel.clone()).await.unwrap();
 
     let figment = rocket::Config::figment()
         .merge(("address", client_addr))
