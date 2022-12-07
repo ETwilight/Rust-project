@@ -9,8 +9,13 @@ mod game_info;
 #[path="game.rs"]
 mod game;
 
-use crate::server::host::client_addr;
+#[path="game/utils.rs"]
+use game::utils::send_message;
+
+use crate::server::host::{client_addr, server_addr};
 use crate::client::utils::encode;
+use crate::client::utils::string_to_struct;
+use crate::client::utils::struct_to_string;
 
 use crate::{client::game_info::{Player, RoleType, ClientInfo}, Message};
 
@@ -59,7 +64,7 @@ pub async fn main_task(client_addr: String, sender: Sender<Json<Message>>) -> Jo
             let (mut reader, mut writer) = socket.into_split();
             let (k, v) = utils::read_all(BufReader::new(&mut reader)).await.unwrap();
             if k == "MSG".to_string() {
-                process_msg(v).await;
+                process_msg(v, sender.clone()).await;
             }
         }
     })
@@ -71,6 +76,9 @@ pub async fn send_msg(server_addr: &str, msg: String) -> Result<(), ()>{
     utils::clientWrite(writer, encode("MSG", msg.as_str()).as_str()).await
 }
 
-pub async fn process_msg(msg: String) {
-    // TODO
+
+pub async fn process_msg(msg: String, sender: Sender<Json<Message>>) {
+    let original_msg:Message = string_to_struct(&msg);
+    print!("{}", struct_to_string(&original_msg.clone()).0);
+    send_message(sender, original_msg.username, original_msg.message).unwrap();
 }

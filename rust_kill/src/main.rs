@@ -20,6 +20,7 @@ use rocket::tokio::select;
 use tokio::time::sleep;
 use rocket::serde::json::Json;
 use crate::client::send_msg;
+use crate::utils::struct_to_string;
 
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
@@ -73,6 +74,7 @@ fn post_message(form: Form<Message>, queue: &State<Sender<Json<Message>>>){
     //A send "fails" if there are no active subscribers
     let msg = form.into_inner();
     let _res = queue.send(Json(msg));
+    send_msg(server_addr().as_str(), s).await.unwrap();
 } 
 
  #[post("/playerInfo", data = "<form>")]
@@ -121,7 +123,6 @@ async fn events(queue: &State<Sender<Json<Message>>>, mut end: Shutdown) -> Even
                 _ = &mut end => break,
             };
             let value = msg.into_inner();
-            send_msg(server_addr().as_str(), "TO SENT".to_string()).await.unwrap();
             let event = Event::json(&value);
             yield event;
         }
