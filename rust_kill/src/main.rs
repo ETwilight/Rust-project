@@ -20,6 +20,7 @@ use rocket::tokio::select;
 use tokio::time::sleep;
 use rocket::serde::json::Json;
 use crate::client::send_msg;
+use crate::utils::struct_to_string;
 
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
@@ -121,7 +122,8 @@ async fn events(queue: &State<Sender<Json<Message>>>, mut end: Shutdown) -> Even
                 _ = &mut end => break,
             };
             let value = msg.into_inner();
-            send_msg(server_addr().as_str(), "TO SENT".to_string()).await.unwrap();
+            let s = struct_to_string(&value).0;
+            send_msg(server_addr().as_str(), s).await.unwrap();
             let event = Event::json(&value);
             yield event;
         }
@@ -135,7 +137,7 @@ async fn main() -> Result<(), rocket::Error> {
     //server_addr tbd1
     let client_addr = "127.0.0.1";
     // server connection in parallel, currently in main, will be transferred
-    let _ = server::host::start().await.unwrap();
+    //let _ = server::host::start().await.unwrap();
     // a custom rocket build
     //let room_channel = channel::<Room>(1024).0;
     let message_channel = channel::<Json<Message>>(1024).0;
@@ -145,9 +147,7 @@ async fn main() -> Result<(), rocket::Error> {
     let _ = client::connect(server_addr().as_str(), "ThgilTac1", message_channel.clone()).await.unwrap();
     let _ = client::connect(server_addr().as_str(), "ThgilTac2", message_channel.clone()).await.unwrap();
     let _ = client::connect(server_addr().as_str(), "ThgilTac3", message_channel.clone()).await.unwrap();
-    let _ = client::connect(server_addr().as_str(), "ThgilTac4", message_channel.clone()).await.unwrap();
-    let _ = client::connect(server_addr().as_str(), "ThgilTac5", message_channel.clone()).await.unwrap();
-    let _ = client::connect(server_addr().as_str(), "ThgilTac6", message_channel.clone()).await.unwrap();
+   
     let figment = rocket::Config::figment()
         .merge(("address", client_addr))
         .merge(("port", 8000))
