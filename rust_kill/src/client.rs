@@ -8,13 +8,13 @@ mod game_info;
 use crate::{client::game_info::{Player, RoleType, ClientInfo}, Message};
 
 use self::room::connectRoom;
-use rocket::tokio::sync::broadcast::Sender;
+use rocket::{tokio::sync::broadcast::Sender, serde::json::Json};
 use queues::Queue;
 use queues::IsQueue;
 #[path="utils.rs"]
 mod utils;
 
-pub async fn connect(server_addr: &str, client_addr: &str, client_name: &str, sender: Sender<Message>) -> Result<JoinHandle<()>, ()>{
+pub async fn connect(server_addr: &str, client_addr: &str, client_name: &str, sender: Sender<Json<Message>>) -> Result<JoinHandle<()>, ()>{
     let clt = TcpStream::connect((server_addr.to_string() + ":8080").as_str()).await.unwrap();
     let (mut reader, mut writer) = clt.into_split();
     let player = Player {
