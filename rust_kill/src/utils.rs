@@ -136,9 +136,6 @@ pub async fn client_response(mut red: BufReader<&'async_recursion mut OwnedReadH
     }
 }
 
-fn print_type_of<T>(_: &T) {
-
-}
 
 pub fn struct_to_string<T>(obj: &T) -> (String, String)
 where T: Serialize,
