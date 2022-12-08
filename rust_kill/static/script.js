@@ -11,7 +11,7 @@ let messageTemplate = document.getElementById('message');
 let messageField = newMessageForm.querySelector("#message");
 let roomNameField = newRoomForm.querySelector("#name");
 
-
+var username = "guest";
 const PlayerState = {
   Alive: "Alive",
   Out: "Out",
@@ -144,6 +144,7 @@ function PlayerInfoSubscribe(uri) {
       const msg = JSON.parse(ev.data);
       console.log("decoded data", JSON.stringify(msg));
       if (!"username" in msg || !"serverip" in msg) return;
+      username = msg.username;
       AddMessage("rustkill", msg.username, msg.username+" has joined the chatroom", true);
     });
 
@@ -192,7 +193,6 @@ function AddMessageListener(){
   
       const room = STATE.currentRoom;
       const message = messageField.value;
-      const username = "guest";
       const visible_type = "All";
       if (!message || !username) return;
   
