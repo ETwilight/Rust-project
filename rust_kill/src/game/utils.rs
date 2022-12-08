@@ -9,7 +9,7 @@ use tokio::{sync::broadcast::Sender, task::JoinHandle, time::sleep};
 
 use crate::{Message, VisibleType};
 
-use super::game_info::Player;
+use super::game_info::{Player, Room};
 
 pub fn send_message(queue: Sender<Json<Message>>, name:String, text:String, visible_type:VisibleType) -> Result<JoinHandle<()>, ()>{
     let task = tokio::spawn(async move{
@@ -35,6 +35,13 @@ pub async fn send_delay_message(queue: Sender<Json<Message>>, name:String, text:
         };
         queue.send(Json(msg)).unwrap();
         sleep(Duration::from_millis(1000)).await;
+    });
+    return Ok(task)
+}
+
+pub fn send_room(queue: Sender<Room>, room: Room) -> Result<JoinHandle<()>, ()>{
+    let task = tokio::spawn(async move{
+        queue.send(room).unwrap();
     });
     return Ok(task)
 }

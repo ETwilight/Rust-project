@@ -26,10 +26,15 @@ use crate::utils::struct_to_string;
 #[derive(Debug, Clone, FromFormField, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
 pub enum VisibleType{
+    #[field(value = "None")]
     None,
+    #[field(value = "All")]
     All,
+    #[field(value = "Werewolf")]
     Werewolf,
+    #[field(value = "Witch")]
     Witch,
+    #[field(value = "Prophet")]
     Prophet,
 }
 
@@ -176,21 +181,28 @@ async fn events(queue: &State<Sender<Json<Message>>>, mut end: Shutdown) -> Even
     }
 }
 
-fn server_addr() -> String {"10.195.247.228".to_string()}
+fn server_addr() -> String {"10.195.87.52".to_string()}
 
 #[rocket::main]
 async fn main() -> Result<(), rocket::Error> {
     //server_addr tbd1
     let client_addr = "127.0.0.1";
     // server connection in parallel, currently in main, will be transferred
-    //let _ = server::host::start().await.unwrap();
+    let _ = server::host::start().await.unwrap();
     // a custom rocket build
     //let room_channel = channel::<Room>(1024).0;
     let message_channel = channel::<Json<Message>>(1024).0;
     // a custom rocket build
 
 
-    //let _ = client::connect(server_addr().as_str(), "CharlieDreemur", message_channel.clone()).await.unwrap();
+    let _ = client::connect(server_addr().as_str(), "CharlieDreemur1", message_channel.clone()).await.unwrap();
+    let _ = client::connect(server_addr().as_str(), "CharlieDreemur2", message_channel.clone()).await.unwrap();
+    
+    let _ = client::connect(server_addr().as_str(), "CharlieDreemur1", message_channel.clone()).await.unwrap();
+    let _ = client::connect(server_addr().as_str(), "CharlieDreemur2", message_channel.clone()).await.unwrap();
+    
+    let _ = client::connect(server_addr().as_str(), "CharlieDreemur1", message_channel.clone()).await.unwrap();
+    let _ = client::connect(server_addr().as_str(), "CharlieDreemur2", message_channel.clone()).await.unwrap();
 
    
     let figment = rocket::Config::figment()
