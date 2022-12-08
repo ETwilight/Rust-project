@@ -198,11 +198,11 @@ async fn main() -> Result<(), rocket::Error> {
     let _ = client::connect(server_addr().as_str(), "CharlieDreemur1", message_channel.clone()).await.unwrap();
     let _ = client::connect(server_addr().as_str(), "CharlieDreemur2", message_channel.clone()).await.unwrap();
     
-    let _ = client::connect(server_addr().as_str(), "CharlieDreemur1", message_channel.clone()).await.unwrap();
-    let _ = client::connect(server_addr().as_str(), "CharlieDreemur2", message_channel.clone()).await.unwrap();
+    //let _ = client::connect(server_addr().as_str(), "CharlieDreemur1", message_channel.clone()).await.unwrap();
+    //let _ = client::connect(server_addr().as_str(), "CharlieDreemur2", message_channel.clone()).await.unwrap();
     
-    let _ = client::connect(server_addr().as_str(), "CharlieDreemur1", message_channel.clone()).await.unwrap();
-    let _ = client::connect(server_addr().as_str(), "CharlieDreemur2", message_channel.clone()).await.unwrap();
+    //let _ = client::connect(server_addr().as_str(), "CharlieDreemur1", message_channel.clone()).await.unwrap();
+    //let _ = client::connect(server_addr().as_str(), "CharlieDreemur2", message_channel.clone()).await.unwrap();
 
    
     let figment = rocket::Config::figment()
