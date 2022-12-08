@@ -19,8 +19,20 @@ use rocket::tokio::sync::broadcast::{channel, Sender, error::RecvError};
 use rocket::tokio::select;
 use tokio::time::sleep;
 use rocket::serde::json::Json;
-use crate::client::send_msg;
+use crate::client::client_send_message;
 use crate::utils::struct_to_string;
+
+
+#[derive(Debug, Clone, FromFormField, Serialize, Deserialize)]
+#[serde(crate = "rocket::serde")]
+pub enum VisibleType{
+    None,
+    All,
+    Werewolf,
+    Witch,
+    Prophet,
+}
+
 
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
@@ -30,6 +42,7 @@ pub struct Message{
     #[field(validate = len(..20))]
     pub username:String, //Maximum Length is 20 for a username
     pub message:String,
+    pub visible_type :VisibleType
 }
 
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
@@ -39,6 +52,39 @@ pub struct UserInfo {
     pub serverip: String,
 }
 
+
+
+#[derive(Debug, Clone, FromFormField, Serialize, Deserialize)]
+#[serde(crate = "rocket::serde")]
+pub enum GameEventType{
+    Kill,
+    Poison,
+    Antidote,
+    Reveal,
+    Vote,
+}
+
+
+#[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
+#[serde(crate = "rocket::serde")]
+pub struct GameEvent {
+    pub event_type : GameEventType,
+    pub attacker: String, //The one who actively do something to others, like wolf, witch, prophet
+    pub target: String, //The one who passively be done something
+}
+
+fn post_game_event(form: Form<GameEvent>, queue: &State<Sender<GameEvent>>){
+    //A send "fails" if there are no active subscribers
+    match form.event_type
+    {
+        GameEventType::Kill => todo!(),
+        GameEventType::Poison => todo!(),
+        GameEventType::Antidote => todo!(),
+        GameEventType::Reveal => todo!(),
+        GameEventType::Vote => todo!(),
+    }
+
+} 
 
 
 #[post("/room", data = "<form>")]
@@ -75,7 +121,7 @@ async fn post_message(form: Form<Message>, queue: &State<Sender<Json<Message>>>)
     let msg = form.into_inner();
     //let _res = queue.send(Json(msg));
     let s = struct_to_string(&msg).0;
-    send_msg(server_addr().as_str(), s).await.unwrap();
+    client_send_message(&server_addr(), s).await.unwrap();
 } 
 
  #[post("/playerInfo", data = "<form>")]
@@ -144,7 +190,7 @@ async fn main() -> Result<(), rocket::Error> {
     // a custom rocket build
 
 
-    let _ = client::connect(server_addr().as_str(), "CharlieDreemur", message_channel.clone()).await.unwrap();
+    //let _ = client::connect(server_addr().as_str(), "CharlieDreemur", message_channel.clone()).await.unwrap();
 
    
     let figment = rocket::Config::figment()

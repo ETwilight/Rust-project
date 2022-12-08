@@ -1,5 +1,5 @@
 use rocket::serde::{Serialize, Deserialize};
-
+use std::collections::HashMap;
 
 
 #[derive(Debug, Clone, FromFormField, Serialize, Deserialize)]
@@ -7,7 +7,7 @@ use rocket::serde::{Serialize, Deserialize};
 pub enum RoleType{
     Undecided,
     Civilian,
-    Wolf,
+    Werewolf,
     Witch,
     Prophet,
 }
@@ -22,14 +22,14 @@ pub struct Player{
     pub ip:String,
     pub role:RoleType,
     pub state: Option<PlayerState>,
-    pub idx: usize,
+    pub id: usize,
 }
 
 #[derive(Debug, Clone, FromFormField, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
 pub enum TurnType{
     StartTurn, //Default turn before GameStart
-    WolfTurn,
+    WerewolfTurn,
     WitchTurn,
     ProphetTurn,
     SpeakTurn,
@@ -42,7 +42,7 @@ impl TurnType {
     pub fn as_str(&self) -> &'static str {
         match self {
             TurnType::StartTurn => "StartTurn",
-            TurnType::WolfTurn => "WolfTurn",
+            TurnType::WerewolfTurn => "WerewolfTurn",
             TurnType::WitchTurn => "WitchTurn",
             TurnType::ProphetTurn => "ProphetTurn",
             TurnType::SpeakTurn => "SpeakTurn",
@@ -54,8 +54,8 @@ impl TurnType {
 
     pub fn next(&self) -> Self{
         match self{
-            TurnType::StartTurn => TurnType::WolfTurn,
-            TurnType::WolfTurn => TurnType::WitchTurn,
+            TurnType::StartTurn => TurnType::WerewolfTurn,
+            TurnType::WerewolfTurn => TurnType::WitchTurn,
             TurnType::WitchTurn => TurnType::ProphetTurn,
             TurnType::ProphetTurn => TurnType::SpeakTurn,
             TurnType::SpeakTurn => TurnType::VoteTurn,
@@ -66,13 +66,6 @@ impl TurnType {
     }
 }
 
-
-
-#[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
-#[serde(crate = "rocket::serde")]
-pub struct Turn{
-    pub turn_state: TurnType,
-}
 
 
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
@@ -98,7 +91,8 @@ pub struct ClientInfo {
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
 pub struct GameState {
-    pub turn: Turn,
+    pub turn: TurnType,
+    pub vote_map: HashMap<usize, i32>,
 }
 
 
@@ -108,4 +102,5 @@ pub struct PlayerState {
     pub is_turn: bool,
     pub is_muted: bool,
     pub is_speaking: bool,
+    pub is_alive: bool,
 }
