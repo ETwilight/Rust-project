@@ -17,7 +17,7 @@ use crate::client::utils::encode;
 use crate::client::utils::string_to_struct;
 use crate::client::utils::struct_to_string;
 
-use crate::{client::game_info::{Player, RoleType, ClientInfo}, Message};
+use crate::{client::game_info::{Player, RoleType, ClientInfo, Room}, Message};
 
 use self::room::connectRoom;
 use rocket::{tokio::sync::broadcast::Sender, serde::json::Json};
@@ -34,7 +34,7 @@ pub async fn connect(server_addr: &str, client_name: &str, sender: Sender<Json<M
         ip : "127.0.0.1".to_string(),
         role: RoleType::Undecided,
         state: None,
-        idx: 7,
+        id: 7,
     };
     let player_info = serde_json::to_string(&player);
     if player_info.is_err() {
@@ -64,21 +64,33 @@ pub async fn main_task(client_addr: String, sender: Sender<Json<Message>>) -> Jo
             let (mut reader, mut writer) = socket.into_split();
             let (k, v) = utils::read_all(BufReader::new(&mut reader)).await.unwrap();
             if k == "MSG".to_string() {
-                process_msg(v, sender.clone()).await;
+                client_receive_msg(&v, sender.clone()).await;
             }
         }
     })
 }
 
-pub async fn send_msg(server_addr: &str, msg: String) -> Result<(), ()>{
-    let cstream = TcpStream::connect(server_addr.to_string() + ":8080").await.unwrap();
+pub async fn client_send_message(server_addr: &String, msg: String) -> Result<(), ()>{
+    let address = format!("{}{}", server_addr, ":8080");
+    let cstream = TcpStream::connect(address).await.unwrap();
     let writer = &mut cstream.into_split().1;
     utils::clientWrite(writer, encode("MSG", msg.as_str()).as_str()).await
 }
 
 
-pub async fn process_msg(msg: String, sender: Sender<Json<Message>>) {
+pub async fn client_receive_msg(msg: &String, sender: Sender<Json<Message>>) {
     let original_msg:Message = string_to_struct(&msg);
-    print!("{}", struct_to_string(&original_msg.clone()).0);
-    send_message(sender, original_msg.username, original_msg.message).unwrap();
+    send_message(sender, original_msg.username, original_msg.message, crate::VisibleType::All).unwrap();
+}
+
+pub async fn client_send_room(server_addr: &String, msg: String) -> Result<(), ()>{
+    let address = format!("{}{}", server_addr, ":8080");
+    let cstream = TcpStream::connect(address).await.unwrap();
+    let writer = &mut cstream.into_split().1;
+    utils::clientWrite(writer, encode("MSG", msg.as_str()).as_str()).await
+}
+
+pub async fn client_receive_room(msg: &String, sender: Sender<Room>) {
+    let original_msg:Message = string_to_struct(msg);
+    
 }

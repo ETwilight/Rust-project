@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use std::time::Duration;
 
 use queues::queue;
@@ -10,7 +11,7 @@ use tokio::{net::TcpListener, task::JoinHandle, join, sync::mpsc, io::BufReader}
 
 use crate::server::client_manager::receive;
 use crate::server::host::game_info::Player;
-use crate::server::host::game_info::{Room, GameState, TurnType, ClientInfo, Turn};
+use crate::server::host::game_info::{Room, GameState, TurnType, ClientInfo};
 use crate::server::host::utils::encode;
 use crate::server::host::utils::read_all;
 use crate::server::host::utils::string_to_struct;
@@ -23,7 +24,7 @@ mod utils;
 mod game_info;
 
 pub fn port() -> u16 {8080}
-pub fn client_addr(ip:String, idx:usize)->String {ip + ":" + (port() + idx as u16 + 1).to_string().as_str()}
+pub fn client_addr(ip:String, id:usize)->String {ip + ":" + (port() + id as u16 + 1).to_string().as_str()}
 pub fn server_addr() -> String {"0.0.0.0".to_string() + ":" + port().to_string().as_str()}
 
 pub async fn start() -> Result<JoinHandle<()>, ()>{
@@ -46,14 +47,14 @@ pub async fn start() -> Result<JoinHandle<()>, ()>{
                     if rawc.is_err() {panic!("err");}
                     let mut player: Player = string_to_struct(&rawc.unwrap());
                     player.ip = ip.clone();
-                    player.idx = num;
+                    player.id = num;
                     let pjson = struct_to_string(&player);
                     txc.send(pjson.0).await.unwrap();
                     let cinfo = ClientInfo {
                         room: Room {
                             room_name: "rust_kill".to_string(), 
                             players:vec![player],
-                            game_state: GameState{turn: Turn { turn_state: TurnType::StartTurn }},
+                            game_state: GameState{turn: TurnType::StartTurn, vote_map: HashMap::new() },
                         },
                         ts: TurnType::StartTurn,
                         idx: num,
