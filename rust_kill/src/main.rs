@@ -2,7 +2,6 @@
 #[cfg(test)] mod tests;
 mod game;
 
-
 use tokio::task::JoinHandle;
 use tokio::time::Duration;
 use redis::Commands;
@@ -17,7 +16,6 @@ use rocket::tokio::sync::broadcast::{channel, Sender, error::RecvError};
 use rocket::tokio::select;
 use tokio::io::{self, AsyncWriteExt};
 use tokio::time::sleep;
-
 
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
@@ -49,8 +47,6 @@ fn post(form: Form<Message>, queue: &State<Sender<Message>>){
     let _res = queue.send(form.into_inner());
  } 
 
-
-
   #[get("/playerInfo/event")]
  async fn event_player_info(queue: &State<Sender<UserInfo>>, mut end: Shutdown) -> EventStream![] {
     print!("Get event");
@@ -70,8 +66,7 @@ fn post(form: Form<Message>, queue: &State<Sender<Message>>){
       }
   }
 
-
-async fn start_mesage(queue: Sender<Message>) -> Result<JoinHandle<()>, ()>{
+async fn start_message(queue: Sender<Message>) -> Result<JoinHandle<()>, ()>{
     let task = tokio::spawn(async move{
         sleep(Duration::from_millis(10000)).await;
         let msg = Message{
@@ -128,8 +123,9 @@ async fn main() -> Result<(), rocket::Error> {
     //let client6 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac6").await.unwrap();
 
     // a custom rocket build
+    print()
     let message_channel = channel::<Message>(1024).0;
-    start_mesage(message_channel.clone()).await.unwrap();
+    start_message(message_channel.clone()).await.unwrap();
     let figment = rocket::Config::figment()
         .merge(("address", client_addr))
         .merge(("port", 8000))

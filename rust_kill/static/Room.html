@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="reset.css" media="screen">
     <link rel="stylesheet" href="style.css" media="screen">
     <script type = "module" src="script.js" charset="utf-8" defer></script>
+    <script type = "text/javascript" src="Room.js" defer=""></script>
     <script class="u-script" type="text/javascript" src="jquery.js" defer=""></script>
     <script class="u-script" type="text/javascript" src="nicepage.js" defer=""></script>
     <meta name="generator" content="Nicepage 5.0.7, nicepage.com">
@@ -24,179 +25,137 @@
     <meta property="og:title" content="Room">
     <meta property="og:type" content="website">
   </head>
-  <body class="u-body u-xl-mode" data-lang="en"><header class="u-black
-      u-clearfix u-header u-sticky u-header" id="sec-ec8f"><div
-        class="u-clearfix u-sheet u-valign-middle u-sheet-1">
-        <nav class="u-menu u-menu-dropdown u-offcanvas u-menu-1">
-          <div class="menu-collapse" style="font-size: 1rem; letter-spacing:
-            0px;">
-            <a class="u-button-style u-custom-left-right-menu-spacing
-              u-custom-padding-bottom u-custom-top-bottom-menu-spacing
-              u-nav-link u-text-active-palette-1-base
-              u-text-hover-palette-2-base" href="#">
-              <svg class="u-svg-link" viewBox="0 0 24 24"><use
-                  xmlns:xlink="http://www.w3.org/1999/xlink"
-                  xlink:href="#menu-hamburger"></use></svg>
-              <svg class="u-svg-content" version="1.1" id="menu-hamburger"
-                viewBox="0 0 16 16" x="0px" y="0px"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                xmlns="http://www.w3.org/2000/svg"><g><rect y="1" width="16"
-                    height="2"></rect><rect y="7" width="16" height="2"></rect><rect
-                    y="13" width="16" height="2"></rect>
-                </g></svg>
-            </a>
-          </div>
-          <div class="u-nav-container"></div>
-          <div class="u-nav-container-collapse">
-            <div class="u-black u-container-style u-inner-container-layout
-              u-opacity u-opacity-95 u-sidenav">
-              <div class="u-inner-container-layout u-sidenav-overflow">
-                <div class="u-menu-close"></div>
-                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled
-                  u-nav-1"><li class="u-nav-item"><a class="u-button-style
-                      u-nav-link" href="Menu.html">Menu</a>
-                  </li><li class="u-nav-item"><a class="u-button-style
-                      u-nav-link" href="Lobby.html">Lobby</a>
-                  </li><li class="u-nav-item"><a class="u-button-style
-                      u-nav-link" href="Room.html">Room</a>
-                  </li><li class="u-nav-item"><a class="u-button-style
-                      u-nav-link" href="Credits.html">Credits</a>
-                  </li><li class="u-nav-item"><a class="u-button-style
-                      u-nav-link" href="Setup.html">Setup</a>
-                  </li></ul>
-              </div>
-            </div>
-            <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
-          </div>
-        </nav>
+  
+<body class="u-body u-xl-mode" data-lang="en">
+    <header class="u-black u-clearfix u-header u-sticky u-header" id="sec-ec8f">
+      <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
         <img style="margin: 0 auto; width: 220x; height:60px;" src="images/Screenshot2022-12-02202250.png" alt="" data-image-width="957" data-image-height="280">
-      </div></header>
+      </div>
+    </header>
+
+  <section class="u-clearfix u-grey-10 u-section-1" id="sec-2cc4">
+
+        <div class="header2">
+        <a href="Lobby.html" class="u-btn u-btn-1">Back</a>
+        <div class="u-list u-list-1">
+            <div class="u-border-2 u-container-style u-list-item">
+              <div class="u-container-layout u-container-layout-1">
+              <div id="status" class="pending"></div></div>
+            </div>
+        </div>
+
+        </div>
+
+        <div class = "wrapped"> 
+
+          <div class="container">
+            <div class="indicator player1" >
+              <div class="playerStatus" id="muted">
+                <img class="role" src="./images/User.jpg" alt="Wolf" >
+                <img class="overlay" src="./images/Mute.png" alt="Mute"> 
+              </div>
+              <p>Null1</p>
+            </div>  
+
+            <div class="indicator player2" >
+              <div class="playerStatus" id="muted">
+                <img class="role" src="./images/User.jpg" alt="Wolf" >
+                <img class="overlay" src="./images/Mute.png" alt="Mute"> 
+              </div>
+              <p>Null2</p>
+            </div>  
+  
+            <div class="indicator player3" >
+              <div class="playerStatus" id="muted">
+                <img class="role" src="./images/User.jpg" alt="Wolf" > 
+                <img class="overlay" src="./images/Mute.png" alt="Mute">
+              </div>
+              <p>Null3</p>
+            </div>  
+  
+            <div class="indicator player4" >
+              <div class="playerStatus" id="muted">
+                <img class="role" src="./images/User.jpg" alt="Wolf"> 
+                <img class="overlay" src="./images/Mute.png" alt="Mute">
+              </div>
+              <p>Null4</p>
+            </div>  
+  
+            <div class="indicator player5" >
+              <div class="playerStatus" id="muted">
+                <img class="role" src="./images/User.jpg" alt="Wolf" > 
+                <img class="overlay" src="./images/Mute.png" alt="Mute">
+              </div>
+              <p>Null5</p>
+            </div>  
+            
+          </div>  
+          
+          <div class="self">
+            <div class="selfStatus" id="muted">
+              <img src="./images/User.jpg" alt="Wolf" class="role"> 
+            </div>
+            <div>Your Role</div>
+          </div>  
+          
+          <div class="window">
+                    <div id="sidebar">
+                      <div id="room-list">
+                          <template id="room">
+                            <button class="room"></button>
+                          </template>
+                      </div>
+                      <spam id="new-room"></span>
+                      </div>
+                      <div id="content">
+                        <div id="messages">
+                          <template id="message">
+                            <div class="message">
+                              <span class="username"></span>
+                              <span class="text"></span>
+                            </div>
+                          </template>
+                        </div>
+                    </div>
+          </div>
+
+          <div class="textbox">
+          <form id="new-message">
+            <input type="text" name="message" id="message" autocomplete="off" placeholder="Send a message..." autofocus>
+            <button type="submit" id="send">Send</button>
+            </form>
+          </div>
+
+
+        </div>
+
+        <div class="testsuite"><b>TESTSUITE</b>
+          <div class="showicons">
+            <input type="range" min="0" max="6" value="0" class="slider" id="myRange">
+          </div>
+          <div class="dimensions">
+            <div>Height: <span id="height"></span> Width: <span id="width"></span></div></div>
+          </div>
+        </div>
+        <script>
+          const heightOutput = document.querySelector("#height");
+          const widthOutput = document.querySelector("#width");
+          function reportWindowSize() {
+            heightOutput.textContent = window.innerHeight;
+            widthOutput.textContent = window.innerWidth;
+          }
+          window.onresize = reportWindowSize;
+       </script>
+      
 
       
-    <section class="u-clearfix u-grey-10 u-section-1" id="sec-2cc4">
-      <div class="u-clearfix u-sheet u-sheet-1">
-        <a href="Lobby.html" class="u-black u-border-none u-btn u-btn-round
-          u-button-style u-hover-grey-50 u-radius-50 u-btn-1">Back</a>
-        <div class="u-list u-list-1">
-          <div class="u-repeater u-repeater-1">
-            <div class="u-border-2 u-border-grey-75 u-container-style
-              u-list-item u-repeater-item">
-              <div class="u-container-layout u-similar-container
-                u-container-layout-1">
-                <div id="status" class="pending"></div></div>
-            </div>
-          </div>
-        </div>
-
-
-        <div class="container">
-
-          <div class="indicator">
-            <div class="playerStatus" id="speaking">
-              <img class="role" src="Wolf.png" alt="Wolf" style="transform: rotate(-50deg);"> 
-            </div>
-            <p>Player1</p>
-          </div> 
-          
-          <div class="indicator">
-            <div class="playerStatus" id="speaking">
-              <img class="role" src="Wolf.png" alt="Wolf" style="transform: rotate(-50deg);"> 
-            </div>
-            <p>Player2</p>
-          </div>  
-
-          <div class="indicator">
-            <div class="playerStatus" id="speaking">
-              <img class="role" src="Wolf.png" alt="Wolf" style="transform: rotate(-50deg);"> 
-            </div>
-            <p>Player3</p>
-          </div>  
-
-          <div class="indicator">
-            <div class="playerStatus" id="speaking">
-              <img class="role" src="Wolf.png" alt="Wolf" style="transform: rotate(-50deg);"> 
-            </div>
-            <p>Player4</p>
-          </div>  
-
-          <div class="indicator">
-            <div class="playerStatus" id="speaking">
-              <img class="role" src="Wolf.png" alt="Wolf" style="transform: rotate(-50deg);"> 
-            </div>
-            <p>Player5</p>
-          </div>  
-
-          <div class="indicator">
-            <div class="playerStatus" id="speaking">
-              <img class="role" src="Wolf.png" alt="Wolf" style="transform: rotate(-50deg);"> 
-            </div>
-            <p>Player6</p>
-          </div>  
-        </div>
-
-
-        <!--//STRUCTURE PLACEHOLDER//-->
-        <div class="u-list u-list-2">
-          <div class="u-repeater u-repeater-2">
-          </div>
-        </div>
-         <!--//STRUCTURE PLACEHOLDER//-->
-
-        <div class="u-list u-list-3">
-          <div class="u-repeater u-repeater-3">
-            <div class="u-border-2 u-border-grey-75 u-container-style
-              u-list-item u-repeater-item overall">
-              <div class="u-container-layout u-similar-containeru-container-layout-5">
-                <main>
-                  <div id="sidebar">
-                   
-
-                    <div id="room-list">
-                      <template id="room">
-                        <button class="room"></button>
-                      </template>
-                    </div>
-                    <form id="new-room">
-                      <input type="text" name="name" id="name"
-                        autocomplete="off"
-                        placeholder="new room..." maxlength="29"></input>
-                    <button type="submit">+</button>
-                  </form>
-                </div>
-                <div id="content">
-                  <div id="messages">
-                    <template id="message">
-                      <div class="message">
-                        <span class="username"></span>
-                        <span class="text"></span>
-                      </div>
-                    </template>
-                  </div>
-                </div>
-              </main>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="u-list u-list-5">
-        <div class="u-repeater u-repeater-5">
-          <div class="u-border-2 u-border-grey-75 u-container-style u-list-item
-            u-repeater-item">
-            <div class="u-container-layout u-similar-container
-              u-container-layout-9">
-              <form id="new-message">
-                <input type="text" name="message" id="message"
-                  autocomplete="off"
-                  placeholder="Send a message..." autofocus>
-                <button type="submit" id="send">Send</button>
-              </form></div>
-          </div>
-        </div>
-      </div>
-
+    
     </div>
+
+
   </section>
 
+ 
 
-</body></html>
+</body>
+</html>

@@ -1,4 +1,6 @@
 
+//variables////////////////////////////////////////////////////////////////
+
 let roomListDiv = document.getElementById('room-list');
 let messagesDiv = document.getElementById('messages');
 let newMessageForm = document.getElementById('new-message');
@@ -7,29 +9,110 @@ let statusDiv = document.getElementById('status');
 
 let roomTemplate = document.getElementById('room');
 let messageTemplate = document.getElementById('message');
-
 let messageField = newMessageForm.querySelector("#message");
 let roomNameField = newRoomForm.querySelector("#name");
+let usr = "guest"
 
-
-const PlayerState = {
-  Alive: "Alive",
-  Out: "Out",
-  Leave: "Leave",
+const Role = {
+  Civilian: "Civilian",
+  Wolf: "Wolf",
+  Witch: "Witch",
+  Prophet: "Prophet",
+  Undecided: "Undecided",
 }
+
+const TurnType = {
+  StartTurn: "StartTurn",
+  WolfTurn: "WolfTurn",
+  WitchTurn: "WitchTurn",
+  ProphetTurn : "ProphetTurn",
+  SpeakTurn : "SpeakTurn",
+  VoteTurn: "VoteTurn",
+  LastWordTurn: "LastWordTurn",
+  EndTurn: "EndTurn",
+}
+
+/* 
+
+Regular Voting: KillPlayer
+Wolf Voting: KillPlayer 
+Witch => POISON : Kill Player, HEALINGPOTION: Negate Wolf.KillPlayer
+
+
+*/
+//send post
+
+
+var PlayerState = {
+  turn: false,
+  muted: true,
+  speaking: false, 
+}
+
+var Turn = {
+  turn_state : TurnType,
+}
+
+var player = {
+  name : "",
+  ip : "", 
+  role: Role,
+  player_state: PlayerState,
+}
+
+var room = {
+  room_name: "",
+  players : {}, //{'1': player, '2': player, '3': player, '4': player, '5': player, '6': player},
+  game_state : Turn,
+}
+
 var STATE = {
   currentRoom: "lobby",
   rooms: {}, //A dictionary
   connected: false,
 }
 
-var player = {
-  name: "Guest",
-  ip: "",
-  id: 1,
-  status: PlayerState.Alive,
-  isSpeaking: false, //if it's the player's turn, it will be true
+//不一定对建议检查一下
+////////////////////////////////////////////////////////////////
+function RoomSubscribe(uri) {
+  var retryTime = 1;
+  function Connect(uri) {
+    const events = new EventSource(uri);
+    events.addEventListener("message", (ev) => {
+      const roomjson = JSON.parse(ev.data);
+      console.log("decoded data", JSON.stringify(roomjson));
+      if (!room_name || !players || !game_state in room) return;
+      //initialize
+      room.room_name = roomjson.room_name;
+      for (let i = 0, emp = roomjson.players[i]; i < roomjson.players.length; ++i){
+        room.players[emp.id] = emp;
+      }
+      room.game_state = roomjson.game_state;
+      console.log("ROOM OBJECT: " + room);
+    });
+
+    events.addEventListener("open", () => {
+      SetConnectedStatus(true);
+      console.log(`connected to event stream at ${uri}`);
+      retryTime = 1;
+    });
+
+    events.addEventListener("error", () => {
+      SetConnectedStatus(false);
+      events.close();
+
+      let timeout = retryTime;
+      retryTime = Math.min(64, retryTime * 2);
+      console.log(`connection lost. attempting to reconnect in ${timeout}s`);
+      setTimeout(() => Connect(uri), (() => timeout * 1000)());
+    });
+    console.log(events);
+  }
+ 
+  Connect(uri);
 }
+////////////////////////////////////////////////////////////////
+
 
 // Generate a color from a "hash" of a string. Thanks, internet.
 function HashColor(str) {
@@ -98,7 +181,6 @@ function AddMessage(room, username, message, push = false) {
 }
 
 
-
 // Subscribe to the event source at `uri` with exponential backoff reconnect.
 function MessageSubscribe(uri) {
   var retryTime = 1;
@@ -133,7 +215,6 @@ function MessageSubscribe(uri) {
   Connect(uri);
 }
 
-// Subscribe to the event source at `uri` with exponential backoff reconnect.
 function PlayerInfoSubscribe(uri) {
   var retryTime = 1;
   
@@ -144,7 +225,8 @@ function PlayerInfoSubscribe(uri) {
       const msg = JSON.parse(ev.data);
       console.log("decoded data", JSON.stringify(msg));
       if (!"username" in msg || !"serverip" in msg) return;
-      AddMessage("lobby", msg.username, msg.username+" has joined the chatroom", true);
+      usr = msg.username;
+      AddMessage("lobby", usr, msg.username+" has joined the chatroom", true);
     });
 
     events.addEventListener("open", () => {
@@ -167,6 +249,10 @@ function PlayerInfoSubscribe(uri) {
  
   Connect(uri);
 }
+ 
+
+// Subscribe to the event source at `uri` with exponential backoff reconnect.
+
 
 // OnLoad will sent post to rust when the javascript start
 function OnLoad(){
@@ -192,7 +278,7 @@ function AddMessageListener(){
   
       const room = STATE.currentRoom;
       const message = messageField.value;
-      const username = "guest";
+      const username = usr;
       if (!message || !username) return;
   
       if (STATE.connected) {
@@ -236,7 +322,8 @@ function Init() {
 
   // Subscribe to server-sent events.
   MessageSubscribe("/message/event");
-  PlayerInfoSubscribe("/playerInfo/event")
+  PlayerInfoSubscribe("/playerInfo/event");
+  //RoomSubscribe("/room/event");
   
 }
 

@@ -1,8 +1,6 @@
 use rocket::serde::{Serialize, Deserialize};
 use std::collections::HashMap;
 
-
-
 #[derive(Debug, Clone, FromFormField, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
 pub enum RoleType{
@@ -11,17 +9,6 @@ pub enum RoleType{
     Witch,
     Prophet,
     Undecided,
-}
-
-
-
-#[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
-#[serde(crate = "rocket::serde")]
-pub struct Player{
-    pub name:String,
-    pub ip:String,
-    pub role:RoleType,
-    pub state: Option<PlayerState>,
 }
 
 #[derive(Debug, Clone, FromFormField, Serialize, Deserialize)]
@@ -65,15 +52,7 @@ impl TurnType {
     }
 }
 
-
-
-#[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
-#[serde(crate = "rocket::serde")]
-pub struct Turn{
-    pub turn_state: TurnType,
-}
-
-
+//GAMELOOP//
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
 pub struct Room{
@@ -81,18 +60,13 @@ pub struct Room{
     pub room_name:String,
     pub players: HashMap<i32, Player>, 
     pub game_state: GameState,
-    //pub Listmessage
 }
 
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
-pub struct ClientInfo {
-    pub room: Room,
-    pub ts: TurnType,
-    pub idx: usize,
+pub struct Turn{
+    pub turn_state: TurnType,
 }
-
-
 
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
@@ -100,11 +74,37 @@ pub struct GameState {
     pub turn: Turn,
 }
 
+#[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
+#[serde(crate = "rocket::serde")]
+pub struct Player{
+    pub name:String,
+    pub ip:String,
+    pub role:RoleType,
+    pub state: Option<PlayerState>,
+}
 
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
 pub struct PlayerState {
-    pub is_turn: bool,
-    pub is_muted: bool,
-    pub is_speaking: bool,
+    pub turn: bool,
+    pub muted: bool,
+    pub speaking: bool,
 }
+///GAMELOOP////
+
+//other
+#[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
+#[serde(crate = "rocket::serde")]
+pub struct ClientInfo {
+    pub room: Room,
+    pub tt: TurnType,
+    pub idx: usize,
+}
+
+
+
+
+
+
+
+

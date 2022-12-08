@@ -6,6 +6,10 @@
   width: 100vw;
 }
 
+html, body {
+  overflow: hidden;
+}
+
 .u-section-1 .u-sheet-1 {
   min-height: 800px;
 }
