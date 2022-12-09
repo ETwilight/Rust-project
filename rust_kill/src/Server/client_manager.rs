@@ -7,20 +7,16 @@ use tokio::sync::mpsc::Receiver;
 mod game;
 #[path="../game/game_info.rs"]
 mod game_info;
-use crate::server::client_manager::game_info::{Room, Player, GameState, TurnType};
+use crate::server::client_manager::game_info::{Room, Player, GameState, TurnType, RevealResult};
 
 pub async fn receive(rx: &mut Receiver<String>) -> (Room, Vec<String>){
-    let mut room = Room{
-        room_name: "rustkill".to_string(),
-        players: vec![],
-        game_state: GameState{turn: TurnType::StartTurn, vote_map: HashMap::new() },
-    };
+    let mut room:Room = Default::default();
     for i in 0..6{
         room.players.push(Player{
             name: "Howdy".to_string(),
             ip: "127.0.0.1".to_string(),
             role: game_info::RoleType::Undecided,
-            state: None,
+            state: Default::default(),
             id: 7,
         });
     }

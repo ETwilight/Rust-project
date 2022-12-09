@@ -7,7 +7,9 @@ use std::time::Duration;
 use rocket::serde::json::Json;
 use tokio::{sync::broadcast::Sender, task::JoinHandle, time::sleep};
 
-use crate::{Message, VisibleType};
+
+
+use crate::data::{Message, VisibleType};
 
 use super::game_info::{Player, Room};
 

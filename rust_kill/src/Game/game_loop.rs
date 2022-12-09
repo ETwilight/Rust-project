@@ -3,12 +3,14 @@ use std::{vec, collections::HashMap};
 use rocket::serde::{Serialize, Deserialize};
 
 
-use super::{game_info::{Room, RoleType, Player, TurnType}, utils::send_message};
+use crate::data::GameEvent;
+
+use super::{game_info::{Room, RoleType, Player, TurnType, WinType, RevealResult}, utils::send_message};
 
 use rand::prelude::*;
 
 
-pub fn update(room:&mut Room){
+pub fn update(event:GameEvent, room:&mut Room){
     match room.game_state.turn{
         TurnType::StartTurn => {
             assign_role(room);
@@ -38,9 +40,11 @@ pub fn assign_role(room:&mut Room){
     }
 }
 
-pub fn update_turn(room:&mut Room, turn:TurnType){
-    
+pub fn detect_kill_vote(room:&mut Room){
+
 }
+
+
 pub fn vote_id(id: usize, room:&mut Room){ 
     //Insert a {id, 0} if not exist, add the value by one if exist
     room.game_state.vote_map.entry(id)
@@ -49,19 +53,62 @@ pub fn vote_id(id: usize, room:&mut Room){
 }
 
 
-pub fn vote_player(player:Player, room:&mut Room){ 
+pub fn vote_player(player:&Player, room:&mut Room){ 
     vote_id(player.id, room)
 }
 
-pub fn antidote(player: Player, room:&mut Room){
+//Must Ensure that player.is_alive is false
+pub fn antidote(player: &mut Player, room:&mut Room){
+    if player.state.is_alive{
+        print!("Warning: antidote() player's is_alive should be false");
+        return;
+    }
+    player.state.is_alive = true;
+}
+
+pub fn poison(player: &mut Player, room:&mut Room){
+    if !player.state.is_alive{
+        print!("Warning: antidote() player's is_alive should be true");
+        return;
+    }
+    player.state.is_alive = false;
+}
+
+pub fn reveal(player: &Player, room:&mut Room){
+    room.game_state.reveal_result.id = player.id;
+    match player.role{
+        RoleType::Undecided => (),
+        RoleType::Werewolf => {room.game_state.reveal_result.is_good = false;},
+        _ => {room.game_state.reveal_result.is_good = true;}
+    }
     
 }
 
-pub fn position(player: Player, room:&mut Room){
 
-}
-
-pub fn reveal(player: Player, room:&mut Room){
-
-//send_message(queue, name, " is a pointer")
+pub fn detect_win(room:&mut Room){
+    let mut count_werewolf = 0;
+    let mut count_good = 0;
+    for player in room.players.iter(){
+        if player.state.is_alive{
+            match player.role{
+                RoleType::Undecided => (),
+                RoleType::Civilian => {count_good +=1;},
+                RoleType::Werewolf => {count_werewolf +=1;},
+                RoleType::Witch => {count_good +=1;},
+                RoleType::Prophet => {count_good +=1;},
+            }
+        }
+    }
+    if(count_werewolf ==0 && count_good == 0){
+        room.game_state.win_type = WinType::Draw; //平局
+    }
+    else if(count_good == 0 || (count_good < count_werewolf)){
+        room.game_state.win_type = WinType::WerewolfWin;
+    }
+    else if(count_werewolf ==0){
+        room.game_state.win_type = WinType::CivilianWin;
+    }
+    else{
+        room.game_state.win_type = WinType::Undecided;
+    }
 }
