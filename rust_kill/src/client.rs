@@ -13,11 +13,11 @@ use game::utils::send_message;
 pub mod room;
 use room::connect_room;
 
+use crate::client::game_info::{Player, RoleType, ClientInfo};
+use crate::data::{Message, VisibleType, Room};
 use crate::server::host::client_addr;
 use crate::client::utils::encode;
 use crate::client::utils::string_to_struct;
-
-use crate::{client::game_info::{Player, RoleType, ClientInfo, Room}, Message};
 
 use rocket::{tokio::sync::broadcast::Sender, serde::json::Json};
 use queues::Queue;
@@ -32,7 +32,7 @@ pub async fn connect(server_addr: &str, client_name: &str, sender: Sender<Json<M
         name: client_name.to_string(),
         ip : "127.0.0.1".to_string(),
         role: RoleType::Undecided,
-        state: None,
+        state: Default::default(),
         id: 7,
     };
     let player_info = serde_json::to_string(&player);
@@ -79,7 +79,7 @@ pub async fn client_send_message(server_addr: &String, msg: String) -> Result<()
 
 pub async fn client_receive_msg(msg: &String, sender: Sender<Json<Message>>) {
     let original_msg:Message = string_to_struct(&msg);
-    send_message(sender, original_msg.username, original_msg.message, crate::VisibleType::All).unwrap();
+    send_message(sender, original_msg.username, original_msg.message, VisibleType::All).unwrap();
 }
 
 pub async fn client_send_room(server_addr: &String, msg: String) -> Result<(), ()>{

@@ -7,9 +7,11 @@ use std::time::Duration;
 use rocket::serde::json::Json;
 use tokio::{sync::broadcast::Sender, task::JoinHandle, time::sleep};
 
-use crate::{Message, VisibleType};
 
-use super::game_info::{Player, Room};
+
+use crate::data::{Message, VisibleType, Room};
+
+use super::game_info::{Player};
 
 pub fn send_message(queue: Sender<Json<Message>>, name:String, text:String, visible_type:VisibleType) -> Result<JoinHandle<()>, ()>{
     let task = tokio::spawn(async move{

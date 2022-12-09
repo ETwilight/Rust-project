@@ -4,9 +4,10 @@ mod server;
 mod client;
 #[path="utils.rs"]
 mod utils;
+#[path="data.rs"]
+mod data;
 #[path = "game/game_info.rs"]
 mod game_info;
-use crate::game_info::{Room};
 
 use tokio::time::Duration;
 use rocket::log::LogLevel;
@@ -21,62 +22,10 @@ use tokio::time::sleep;
 use rocket::serde::json::Json;
 use crate::client::client_send_message;
 use crate::utils::struct_to_string;
-
-
-#[derive(Debug, Clone, FromFormField, Serialize, Deserialize)]
-#[serde(crate = "rocket::serde")]
-pub enum VisibleType{
-    #[field(value = "None")]
-    None,
-    #[field(value = "All")]
-    All,
-    #[field(value = "Werewolf")]
-    Werewolf,
-    #[field(value = "Witch")]
-    Witch,
-    #[field(value = "Prophet")]
-    Prophet,
-}
-
-
-#[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
-#[serde(crate = "rocket::serde")]
-pub struct Message{
-    #[field(validate = len(..30))]
-    pub room:String, //Maximum Length is 30 for a roomName
-    #[field(validate = len(..20))]
-    pub username:String, //Maximum Length is 20 for a username
-    pub message:String,
-    pub visible_type :VisibleType
-}
-
-#[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
-#[serde(crate = "rocket::serde")]
-pub struct UserInfo {
-    pub username: String,
-    pub serverip: String,
-}
+use crate::data::{GameEvent, GameEventType, Message, UserInfo, Room};
 
 
 
-#[derive(Debug, Clone, FromFormField, Serialize, Deserialize)]
-#[serde(crate = "rocket::serde")]
-pub enum GameEventType{
-    Kill,
-    Poison,
-    Antidote,
-    Reveal,
-    Vote,
-}
-
-
-#[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
-#[serde(crate = "rocket::serde")]
-pub struct GameEvent {
-    pub event_type : GameEventType,
-    pub attacker: String, //The one who actively do something to others, like wolf, witch, prophet
-    pub target: String, //The one who passively be done something
-}
 
 fn post_game_event(form: Form<GameEvent>, queue: &State<Sender<GameEvent>>){
     //A send "fails" if there are no active subscribers
@@ -181,7 +130,7 @@ async fn events(queue: &State<Sender<Json<Message>>>, mut end: Shutdown) -> Even
     }
 }
 
-fn server_addr() -> String {"10.195.87.52".to_string()}
+fn server_addr() -> String {"10.200.0.210".to_string()}
 
 #[rocket::main]
 async fn main() -> Result<(), rocket::Error> {
@@ -198,11 +147,11 @@ async fn main() -> Result<(), rocket::Error> {
     let _ = client::connect(server_addr().as_str(), "ThgilTac1", message_channel.clone()).await.unwrap();
     let _ = client::connect(server_addr().as_str(), "ThgilTac2", message_channel.clone()).await.unwrap();
     
-    //let _ = client::connect(server_addr().as_str(), "CharlieDreemur1", message_channel.clone()).await.unwrap();
-    //let _ = client::connect(server_addr().as_str(), "CharlieDreemur2", message_channel.clone()).await.unwrap();
+    let _ = client::connect(server_addr().as_str(), "CharlieDreemur1", message_channel.clone()).await.unwrap();
+    let _ = client::connect(server_addr().as_str(), "CharlieDreemur2", message_channel.clone()).await.unwrap();
     
-    //let _ = client::connect(server_addr().as_str(), "CharlieDreemur1", message_channel.clone()).await.unwrap();
-    //let _ = client::connect(server_addr().as_str(), "CharlieDreemur2", message_channel.clone()).await.unwrap();
+    let _ = client::connect(server_addr().as_str(), "CharlieDreemur1", message_channel.clone()).await.unwrap();
+    let _ = client::connect(server_addr().as_str(), "CharlieDreemur2", message_channel.clone()).await.unwrap();
 
    
     let figment = rocket::Config::figment()

@@ -1,33 +1,57 @@
-use rocket::serde::{Serialize, Deserialize};
+use rocket::{serde::{Deserialize, Serialize}, form::FromForm};
 use std::collections::HashMap;
-
+pub use crate::data::Room;
 
 #[derive(Debug, Clone, FromFormField, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
-pub enum RoleType{
+pub enum RoleType {
     Undecided,
     Civilian,
     Werewolf,
     Witch,
     Prophet,
 }
+impl Default for RoleType{
+    fn default() -> Self{
+        RoleType::Undecided
+    }
+}
 
-
-
-
-#[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
+#[derive(Debug, Clone, FromFormField, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
-pub struct Player{
-    pub name:String,
-    pub ip:String,
-    pub role:RoleType,
-    pub state: Option<PlayerState>,
+pub enum WinType {
+    Undecided,
+    WerewolfWin,
+    CivilianWin,
+    Draw, //平局
+}
+
+impl Default for WinType{
+    fn default() -> Self{
+        WinType::Undecided
+    }
+}
+
+#[derive(Debug, Clone, FromForm, Serialize, Deserialize, Default)]
+#[serde(crate = "rocket::serde")]
+pub struct RevealResult {
+    pub id: usize,
+    pub is_good: bool,
+}
+
+#[derive(Debug, Clone, FromForm, Serialize, Deserialize, Default)]
+#[serde(crate = "rocket::serde")]
+pub struct Player {
+    pub name: String,
+    pub ip: String,
+    pub role: RoleType,
+    pub state: PlayerState,
     pub id: usize,
 }
 
 #[derive(Debug, Clone, FromFormField, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
-pub enum TurnType{
+pub enum TurnType {
     StartTurn, //Default turn before GameStart
     WerewolfTurn,
     WitchTurn,
@@ -38,6 +62,11 @@ pub enum TurnType{
     EndTurn, //The turn after game ends
 }
 
+impl Default for TurnType{
+    fn default() -> Self{
+        TurnType::StartTurn
+    }
+}
 impl TurnType {
     pub fn as_str(&self) -> &'static str {
         match self {
@@ -48,37 +77,26 @@ impl TurnType {
             TurnType::SpeakTurn => "SpeakTurn",
             TurnType::VoteTurn => "VoteTurn",
             TurnType::LastWordTurn => "LastWordTurn",
-            TurnType::EndTurn=> "EndTurn",
+            TurnType::EndTurn => "EndTurn",
         }
     }
 
-    pub fn next(&self) -> Self{
-        match self{
+    pub fn next(&self) -> Self {
+        match self {
             TurnType::StartTurn => TurnType::WerewolfTurn,
             TurnType::WerewolfTurn => TurnType::WitchTurn,
             TurnType::WitchTurn => TurnType::ProphetTurn,
             TurnType::ProphetTurn => TurnType::SpeakTurn,
             TurnType::SpeakTurn => TurnType::VoteTurn,
             TurnType::VoteTurn => TurnType::LastWordTurn,
-            TurnType::LastWordTurn => TurnType::EndTurn,
+            TurnType::LastWordTurn => TurnType::WerewolfTurn,
             TurnType::EndTurn => TurnType::StartTurn,
         }
     }
 }
 
 
-
-#[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
-#[serde(crate = "rocket::serde")]
-pub struct Room{
-    #[field(validate = len(..30))]
-    pub room_name:String,
-    pub players: Vec<Player>, 
-    pub game_state: GameState,
-    //pub Listmessage
-}
-
-#[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
+#[derive(Debug, Clone, FromForm, Serialize, Deserialize, Default)]
 #[serde(crate = "rocket::serde")]
 pub struct ClientInfo {
     pub room: Room,
@@ -86,17 +104,17 @@ pub struct ClientInfo {
     pub idx: usize,
 }
 
-
-
-#[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
+#[derive(Debug, Clone, FromForm, Serialize, Deserialize, Default)]
 #[serde(crate = "rocket::serde")]
 pub struct GameState {
     pub turn: TurnType,
-    pub vote_map: HashMap<usize, i32>,
+    pub win_type: WinType,
+    pub vote_map: HashMap<usize, usize>,
+    pub kill_vote_map: HashMap<usize, usize>,
+    pub reveal_result: RevealResult,
 }
 
-
-#[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
+#[derive(Debug, Clone, FromForm, Serialize, Deserialize, Default)]
 #[serde(crate = "rocket::serde")]
 pub struct PlayerState {
     pub is_turn: bool,

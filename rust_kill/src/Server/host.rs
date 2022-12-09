@@ -8,9 +8,9 @@ use tokio::net::TcpStream;
 use tokio::time::sleep;
 use tokio::{net::TcpListener, task::JoinHandle, sync::mpsc, io::BufReader};
 
+use crate::data::Room;
 use crate::server::client_manager::receive;
-use crate::server::host::game_info::Player;
-use crate::server::host::game_info::{Room, GameState, TurnType, ClientInfo};
+use crate::game_info::{Player, GameState, TurnType, ClientInfo, RevealResult};
 use crate::server::host::utils::encode;
 use crate::server::host::utils::string_to_struct;
 use crate::server::host::utils::struct_to_string;
@@ -52,7 +52,7 @@ pub async fn start() -> Result<JoinHandle<()>, ()>{
                         room: Room {
                             room_name: "rust_kill".to_string(), 
                             players:vec![player],
-                            game_state: GameState{turn: TurnType::StartTurn, vote_map: HashMap::new() },
+                            game_state: Default::default(),
                         },
                         ts: TurnType::StartTurn,
                         idx: num,
