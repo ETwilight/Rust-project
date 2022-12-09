@@ -12,13 +12,12 @@ mod game;
 #[path="game/utils.rs"]
 use game::utils::send_message;
 
-use crate::data::{Message, VisibleType};
+use crate::data::{Message, VisibleType, Room};
 use crate::server::host::{client_addr, server_addr};
 use crate::client::utils::encode;
 use crate::client::utils::string_to_struct;
 use crate::client::utils::struct_to_string;
-
-use crate::client::game_info::{Player, RoleType, ClientInfo, Room};
+use crate::client::game_info::{Player, RoleType, ClientInfo};
 
 use self::room::connectRoom;
 use rocket::{tokio::sync::broadcast::Sender, serde::json::Json};
