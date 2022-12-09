@@ -1,5 +1,6 @@
 use rocket::{serde::{Deserialize, Serialize}, form::FromForm};
 use std::{collections::HashMap, hash::Hash, default};
+use crate::data::Room;
 
 #[derive(Debug, Clone, FromFormField, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
@@ -94,15 +95,6 @@ impl TurnType {
     }
 }
 
-#[derive(Debug, Clone, FromForm, Serialize, Deserialize, Default)]
-#[serde(crate = "rocket::serde")]
-pub struct Room {
-    #[field(validate = len(..30))]
-    pub room_name: String,
-    pub players: Vec<Player>,
-    pub game_state: GameState,
-    //pub Listmessage
-}
 
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize, Default)]
 #[serde(crate = "rocket::serde")]

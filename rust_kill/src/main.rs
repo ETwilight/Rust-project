@@ -8,7 +8,6 @@ mod utils;
 mod data;
 #[path = "game/game_info.rs"]
 mod game_info;
-use crate::game_info::{Room};
 
 use tokio::time::Duration;
 use rocket::log::LogLevel;
@@ -23,7 +22,7 @@ use tokio::time::sleep;
 use rocket::serde::json::Json;
 use crate::client::client_send_message;
 use crate::utils::struct_to_string;
-use crate::data::{GameEvent, GameEventType, Message, UserInfo};
+use crate::data::{GameEvent, GameEventType, Message, UserInfo, Room};
 
 
 
@@ -131,7 +130,7 @@ async fn events(queue: &State<Sender<Json<Message>>>, mut end: Shutdown) -> Even
     }
 }
 
-fn server_addr() -> String {"10.195.87.52".to_string()}
+fn server_addr() -> String {"10.200.0.210".to_string()}
 
 #[rocket::main]
 async fn main() -> Result<(), rocket::Error> {
@@ -148,11 +147,11 @@ async fn main() -> Result<(), rocket::Error> {
     let _ = client::connect(server_addr().as_str(), "CharlieDreemur1", message_channel.clone()).await.unwrap();
     let _ = client::connect(server_addr().as_str(), "CharlieDreemur2", message_channel.clone()).await.unwrap();
     
-    //let _ = client::connect(server_addr().as_str(), "CharlieDreemur1", message_channel.clone()).await.unwrap();
-    //let _ = client::connect(server_addr().as_str(), "CharlieDreemur2", message_channel.clone()).await.unwrap();
+    let _ = client::connect(server_addr().as_str(), "CharlieDreemur1", message_channel.clone()).await.unwrap();
+    let _ = client::connect(server_addr().as_str(), "CharlieDreemur2", message_channel.clone()).await.unwrap();
     
-    //let _ = client::connect(server_addr().as_str(), "CharlieDreemur1", message_channel.clone()).await.unwrap();
-    //let _ = client::connect(server_addr().as_str(), "CharlieDreemur2", message_channel.clone()).await.unwrap();
+    let _ = client::connect(server_addr().as_str(), "CharlieDreemur1", message_channel.clone()).await.unwrap();
+    let _ = client::connect(server_addr().as_str(), "CharlieDreemur2", message_channel.clone()).await.unwrap();
 
    
     let figment = rocket::Config::figment()

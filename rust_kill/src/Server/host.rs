@@ -9,9 +9,9 @@ use tokio::net::TcpStream;
 use tokio::time::sleep;
 use tokio::{net::TcpListener, task::JoinHandle, join, sync::mpsc, io::BufReader};
 
+use crate::data::Room;
 use crate::server::client_manager::receive;
-use crate::server::host::game_info::Player;
-use crate::server::host::game_info::{Room, GameState, TurnType, ClientInfo, RevealResult};
+use crate::game_info::{Player, GameState, TurnType, ClientInfo, RevealResult};
 use crate::server::host::utils::encode;
 use crate::server::host::utils::read_all;
 use crate::server::host::utils::string_to_struct;

@@ -1,5 +1,5 @@
 use serde::{Serialize, Deserialize};
-
+use crate::game_info::{Player, GameState};
 
 #[derive(Debug, Clone, FromFormField, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
@@ -51,4 +51,14 @@ pub struct Message{
 pub struct UserInfo {
     pub username: String,
     pub serverip: String,
+}
+
+#[derive(Debug, Clone, FromForm, Serialize, Deserialize, Default)]
+#[serde(crate = "rocket::serde")]
+pub struct Room {
+    #[field(validate = len(..30))]
+    pub room_name: String,
+    pub players: Vec<Player>,
+    pub game_state: GameState,
+    //pub Listmessage
 }
