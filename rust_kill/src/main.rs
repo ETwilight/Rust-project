@@ -84,6 +84,8 @@ async fn post_message(form: Form<Message>, queue: &State<Sender<Json<Message>>>)
     let _res = queue.send(form.into_inner());
  } 
 
+
+
   #[get("/playerInfo/event")]
  async fn event_player_info(queue: &State<Sender<UserInfo>>, mut end: Shutdown) -> EventStream![] {
     print!("Get event");
@@ -128,28 +130,30 @@ async fn events(queue: &State<Sender<Json<Message>>>, mut end: Shutdown) -> Even
     }
 }
 
-fn server_addr() -> String {"10.200.0.210".to_string()}
+fn server_addr() -> String {"172.20.10.2".to_string()}
 
 #[rocket::main]
 async fn main() -> Result<(), rocket::Error> {
     //server_addr tbd1
     let client_addr = "127.0.0.1";
     // server connection in parallel, currently in main, will be transferred
-    //let server = server::host::start(server_addr.clone()).await.unwrap();
-
-    // client connection, currently in main, will be transferred
-
-    //let client1 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac1").await.unwrap();
-    //let client2 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac2").await.unwrap();
-    //let client3 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac3").await.unwrap();
-
-    //let client4 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac4").await.unwrap();
-    //let client5 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac5").await.unwrap();
-    //let client6 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac6").await.unwrap();
-
+    //let _ = server::host::start().await.unwrap();
     // a custom rocket build
-    let message_channel = channel::<Message>(1024).0;
-    start_mesage(message_channel.clone()).await.unwrap();
+    //let room_channel = channel::<Room>(1024).0;
+    let message_channel = channel::<Json<Message>>(1024).0;
+    // a custom rocket build
+
+
+    let _ = client::connect(server_addr().as_str(), "CharlieDreemur1", message_channel.clone()).await.unwrap();
+    let _ = client::connect(server_addr().as_str(), "CharlieDreemur2", message_channel.clone()).await.unwrap();
+    
+    let _ = client::connect(server_addr().as_str(), "CharlieDreemur3", message_channel.clone()).await.unwrap();
+    let _ = client::connect(server_addr().as_str(), "CharlieDreemur4", message_channel.clone()).await.unwrap();
+    
+    let _ = client::connect(server_addr().as_str(), "CharlieDreemur5", message_channel.clone()).await.unwrap();
+    let _ = client::connect(server_addr().as_str(), "CharlieDreemur6", message_channel.clone()).await.unwrap();
+
+   
     let figment = rocket::Config::figment()
         .merge(("address", client_addr))
         .merge(("port", 8000))
@@ -163,4 +167,3 @@ async fn main() -> Result<(), rocket::Error> {
 
     Ok(())
 }
-
