@@ -25,7 +25,7 @@ use queues::IsQueue;
 #[path="utils.rs"]
 mod utils;
 
-pub async fn connect(server_addr: &str, client_name: &str, sender: Sender<Json<Message>>) -> Result<JoinHandle<()>, ()>{
+pub async fn connect(server_addr: &str, client_name: &str, sender_msg: Sender<Json<Message>>, sender_room: Sender<Json<Room>>) -> Result<JoinHandle<()>, ()>{
     let clt = TcpStream::connect((server_addr.to_string() + ":8080").as_str()).await.unwrap();
     let (mut reader, mut writer) = clt.into_split();
     let player = Player {
@@ -40,9 +40,9 @@ pub async fn connect(server_addr: &str, client_name: &str, sender: Sender<Json<M
         panic!("cannot serialize into playerInfo")
     }
     utils::client_write(&mut writer, utils::encode("REG", player_info.unwrap().as_str()).as_str()).await.unwrap();
-    let inner_sender = sender.clone();
+    let inner_sender = sender_msg.clone();
     let client = tokio::spawn(async move{
-        let auth = match utils::client_response(BufReader::new(&mut reader), queue!["AUTH".to_string(), "ROOM".to_string()], "client get").await {
+        let auth = match utils::client_response(BufReader::new(&mut reader), queue!["AUTH".to_string(), "CLI".to_string()], "client get").await {
             Ok(r) => r,
             Err(e) => panic!("{}", e),
         };
@@ -50,20 +50,22 @@ pub async fn connect(server_addr: &str, client_name: &str, sender: Sender<Json<M
         connect_room(cinfo.room.room_name.clone(), inner_sender).await;
         client_addr(cinfo.room.players[0].to_owned().ip, cinfo.idx)
     }).await.unwrap();
-    Ok(main_task(client, sender.clone()).await)
+    Ok(main_task(client, sender_msg.clone(), sender_room.clone()).await)
 }
 
-pub async fn main_task(client_addr: String, sender: Sender<Json<Message>>) -> JoinHandle<()>{
+pub async fn main_task(client_addr: String, sender_msg: Sender<Json<Message>>, sender_room: Sender<Json<Room>>) -> JoinHandle<()>{
     tokio::spawn(async move {
         let listener = TcpListener::bind(client_addr.clone()).await.unwrap();
-        print!("here in spawn spawn\n");
         loop {
             let (socket, _) = listener.accept().await.unwrap();
             // Process Server Events
             let (mut reader, _writer) = socket.into_split();
             let (k, v) = utils::read_all(BufReader::new(&mut reader)).await.unwrap();
             if k == "MSG".to_string() {
-                client_receive_msg(&v, sender.clone()).await;
+                client_receive_msg(&v, sender_msg.clone()).await;
+            }
+            else if k == "ROOM".to_string() {
+                client_receive_room(&v, sender_room.clone()).await;
             }
         }
     })
@@ -82,14 +84,14 @@ pub async fn client_receive_msg(msg: &String, sender: Sender<Json<Message>>) {
     send_message(sender, original_msg.username, original_msg.message, VisibleType::All).unwrap();
 }
 
-pub async fn client_send_room(server_addr: &String, msg: String) -> Result<(), ()>{
+pub async fn client_send_room(server_addr: &String, room: String) -> Result<(), ()>{
     let address = format!("{}{}", server_addr, ":8080");
     let cstream = TcpStream::connect(address).await.unwrap();
     let writer = &mut cstream.into_split().1;
-    utils::client_write(writer, encode("MSG", msg.as_str()).as_str()).await
+    utils::client_write(writer, encode("ROOM", room.as_str()).as_str()).await
 }
 
-pub async fn client_receive_room(msg: &String, sender: Sender<Room>) {
-    let original_msg:Message = string_to_struct(msg);
-    
+pub async fn client_receive_room(room: &String, sender: Sender<Json<Room>>) {
+    let original_msg: Room = string_to_struct(&room);
+    print!("Receive Room: {}", room.clone());
 }

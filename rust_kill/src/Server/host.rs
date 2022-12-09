@@ -58,11 +58,12 @@ pub async fn start() -> Result<JoinHandle<()>, ()>{
                         idx: num,
                     };
                     let cjson = serde_json::to_string(&cinfo).unwrap();
-                    utils::server_write(&mut writer, &utils::encode("ROOM",cjson.as_str())).await.unwrap();
+                    utils::server_write(&mut writer, &utils::encode("CLI",cjson.as_str())).await.unwrap();
                 }).await.unwrap();
                 num += 1;
             }
         });
+        
         let rec_task = tokio::spawn(async move{receive(&mut rx).await});
         let (_, r2) = (wait.await.unwrap(), rec_task.await.unwrap());
         print!("ROOM IS FULFILLED!");
@@ -75,12 +76,12 @@ pub async fn start() -> Result<JoinHandle<()>, ()>{
             let (mut reader, _) = socket.into_split();
             let (k, v) = utils::read_all(BufReader::new(&mut reader)).await.unwrap();
             print!("Get results:{:?}", (k.clone(),v.clone()));
-            if k == "MSG".to_string() {
+            if k == "MSG".to_string() || k == "ROOM".to_string() {
                 print!("{}\n", v.clone());
-                //TODO: Check who sends the message
                 for caddr in clients.iter() {
-                    let cstream = TcpStream::connect(caddr).await.unwrap();
-                    print!("Connect client true\n");
+                    let cstrm = TcpStream::connect(caddr).await;
+                    if cstrm.is_err() {continue};
+                    let cstream = cstrm.unwrap();
                     let writer = &mut cstream.into_split().1;
                     utils::server_write(writer, encode(k.as_str(), v.as_str()).as_str()).await.unwrap();
                 }
