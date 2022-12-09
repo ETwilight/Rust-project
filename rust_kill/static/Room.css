@@ -1,6 +1,6 @@
 
 body, html {
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
 
 .u-section-1 {
@@ -35,6 +35,7 @@ body, html {
 
 .header2 {
   border: 5px solid red;
+  width: 300px;
 }
 
 .u-section-1 .u-icon-1 {
@@ -42,11 +43,11 @@ body, html {
   height: 64px;
   background-image: none;
   margin: 1px auto 0 1px;
+  display: flex;
+  flex-direction: row;
 }
 
-@media only screen and (min-width: 1220px) and (max-width: 2880px) {
-
-  
+@media only screen and (min-width: 1220px) and (max-width: 2880px) { 
 }
 
 :root {
@@ -57,7 +58,6 @@ body, html {
 
 .wrapped{
   padding: 10px;
-  border: 5px solid black;
   width: var(--wrapped-width);
   height: 60vh;
   margin-left:auto;
@@ -69,21 +69,22 @@ body, html {
 
 
 .others {
-  padding: 10px;
-  border: 5px solid black;
+  padding: 5px;
+  border: 2px solid black;
   display: flex;
   justify-content: space-between;
   width: 600px;
-  height: 100px;
+  height: 90px;
   margin-left: 180px; 
 }
 
 .window {
   padding: 5px;
+  border: 2px solid black; 
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border: 5px solid black; 
+  
 }
 
 .self{
@@ -161,11 +162,11 @@ body, html {
   position: absolute
 }
 
-
 .testsuite {
-  margin-top: 50px;
   border: 5px solid black;
   display: flex;
+  flex-direction: column;
+  width: 150px
 }
 
 .showicons{
@@ -226,10 +227,3 @@ form * {
 
 
 
-
-
-
-
-
-
-/*test*/

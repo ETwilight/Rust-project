@@ -226,7 +226,7 @@ function PlayerInfoSubscribe(uri) {
       console.log("decoded data", JSON.stringify(msg));
       if (!"username" in msg || !"serverip" in msg) return;
       usr = msg.username;
-      AddMessage("lobby", usr, msg.username+" has joined the chatroom", true);
+      AddMessage("Lobby", usr, msg.username+" has joined the chatroom", true);
     });
 
     events.addEventListener("open", () => {

@@ -1,4 +1,4 @@
-//main functions
+
    
 var messages = document.getElementById("content"); 
 function scrollToBottom() {
@@ -6,15 +6,22 @@ function scrollToBottom() {
 }
 
 
+   
+var e = document.getElementById("killoption");
+                document.querySelector("#killconfirm").addEventListener('click', () => {
+                  console.log(e.value)
+                })
+
+
+/*Utilities*/
 
 
 
-//utilities
 const heightOutput = document.querySelector("#height");
 const widthOutput = document.querySelector("#width");
 function reportWindowSize() {
-  heightOutput.textContent = window.innerHeight;
-  widthOutput.textContent = window.innerWidth;
+    heightOutput.textContent = window.innerHeight;
+    widthOutput.textContent = window.innerWidth;
 }
 window.onresize = reportWindowSize;
 
