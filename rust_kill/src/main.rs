@@ -1,12 +1,16 @@
 #[macro_use] extern crate rocket;
 #[cfg(test)] mod tests;
-mod game;
+mod server;
+mod client;
+#[path="utils.rs"]
+mod utils;
+#[path="data.rs"]
+mod data;
+#[path = "game/game_info.rs"]
+mod game_info;
 
-use tokio::task::JoinHandle;
 use tokio::time::Duration;
-use redis::Commands;
 use rocket::log::LogLevel;
-use rocket::response::Debug;
 use rocket::{State, Shutdown};
 use rocket::fs::{relative, FileServer};
 use rocket::form::Form;
@@ -14,31 +18,64 @@ use rocket::response::stream::{EventStream, Event};
 use rocket::serde::{Serialize, Deserialize};
 use rocket::tokio::sync::broadcast::{channel, Sender, error::RecvError};
 use rocket::tokio::select;
-use tokio::io::{self, AsyncWriteExt};
 use tokio::time::sleep;
+use rocket::serde::json::Json;
+use crate::client::client_send_message;
+use crate::utils::struct_to_string;
+use crate::data::{GameEvent, GameEventType, Message, UserInfo, Room};
 
-#[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
-#[serde(crate = "rocket::serde")]
-struct Message{
-    #[field(validate = len(..30))]
-    pub room:String, //Maximum Length is 30 for a roomName
-    #[field(validate = len(..20))]
-    pub username:String, //Maximum Length is 20 for a username
-    pub message:String,
+
+
+
+fn post_game_event(form: Form<GameEvent>, queue: &State<Sender<GameEvent>>){
+    //A send "fails" if there are no active subscribers
+    match form.event_type
+    {
+        GameEventType::Kill => todo!(),
+        GameEventType::Poison => todo!(),
+        GameEventType::Antidote => todo!(),
+        GameEventType::Reveal => todo!(),
+        GameEventType::Vote => todo!(),
+    }
+
+} 
+
+
+#[post("/room", data = "<form>")]
+fn post_room(form: Form<Room>, queue: &State<Sender<Room>>){
+    //A send "fails" if there are no active subscribers
+    let _res = queue.send(form.into_inner());
+} 
+
+
+#[get("/room/event")]
+async fn event_room(queue: &State<Sender<Room>>, mut end: Shutdown) -> EventStream![] {
+   print!("Get event");
+     let mut rx = queue.subscribe();
+     EventStream! {
+         loop {
+             let msg = select! {
+                 msg = rx.recv() => match msg {
+                     Ok(msg) => msg,
+                     Err(RecvError::Closed) => break,
+                     Err(RecvError::Lagged(_)) => continue,
+                 },
+                _ = &mut end => break,
+             };
+             yield Event::json(&msg);
+         }
+     }
 }
 
-#[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
-#[serde(crate = "rocket::serde")]
-struct UserInfo {
-    pub username: String,
-    pub serverip: String,
-}
 
 /// Receive a message from a form submission and broadcast it to any receivers.
 #[post("/message", data = "<form>")]
-fn post(form: Form<Message>, queue: &State<Sender<Message>>){
+async fn post_message(form: Form<Message>, queue: &State<Sender<Json<Message>>>){
     //A send "fails" if there are no active subscribers
-    let _res = queue.send(form.into_inner());
+    let msg = form.into_inner();
+    //let _res = queue.send(Json(msg));
+    let s = struct_to_string(&msg).0;
+    client_send_message(&server_addr(), s).await.unwrap();
 } 
 
  #[post("/playerInfo", data = "<form>")]
@@ -66,23 +103,13 @@ fn post(form: Form<Message>, queue: &State<Sender<Message>>){
       }
   }
 
-async fn start_message(queue: Sender<Message>) -> Result<JoinHandle<()>, ()>{
-    let task = tokio::spawn(async move{
-        sleep(Duration::from_millis(10000)).await;
-        let msg = Message{
-            room: "lobby".to_string(),
-            username: "Howdy".to_string(),
-            message: "Hey I am Howdy".to_string()
-        };
-        queue.send(msg).unwrap();
-    });
-    return Ok(task)
-}
+
+
 /// Returns an infinite stream of server-sent events. Each event is a message
 /// pulled from a broadcast queue sent by the `post` handler.
   
 #[get("/message/event")]
-async fn events(queue: &State<Sender<Message>>, mut end: Shutdown) -> EventStream![] {
+async fn events(queue: &State<Sender<Json<Message>>>, mut end: Shutdown) -> EventStream![] {
     let mut rx = queue.subscribe();
     EventStream! {
         loop {
@@ -94,21 +121,19 @@ async fn events(queue: &State<Sender<Message>>, mut end: Shutdown) -> EventStrea
                 },
                 _ = &mut end => break,
             };
-            yield Event::json(&msg);
+            let value = msg.into_inner();
+            let event = Event::json(&value);
+            yield event;
         }
     }
 }
 
-mod server;
-mod client;
+fn server_addr() -> String {"10.200.0.210".to_string()}
 
 #[rocket::main]
 async fn main() -> Result<(), rocket::Error> {
-
     //server_addr tbd1
-    let server_addr = "192.168.178.127";
     let client_addr = "127.0.0.1";
-
     // server connection in parallel, currently in main, will be transferred
     //let server = server::host::start(server_addr.clone()).await.unwrap();
 
@@ -123,21 +148,19 @@ async fn main() -> Result<(), rocket::Error> {
     //let client6 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac6").await.unwrap();
 
     // a custom rocket build
-
     let message_channel = channel::<Message>(1024).0;
-    start_message(message_channel.clone()).await.unwrap();
+    start_mesage(message_channel.clone()).await.unwrap();
     let figment = rocket::Config::figment()
         .merge(("address", client_addr))
         .merge(("port", 8000))
         .merge(("log_level", LogLevel::Debug));
     let _rocket = rocket::custom(figment)
         .manage(message_channel) //Store the sender 
-        .mount("/", routes![post, events])
+        .mount("/", routes![post_message, events])
         .manage(channel::<UserInfo>(1024).0)
         .mount("/", routes![post_player_info, event_player_info])
         .mount("/", FileServer::from(relative!("/static"))).launch().await.unwrap();
 
-    print!("Howdy there!");
     Ok(())
 }
 

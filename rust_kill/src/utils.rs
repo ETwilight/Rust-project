@@ -1,13 +1,15 @@
+
+use std::sync::Arc;
+
 use rocket::serde;
+use ::serde::{Serialize, Deserialize};
+
+use queues::{Queue, IsQueue};
 use tokio::{net::tcp::{OwnedWriteHalf, OwnedReadHalf}, io::{BufWriter, AsyncWriteExt, BufReader, AsyncBufReadExt}, sync::mpsc::Sender};
 
-pub fn spliter() -> char {
-    '\x03'
-}
+pub fn spliter() -> char {'\x03'}
 
-pub fn spliterKV() -> char {
-    '\x04'
-}
+pub fn spliterKV() -> char {'\x04'}
 
 pub fn encode(key: &str, val: &str) -> String {
     (key.to_string()+spliterKV().to_string().as_str())+val
@@ -37,93 +39,115 @@ pub async fn clientWrite(socket: &mut OwnedWriteHalf, msg: &str) -> Result<(), (
     return Ok(())
 }
 
-pub async fn serverResponse(reader: &mut OwnedReadHalf, writer: &mut OwnedWriteHalf, cmd_from: &str, cmd_back: &str, message: &str, tx: Sender<String>) {
+use async_recursion::async_recursion;
+
+#[async_recursion]
+pub async fn server_response(mut red: BufReader<&'async_recursion mut OwnedReadHalf>, writer: &mut OwnedWriteHalf, mut cmd_from: Queue<String>, cmd_back: &str, message: &str) -> Result<String, String>{
     loop {
-        let mut red = BufReader::new(&mut *reader);
         let raw= red.fill_buf().await;
-        let mut flag = false;
         let received = match raw{
             Ok(rec) => rec.to_vec(),
-            Err(e) => {
-                flag = true;
-                vec!()
+            Err(_) => {
+                return Err("receive error of client_response\n".to_string());
             }
         };
-        if flag {
-            println!("receive error");
-            return;
-        }
-        let len = received.len();
-        if len == 0 {
-            continue;
-        }
-        // Mark the bytes read as consumed so the buffer will not return them in a subsequent read
-        red.consume(len);
+        if received.len() == 0 {continue;}
+        red.consume(received.len());
         let msg: String = String::from_utf8(received).expect("unwrap read err");
-        let mut msgs : Vec<&str> = msg.split(spliter()).collect();
-        let mut flag = false;
+        let msgs : Vec<&str> = msg.split(spliter()).collect();
+        let mut res = "";
         for m in msgs {
-            if m.len() == 0 {
-                continue;
-            }
-            if m.contains(spliter()) {
-                continue;
-            }
+            if m.len() == 0 {continue;}
+            if m.contains(spliter()) {continue;}
             let (kd,vd) = decode(m);
-            if kd == cmd_from {
-                flag = true;
-                println!("{} : {}", message, vd);
-                tx.send(vd.to_string()).await.unwrap();
-                serverWriteToClient(writer, encode(cmd_back, vd).as_str()).await.unwrap();
+            let next = match cmd_from.remove() {
+                Ok(n) => n,
+                Err(_) => return Err("Too many commands!".to_string())
+            };
+            if kd == next {
+                print!("{} : {}\n", message, vd);
+                res = vd;
+                continue;
             }
+            return Err("Unexpected Command ".to_string() + kd);
         }
-        if flag{
-            return;
+        if cmd_from.size() != 0 {
+            return server_response(red, writer, cmd_from, cmd_back, message).await;
+        }
+        serverWriteToClient(writer, encode(cmd_back, res).as_str()).await.unwrap();
+        return Ok(res.to_string());
+    }
+}
+
+pub async fn read_all(mut red: BufReader<&mut OwnedReadHalf>) -> Result<(String, String), String>{
+    let mut res : Vec<(String, String)> = Vec::new();
+    loop {
+        let raw= red.fill_buf().await;
+        let received = match raw{
+            Ok(rec) => rec.to_vec(),
+            Err(_) => {
+                return Err("receive error of client_response\n".to_string());
+            }
+        };
+        if received.len() == 0 {continue;}
+        red.consume(received.len());
+        let msg: String = String::from_utf8(received).expect("unwrap read err");
+        let msgs : Vec<&str> = msg.split(spliter()).collect();
+        for m in msgs {
+            if m.len() == 0 {continue;}
+            if m.contains(spliter()) {continue;}
+            let (kd,vd) = decode(m);
+            return Ok((kd.to_string(), vd.to_string()));
         }
     }
 }
 
-pub async fn clientResponse(reader: &mut OwnedReadHalf, cmd_from: &str, message: &str) {//, tx: Sender<String>) {
+#[async_recursion]
+pub async fn client_response(mut red: BufReader<&'async_recursion mut OwnedReadHalf>, mut cmd_from: Queue<String>, message: &str) -> Result<String, String>{
     loop {
-        let mut red = BufReader::new(&mut *reader);
         let raw= red.fill_buf().await;
-        let mut flag = false;
         let received = match raw{
             Ok(rec) => rec.to_vec(),
-            Err(e) => {
-                flag = true;
-                vec!()
+            Err(_) => {
+                return Err("receive error of client_response\n".to_string());
             }
         };
-        if flag {
-            println!("receive error of clientResponse");
-            return;
-        }
-        let len = received.len();
-        if len == 0 {
-            continue;
-        }
-        // Mark the bytes read as consumed so the buffer will not return them in a subsequent read
-        red.consume(len);
+        if received.len() == 0 {continue;}
+        red.consume(received.len());
         let msg: String = String::from_utf8(received).expect("unwrap read err");
-        let mut msgs : Vec<&str> = msg.split(spliter()).collect();
-        let mut flag = false;
+        let msgs : Vec<&str> = msg.split(spliter()).collect();
+        let mut res = "";
         for m in msgs {
-            if m.len() == 0 {
-                continue;
-            }
-            if m.contains(spliter()) {
-                continue;
-            }
+            if m.len() == 0 {continue;}
+            if m.contains(spliter()) {continue;}
             let (kd,vd) = decode(m);
-            if kd == cmd_from {
-                flag = true;
-                println!("{} : {}", message, vd);
-                //tx.send(vd.to_string()).await.unwrap();
+            let next = match cmd_from.remove() {
+                Ok(n) => n,
+                Err(_) => return Err("Too many commands!".to_string())
+            };
+            if kd == next {
+                print!("{} : {}\n", message, vd);
+                res = vd;
+                continue;
             }
+            return Err("Unexpected Command ".to_string() + kd);
         }
-        if flag{
-            return;
-        }
+        return if cmd_from.size() != 0 {client_response(red, cmd_from, message).await} else {Ok(res.to_string())}
     }
+}
+
+
+pub fn struct_to_string<T>(obj: &T) -> (String, String)
+where T: Serialize,
+{
+  let a = serde_json::to_string(obj).unwrap();
+  let type_name = std::any::type_name::<T>().to_string();
+  return (a, type_name);
+}
+
+pub fn string_to_struct<'de, T>(s: &'de String) -> T
+where
+  T: Deserialize<'de>,
+{
+  serde_json::from_str(s).unwrap()
 }

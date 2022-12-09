@@ -1,5 +1,6 @@
 use rocket::serde::{Serialize, Deserialize};
-use std::collections::HashMap;
+
+
 
 #[derive(Debug, Clone, FromFormField, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
@@ -9,6 +10,18 @@ pub enum RoleType{
     Witch,
     Prophet,
     Undecided,
+}
+
+
+
+#[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
+#[serde(crate = "rocket::serde")]
+pub struct Player{
+    pub name:String,
+    pub ip:String,
+    pub role:RoleType,
+    pub state: Option<PlayerState>,
+    pub idx: usize,
 }
 
 #[derive(Debug, Clone, FromFormField, Serialize, Deserialize)]
@@ -52,15 +65,7 @@ impl TurnType {
     }
 }
 
-//GAMELOOP//
-#[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
-#[serde(crate = "rocket::serde")]
-pub struct Room{
-    #[field(validate = len(..30))]
-    pub room_name:String,
-    pub players: HashMap<i32, Player>, 
-    pub game_state: GameState,
-}
+
 
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
@@ -68,43 +73,38 @@ pub struct Turn{
     pub turn_state: TurnType,
 }
 
+
+#[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
+#[serde(crate = "rocket::serde")]
+pub struct Room{
+    #[field(validate = len(..30))]
+    pub room_name:String,
+    pub players: Vec<Player>, 
+    pub game_state: GameState,
+    //pub Listmessage
+}
+
+#[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
+#[serde(crate = "rocket::serde")]
+pub struct ClientInfo {
+    pub room: Room,
+    pub ts: TurnType,
+    pub idx: usize,
+}
+
+
+
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
 pub struct GameState {
     pub turn: Turn,
 }
 
-#[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
-#[serde(crate = "rocket::serde")]
-pub struct Player{
-    pub name:String,
-    pub ip:String,
-    pub role:RoleType,
-    pub state: Option<PlayerState>,
-}
 
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
 pub struct PlayerState {
-    pub turn: bool,
-    pub muted: bool,
-    pub speaking: bool,
+    pub is_turn: bool,
+    pub is_muted: bool,
+    pub is_speaking: bool,
 }
-///GAMELOOP////
-
-//other
-#[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
-#[serde(crate = "rocket::serde")]
-pub struct ClientInfo {
-    pub room: Room,
-    pub tt: TurnType,
-    pub idx: usize,
-}
-
-
-
-
-
-
-
-

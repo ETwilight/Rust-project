@@ -18,25 +18,8 @@ pub async fn connect(server_addr: &str, client_addr: &str, client_name: &str) ->
         panic!("cannot serialize into playerInfo")
     }
     utils::clientWrite(&mut writer, utils::encode("REG", playerInfo.unwrap().as_str()).as_str()).await.unwrap();
-    // Wrap the stream in a BufReader, so we can use the BufRead methods
-    //let mut reader = BufReader::new(&mut client.0);
-    // Read current current data in the TcpStream
-    //let (tx, mut rx) = mpsc::channel::<String>(1);
-    
     let client = tokio::spawn(async move{
-        utils::clientResponse(&mut reader, "AUTH", "client get").await;
-
+        utils::client_response(&mut reader, "AUTH", "client get").await;
     });
-
-    /*
-    while let rec = rx.recv().await {
-        if rec.is_none() {
-            break;
-        }
-        let recv = rec.unwrap();
-        let playerInfo: game::game_loop::Player = serde_json::from_str(&recv).expect("json deserialize failed");
-        println!("Player Info: {}", playerInfo.name);
-    }
-    */
     Ok(client)
 }

@@ -11,37 +11,8 @@ let roomTemplate = document.getElementById('room');
 let messageTemplate = document.getElementById('message');
 let messageField = newMessageForm.querySelector("#message");
 let roomNameField = newRoomForm.querySelector("#name");
-let usr = "guest"
 
-const Role = {
-  Civilian: "Civilian",
-  Wolf: "Wolf",
-  Witch: "Witch",
-  Prophet: "Prophet",
-  Undecided: "Undecided",
-}
-
-const TurnType = {
-  StartTurn: "StartTurn",
-  WolfTurn: "WolfTurn",
-  WitchTurn: "WitchTurn",
-  ProphetTurn : "ProphetTurn",
-  SpeakTurn : "SpeakTurn",
-  VoteTurn: "VoteTurn",
-  LastWordTurn: "LastWordTurn",
-  EndTurn: "EndTurn",
-}
-
-/* 
-
-Regular Voting: KillPlayer
-Wolf Voting: KillPlayer 
-Witch => POISON : Kill Player, HEALINGPOTION: Negate Wolf.KillPlayer
-
-
-*/
-//send post
-
+var username = "guest";
 
 var PlayerState = {
   turn: false,
@@ -67,7 +38,7 @@ var room = {
 }
 
 var STATE = {
-  currentRoom: "lobby",
+  currentRoom: "rustkill",
   rooms: {}, //A dictionary
   connected: false,
 }
@@ -225,8 +196,8 @@ function PlayerInfoSubscribe(uri) {
       const msg = JSON.parse(ev.data);
       console.log("decoded data", JSON.stringify(msg));
       if (!"username" in msg || !"serverip" in msg) return;
-      usr = msg.username;
-      AddMessage("Lobby", usr, msg.username+" has joined the chatroom", true);
+      username = msg.username;
+      AddMessage("rustkill", msg.username, msg.username+" has joined the chatroom", true);
     });
 
     events.addEventListener("open", () => {
@@ -278,13 +249,13 @@ function AddMessageListener(){
   
       const room = STATE.currentRoom;
       const message = messageField.value;
-      const username = usr;
+      const visible_type = "All";
       if (!message || !username) return;
   
       if (STATE.connected) {
         fetch("/message", {
           method: "POST",
-          body: new URLSearchParams({ room, username, message }),
+          body: new URLSearchParams({ room, username, message, visible_type }),
         }).then((response) => {
           if (response.ok) messageField.value = "";
         });
@@ -313,9 +284,9 @@ function GetStatus(){
 
 function Init() {
   // Initialize the room.
-  AddRoom("lobby");
-  ChangeRoom("lobby");
-  AddMessage("lobby", "Rocket", "Howdy! Open another browser tab, send a message.", true);
+  AddRoom("rustkill");
+  ChangeRoom("rustkill");
+  AddMessage("rustkill", "Rocket", "Howdy! Open another browser tab, send a message.", true);
 
   AddMessageListener();
   AddRoomListener();
