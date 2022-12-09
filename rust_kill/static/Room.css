@@ -1,21 +1,17 @@
 
-body, html {
-  /*overflow: hidden;*/
-}
 
 .u-section-1 {
-  height: 100vh;
+  height: 92.5%;
+  border: 3px solid orange;
+  display: flex;
 }
 
-.u-section-1 .u-btn-1 {
-  border-style: none;
+.u-btn-1 {
   background-color: black;
   font-weight: 700;
   border-radius: 20px !important;
-  text-transform: uppercase;
   font-size: 0.875rem;
   letter-spacing: 1px;
-  background-image: none;
   margin: 16px auto 0 0;
 }
 
@@ -24,42 +20,35 @@ body, html {
   background-color: #808080 !important;
 }
 
-.u-section-1 .u-list-1 {
+.u-list-1 {
   width: 100px;
   margin: -45px auto 10px 150px;  
 }
 
-.u-section-1 .u-container-layout-1 {
+.u-container-layout-1 {
   padding: 10px;
 }
 
 .header2 {
   border: 5px solid red;
-  width: 300px;
+  width: 265px;
 }
 
-.u-section-1 .u-icon-1 {
-  width: 64px;
-  height: 64px;
-  background-image: none;
-  margin: 1px auto 0 1px;
-  display: flex;
-  flex-direction: row;
-}
 
 @media only screen and (min-width: 1220px) and (max-width: 2880px) { 
 }
 
 :root {
   --wrapped-width: 980px;
-  --wrapped-height: 680px;
+  --wrapped-height: 650px;
   --test-suite-width: 500px;
 }
 
 .wrapped{
   padding: 10px;
+  border: 3px solid black;
   width: var(--wrapped-width);
-  height: 60vh;
+  height: auto;
   margin-left:auto;
   margin-right:auto;
   display: flex;
@@ -75,7 +64,8 @@ body, html {
   justify-content: space-between;
   width: 600px;
   height: 90px;
-  margin-left: 180px; 
+  margin-left: 180px;
+  min-width: 10px; 
 }
 
 .window {
@@ -89,7 +79,7 @@ body, html {
 
 .self{
   padding: 5px;
-  border: 5px solid black;
+  border: 3px solid black;
   width: 280px;
   display: flex;
   flex-direction: column;
@@ -105,7 +95,7 @@ body, html {
 
 
 #profile {
-  border: 5px solid black;
+  border: 3px solid black;
   display: flex;
   flex-direction: row;
   float: center;
@@ -114,7 +104,7 @@ body, html {
 
 .controls {
   height: 60%;
-  border: 5px solid black;
+  border: 3px solid black;
 }
 
 .chat {
@@ -139,7 +129,7 @@ body, html {
 }
 
 .textbox {
-  border: 5px solid black;
+  border: 3px solid black;
 }
 
 .indicator {
@@ -163,7 +153,7 @@ body, html {
 }
 
 .testsuite {
-  border: 5px solid black;
+  border: 3px solid black;
   display: flex;
   flex-direction: column;
   width: 150px
@@ -191,11 +181,12 @@ body, html {
 }
 #speaking {
   background: green;
+  animation: blinkgreen 1.4s infinite;
 }
 
 #muted {
   background: red;
-  animation: blink 1.5s infinite;
+  animation: blinkred 1.4s infinite;
 }
 
 #dead {
@@ -208,10 +199,16 @@ body, html {
   100% {opacity: 1}
 }
 
-@keyframes blink{
+@keyframes blinkred{
   0%		{ background-color: red}
   50%		{ background-color: #e5e5e5}
   100%  { background-color: red}
+}
+
+@keyframes blinkgreen{
+  0%		{ background-color: green}
+  50%		{ background-color: #e5e5e5}
+  100%  { background-color: green}
 }
 
 form {

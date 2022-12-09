@@ -14,6 +14,23 @@ let roomNameField = newRoomForm.querySelector("#name");
 
 var username = "guest";
 
+const Role = {
+  Civilian: "Civilian",
+  Wolf: "Wolf",
+  Witch: "Witch",
+  Prophet: "Prophet",
+  Undecided: "Undecided",
+}
+const TurnType = {
+  StartTurn: "StartTurn",
+  WolfTurn: "WolfTurn",
+  WitchTurn: "WitchTurn",
+  ProphetTurn : "ProphetTurn",
+  SpeakTurn : "SpeakTurn",
+  VoteTurn: "VoteTurn",
+  LastWordTurn: "LastWordTurn",
+  EndTurn: "EndTurn",
+}
 var PlayerState = {
   turn: false,
   muted: true,
@@ -84,7 +101,6 @@ function RoomSubscribe(uri) {
 }
 ////////////////////////////////////////////////////////////////
 
-
 // Generate a color from a "hash" of a string. Thanks, internet.
 function HashColor(str) {
   let hash = 0;
@@ -152,6 +168,7 @@ function AddMessage(room, username, message, push = false) {
 }
 
 
+
 // Subscribe to the event source at `uri` with exponential backoff reconnect.
 function MessageSubscribe(uri) {
   var retryTime = 1;
@@ -186,6 +203,7 @@ function MessageSubscribe(uri) {
   Connect(uri);
 }
 
+// Subscribe to the event source at `uri` with exponential backoff reconnect.
 function PlayerInfoSubscribe(uri) {
   var retryTime = 1;
   
@@ -220,10 +238,6 @@ function PlayerInfoSubscribe(uri) {
  
   Connect(uri);
 }
- 
-
-// Subscribe to the event source at `uri` with exponential backoff reconnect.
-
 
 // OnLoad will sent post to rust when the javascript start
 function OnLoad(){
@@ -293,8 +307,7 @@ function Init() {
 
   // Subscribe to server-sent events.
   MessageSubscribe("/message/event");
-  PlayerInfoSubscribe("/playerInfo/event");
-  //RoomSubscribe("/room/event");
+  PlayerInfoSubscribe("/playerInfo/event")
   
 }
 
@@ -302,5 +315,3 @@ function Init() {
 
 
 Init();
-
-

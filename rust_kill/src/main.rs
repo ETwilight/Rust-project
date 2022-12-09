@@ -137,7 +137,7 @@ async fn main() -> Result<(), rocket::Error> {
     //server_addr tbd1
     let client_addr = "127.0.0.1";
     // server connection in parallel, currently in main, will be transferred
-    //let _ = server::host::start().await.unwrap();
+    let _ = server::host::start().await.unwrap();
     // a custom rocket build
     //let room_channel = channel::<Room>(1024).0;
     let message_channel = channel::<Json<Message>>(1024).0;
