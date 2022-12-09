@@ -4,16 +4,14 @@ use std::time::Duration;
 use queues::queue;
 use queues::Queue;
 use queues::IsQueue;
-use tokio::io::BufWriter;
 use tokio::net::TcpStream;
 use tokio::time::sleep;
-use tokio::{net::TcpListener, task::JoinHandle, join, sync::mpsc, io::BufReader};
+use tokio::{net::TcpListener, task::JoinHandle, sync::mpsc, io::BufReader};
 
 use crate::server::client_manager::receive;
 use crate::server::host::game_info::Player;
 use crate::server::host::game_info::{Room, GameState, TurnType, ClientInfo};
 use crate::server::host::utils::encode;
-use crate::server::host::utils::read_all;
 use crate::server::host::utils::string_to_struct;
 use crate::server::host::utils::struct_to_string;
 
@@ -42,7 +40,7 @@ pub async fn start() -> Result<JoinHandle<()>, ()>{
                 let ip = socket.peer_addr().unwrap().ip().to_string();
                 let (mut reader, mut writer) = socket.into_split();
                 let txc = tx.clone();
-                let task = tokio::spawn(async move{
+                tokio::spawn(async move{
                     let rawc = utils::server_response(BufReader::new(&mut reader), &mut writer, queue!["REG".to_string()], "AUTH", "Get Registration from Client").await;
                     if rawc.is_err() {panic!("err");}
                     let mut player: Player = string_to_struct(&rawc.unwrap());
@@ -60,7 +58,7 @@ pub async fn start() -> Result<JoinHandle<()>, ()>{
                         idx: num,
                     };
                     let cjson = serde_json::to_string(&cinfo).unwrap();
-                    utils::serverWriteToClient(&mut writer, &utils::encode("ROOM",cjson.as_str())).await.unwrap();
+                    utils::server_write(&mut writer, &utils::encode("ROOM",cjson.as_str())).await.unwrap();
                 }).await.unwrap();
                 num += 1;
             }
@@ -74,7 +72,7 @@ pub async fn start() -> Result<JoinHandle<()>, ()>{
         loop {
             // Process Client Events
             let (socket, _) = main_tcp.accept().await.unwrap();
-            let (mut reader, mut writer) = socket.into_split();
+            let (mut reader, _) = socket.into_split();
             let (k, v) = utils::read_all(BufReader::new(&mut reader)).await.unwrap();
             print!("Get results:{:?}", (k.clone(),v.clone()));
             if k == "MSG".to_string() {
@@ -84,7 +82,7 @@ pub async fn start() -> Result<JoinHandle<()>, ()>{
                     let cstream = TcpStream::connect(caddr).await.unwrap();
                     print!("Connect client true\n");
                     let writer = &mut cstream.into_split().1;
-                    utils::serverWriteToClient(writer, encode(k.as_str(), v.as_str()).as_str()).await.unwrap();
+                    utils::server_write(writer, encode(k.as_str(), v.as_str()).as_str()).await.unwrap();
                 }
             }
         }

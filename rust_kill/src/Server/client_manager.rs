@@ -15,7 +15,7 @@ pub async fn receive(rx: &mut Receiver<String>) -> (Room, Vec<String>){
         players: vec![],
         game_state: GameState{turn: TurnType::StartTurn, vote_map: HashMap::new() },
     };
-    for i in 0..6{
+    for _ in 0..6{
         room.players.push(Player{
             name: "Howdy".to_string(),
             ip: "127.0.0.1".to_string(),
