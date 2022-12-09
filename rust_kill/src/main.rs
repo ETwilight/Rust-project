@@ -130,7 +130,7 @@ async fn events(queue: &State<Sender<Json<Message>>>, mut end: Shutdown) -> Even
     }
 }
 
-fn server_addr() -> String {"10.200.0.210".to_string()}
+fn server_addr() -> String {"172.20.10.2".to_string()}
 
 #[rocket::main]
 async fn main() -> Result<(), rocket::Error> {
@@ -147,11 +147,11 @@ async fn main() -> Result<(), rocket::Error> {
     let _ = client::connect(server_addr().as_str(), "CharlieDreemur1", message_channel.clone()).await.unwrap();
     let _ = client::connect(server_addr().as_str(), "CharlieDreemur2", message_channel.clone()).await.unwrap();
     
-    let _ = client::connect(server_addr().as_str(), "CharlieDreemur1", message_channel.clone()).await.unwrap();
-    let _ = client::connect(server_addr().as_str(), "CharlieDreemur2", message_channel.clone()).await.unwrap();
+    let _ = client::connect(server_addr().as_str(), "CharlieDreemur3", message_channel.clone()).await.unwrap();
+    let _ = client::connect(server_addr().as_str(), "CharlieDreemur4", message_channel.clone()).await.unwrap();
     
-    let _ = client::connect(server_addr().as_str(), "CharlieDreemur1", message_channel.clone()).await.unwrap();
-    let _ = client::connect(server_addr().as_str(), "CharlieDreemur2", message_channel.clone()).await.unwrap();
+    let _ = client::connect(server_addr().as_str(), "CharlieDreemur5", message_channel.clone()).await.unwrap();
+    let _ = client::connect(server_addr().as_str(), "CharlieDreemur6", message_channel.clone()).await.unwrap();
 
    
     let figment = rocket::Config::figment()
@@ -167,4 +167,3 @@ async fn main() -> Result<(), rocket::Error> {
 
     Ok(())
 }
-

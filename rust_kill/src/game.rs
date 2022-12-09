@@ -1,6 +1,6 @@
-#[path="game/game_info.rs"]
+#[path="./Game/game_info.rs"]
 pub mod game_info;
-#[path="game/game_loop.rs"]
+#[path="./Game/game_loop.rs"]
 pub mod game_loop;
-#[path="game/utils.rs"]
+#[path="./Game/utils.rs"]
 pub mod utils;
