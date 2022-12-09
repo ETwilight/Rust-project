@@ -1,6 +1,6 @@
 use rocket::{serde::{Deserialize, Serialize}, form::FromForm};
-use std::{collections::HashMap, hash::Hash, default};
-use crate::data::Room;
+use std::collections::HashMap;
+pub use crate::data::Room;
 
 #[derive(Debug, Clone, FromFormField, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
