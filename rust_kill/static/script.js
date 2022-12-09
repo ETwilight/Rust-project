@@ -12,6 +12,7 @@ let messageField = newMessageForm.querySelector("#message");
 let roomNameField = newRoomForm.querySelector("#name");
 
 var username = "guest";
+
 const PlayerState = {
   Alive: "Alive",
   Out: "Out",

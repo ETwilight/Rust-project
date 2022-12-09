@@ -9,7 +9,7 @@ mod game;
 
 
 use rocket::{tokio::sync::broadcast::Sender, serde::json::Json};
-use crate::{client::room::game_info::Player, Message, VisibleType};
+use crate::{client::room::game_info::Player, data::{Message, VisibleType}};
 
 
 // tell the javascript that it should connect to an empty room with name given in the room info
