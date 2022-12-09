@@ -40,94 +40,115 @@
         <div class="u-list u-list-1">
             <div class="u-border-2 u-container-style u-list-item">
               <div class="u-container-layout u-container-layout-1">
-              <div id="status" class="pending"></div></div>
+              <div id="status" class="pending"></div>
             </div>
+          </div>
         </div>
 
         </div>
 
+<!--MAIN CONTENT-->
         <div class = "wrapped"> 
 
-          <div class="container">
+          <div class="others">
             <div class="indicator player1" >
               <div class="playerStatus" id="muted">
                 <img class="role" src="./images/User.jpg" alt="Wolf" >
                 <img class="overlay" src="./images/Mute.png" alt="Mute"> 
-              </div>
-              <p>Null1</p>
+              </div>Null1
             </div>  
 
             <div class="indicator player2" >
               <div class="playerStatus" id="muted">
                 <img class="role" src="./images/User.jpg" alt="Wolf" >
                 <img class="overlay" src="./images/Mute.png" alt="Mute"> 
-              </div>
-              <p>Null2</p>
+              </div>Null2
             </div>  
   
             <div class="indicator player3" >
               <div class="playerStatus" id="muted">
                 <img class="role" src="./images/User.jpg" alt="Wolf" > 
                 <img class="overlay" src="./images/Mute.png" alt="Mute">
-              </div>
-              <p>Null3</p>
+              </div>Null3
             </div>  
   
             <div class="indicator player4" >
               <div class="playerStatus" id="muted">
                 <img class="role" src="./images/User.jpg" alt="Wolf"> 
                 <img class="overlay" src="./images/Mute.png" alt="Mute">
-              </div>
-              <p>Null4</p>
+              </div>Null4
             </div>  
   
             <div class="indicator player5" >
               <div class="playerStatus" id="muted">
                 <img class="role" src="./images/User.jpg" alt="Wolf" > 
                 <img class="overlay" src="./images/Mute.png" alt="Mute">
-              </div>
-              <p>Null5</p>
+              </div>Null5
             </div>  
             
           </div>  
           
-          <div class="self">
-            <div class="selfStatus" id="muted">
-              <img src="./images/User.jpg" alt="Wolf" class="role"> 
-            </div>
-            <div>Your Role</div>
-          </div>  
-          
+
           <div class="window">
-                    <div id="sidebar">
-                      <div id="room-list">
-                          <template id="room">
-                            <button class="room"></button>
-                          </template>
-                      </div>
-                      <spam id="new-room"></span>
-                      </div>
-                      <div id="content">
-                        <div id="messages">
-                          <template id="message">
-                            <div class="message">
-                              <span class="username"></span>
-                              <span class="text"></span>
-                            </div>
-                          </template>
+            <div class="self">
+
+              <div id="profile">
+              <div class="selfStatus" id="muted">
+                <img src="./images/User.jpg" alt="Wolf" class="role"> 
+              </div>
+              </div>
+
+              <div class = "controls">
+                <div class="wolfinstance">
+                  <select>
+                    <option value="0">Select car:</option>
+                    <option value="1">Audi</option>
+                    <option value="2">BMW</option>
+                    <option value="3">Citroen</option>
+                    <option value="4">Ford</option>
+                    <option value="5">Honda</option>
+                  </select>
+                </div>
+
+                <script>
+                  console.log(select.value);
+                </script>
+              </div>
+
+            </div>  
+            
+            <div class="chat">
+                      <div id="sidebar">
+                        <div id="room-list">
+                            <template id="room">
+                              <button class="room"></button>
+                            </template>
                         </div>
-                    </div>
+                        <spam id="new-room"></span>
+                        </div>
+                        <div id="content">
+                          <div id="messages">
+                            <template id="message">
+                              <div class="message">
+                                <span class="username"></span>
+                                <span class="text"></span>
+                              </div>
+                            </template>
+                          </div>
+                      </div>
+            </div>
           </div>
 
           <div class="textbox">
           <form id="new-message">
             <input type="text" name="message" id="message" autocomplete="off" placeholder="Send a message..." autofocus>
-            <button type="submit" id="send">Send</button>
+            <button onclick = "scrollToBottom()" type="submit" id="send">Send</button>
             </form>
           </div>
 
-
         </div>
+<!--MAIN CONTENT-->
+
 
         <div class="testsuite"><b>TESTSUITE</b>
           <div class="showicons">
@@ -137,16 +158,7 @@
             <div>Height: <span id="height"></span> Width: <span id="width"></span></div></div>
           </div>
         </div>
-        <script>
-          const heightOutput = document.querySelector("#height");
-          const widthOutput = document.querySelector("#width");
-          function reportWindowSize() {
-            heightOutput.textContent = window.innerHeight;
-            widthOutput.textContent = window.innerWidth;
-          }
-          window.onresize = reportWindowSize;
-       </script>
-      
+
 
       
     

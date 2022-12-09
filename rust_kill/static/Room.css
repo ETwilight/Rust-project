@@ -1,5 +1,9 @@
 
- .u-section-1 {
+body, html {
+  overflow: hidden;
+}
+
+.u-section-1 {
   height: 100vh;
 }
 
@@ -22,8 +26,7 @@
 
 .u-section-1 .u-list-1 {
   width: 100px;
-  margin: -42px auto 0 139px;
-  
+  margin: -45px auto 10px 150px;  
 }
 
 .u-section-1 .u-container-layout-1 {
@@ -56,37 +59,86 @@
   padding: 10px;
   border: 5px solid black;
   width: var(--wrapped-width);
-  height: 85vh;
+  height: 60vh;
   margin-left:auto;
   margin-right:auto;
-  /*display: grid;*/
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.self{
+
+.others {
+  padding: 10px;
+  border: 5px solid black;
+  display: flex;
+  justify-content: space-between;
+  width: 600px;
+  height: 100px;
+  margin-left: 180px; 
 }
 
 .window {
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 5px solid black; 
+}
+
+.self{
+  padding: 5px;
+  border: 5px solid black;
+  width: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.selfStatus {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  position: relative;
+}
+
+
+#profile {
+  border: 5px solid black;
+  display: flex;
+  flex-direction: row;
+  float: center;
+  margin: 10px auto;
+}
+
+.controls {
+  height: 60%;
+  border: 5px solid black;
+}
+
+.chat {
   display:flex;
   height: 500px;
-  overflow-y: auto;
+  width: 650px;
   display: flex;
   background-color: var(--bg-dark);
   color: #fff;
   font-weight: 400;
   text-shadow: rgb(77, 81, 86) 0px 0px 0px;
-}
 
-main {
-  
 }
 
 
-.container {
+#content {
+  flex: 7 200%;
   display: flex;
-  justify-content: space-between;
-  width: 600px;
-  margin-bottom: 50vh;
-  margin-left: 10vh;
+  flex-direction: column;
+  overflow-y:scroll;
+  position: relative;
+}
+
+.textbox {
+  border: 5px solid black;
 }
 
 .indicator {
@@ -103,14 +155,6 @@ main {
 
 }
 
-.selfStatus {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  float: left;
-  position: relative;
-}
-
 .role {
   padding: 3px;
   border-radius: 50%;
@@ -120,7 +164,7 @@ main {
 
 .testsuite {
   margin-top: 50px;
-  border: 1px solid black;
+  border: 5px solid black;
   display: flex;
 }
 
@@ -179,3 +223,13 @@ form * {
   background: #d7d7d7;
   color: var(--bg-dark);
 }
+
+
+
+
+
+
+
+
+
+/*test*/

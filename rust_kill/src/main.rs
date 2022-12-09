@@ -123,7 +123,7 @@ async fn main() -> Result<(), rocket::Error> {
     //let client6 = client::connect::connect(server_addr.clone(), "127.0.0.1", "ThgilTac6").await.unwrap();
 
     // a custom rocket build
-    print()
+
     let message_channel = channel::<Message>(1024).0;
     start_message(message_channel.clone()).await.unwrap();
     let figment = rocket::Config::figment()
