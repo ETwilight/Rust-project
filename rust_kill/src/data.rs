@@ -54,6 +54,7 @@ pub struct Room {
     #[field(validate = len(..30))]
     pub room_name: String,
     pub players: Vec<Player>,
+    pub messages: Vec<Message>,
     pub game_state: GameState,
     //pub Listmessage
 }
