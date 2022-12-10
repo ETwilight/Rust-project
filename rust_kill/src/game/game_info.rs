@@ -35,6 +35,14 @@ impl Default for WinType{
 
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize, Default)]
 #[serde(crate = "rocket::serde")]
+pub struct VoteResult {
+    pub is_vote: bool,
+    pub voter_id: usize, 
+    pub target_id: usize, 
+}
+
+#[derive(Debug, Clone, FromForm, Serialize, Deserialize, Default)]
+#[serde(crate = "rocket::serde")]
 pub struct RevealResult {
     pub id: usize,
     pub is_good: bool,
@@ -110,8 +118,10 @@ pub struct ClientInfo {
 pub struct GameState {
     pub turn: TurnType,
     pub win_type: WinType,
-    pub vote_map: HashMap<usize, usize>,
-    pub kill_vote_map: HashMap<usize, usize>,
+    pub votes: Vec<VoteResult>,
+    pub vote_result: (usize, usize), //前者是id，后者是票数
+    pub kill_votes: Vec<VoteResult>,
+    pub kill_vote_result: (usize, usize),
     pub reveal_result: RevealResult,
 }
 
