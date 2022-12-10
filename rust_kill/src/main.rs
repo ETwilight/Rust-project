@@ -130,7 +130,7 @@ async fn events(queue: &State<Sender<Json<Message>>>, mut end: Shutdown) -> Even
     }
 }
 
-fn server_addr() -> String {"172.20.10.2".to_string()}
+fn server_addr() -> String {"10.195.172.142".to_string()}
 
 #[rocket::main]
 async fn main() -> Result<(), rocket::Error> {

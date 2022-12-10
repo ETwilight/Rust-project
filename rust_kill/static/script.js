@@ -277,6 +277,7 @@ function AddMessageListener(){
     })
 }
 
+
 function AddRoomListener(){
    // Set up the new room handler.
    newRoomForm.addEventListener("submit", (e) => {

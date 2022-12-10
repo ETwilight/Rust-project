@@ -1,22 +1,26 @@
-
-   
-var messages = document.getElementById("content"); 
+var content = document.getElementById("content");  
 function scrollToBottom() {
-    messages.scrollTop = messages.scrollHeight;
+    setTimeout(function(){
+        content.scrollTop = content.scrollHeight;
+    }, 1000);   
 }
-
-
    
-var e = document.getElementById("killoption");
-                document.querySelector("#killconfirm").addEventListener('click', () => {
-                  console.log(e.value)
-                })
+let newMessageForm = document.getElementById('new-message');
+newMessageForm.addEventListener("submit", scrollToBottom);
 
+
+var e = document.getElementById("killoption");
+document.querySelector("#killconfirm").addEventListener('click', () => {
+    console.log(e.value)
+})
+
+
+
+//init
+
+/* => GAME LOOP*/ 
 
 /*Utilities*/
-
-
-
 const heightOutput = document.querySelector("#height");
 const widthOutput = document.querySelector("#width");
 function reportWindowSize() {
