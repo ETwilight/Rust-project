@@ -54,7 +54,7 @@ fn post_game_event(form: Form<GameEvent>){
 
 
 /// Receive a message from a form submission and broadcast it to any receivers.
-#[post("/game/message", data = "<form>")]
+#[post("/room/message", data = "<form>")]
 async fn post_message(form: Form<Message>, queue: &State<Sender<Json<Message>>>){
     //A send "fails" if there are no active subscribers
     let msg = form.into_inner();
