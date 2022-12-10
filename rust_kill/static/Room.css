@@ -167,25 +167,14 @@
   height: 500px;
 }
 
-/* #content::-webkit-scrollbar {
+
+/*
+#messages::-webkit-scrollbar {
   display: none; 
-} */
+}*/
 
 .textbox {
   border: 3px solid black;
-  position: relative;
-}
-
-#new-message {
-  position: absolute;
-}
-
-#disabled {
-  text-align: center;
-  background-color: black;
-  color: white;
-  opacity: 0.6;
-  visibility: hidden;
 }
 
 .indicator {
@@ -241,12 +230,12 @@
 }
 
 #muted {
-  background: orange;
+  background: red;
+  animation: blinkred 1.4s infinite;
 }
 
 #dead {
   background: black;
-  animation: blinkblack 1.4s infinite;
 }
 
 @keyframes blinkimage {
@@ -255,10 +244,10 @@
   100% {opacity: 1}
 }
 
-@keyframes blinkblack{
-  0%		{ background-color: black}
+@keyframes blinkred{
+  0%		{ background-color: red}
   50%		{ background-color: #e5e5e5}
-  100%  { background-color: black}
+  100%  { background-color: red}
 }
 
 @keyframes blinkgreen{
