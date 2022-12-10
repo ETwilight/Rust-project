@@ -167,14 +167,25 @@
   height: 500px;
 }
 
-
-/*
-#messages::-webkit-scrollbar {
+/* #content::-webkit-scrollbar {
   display: none; 
-}*/
+} */
 
 .textbox {
   border: 3px solid black;
+  position: relative;
+}
+
+#new-message {
+  position: absolute;
+}
+
+#disabled {
+  text-align: center;
+  background-color: black;
+  color: white;
+  opacity: 0.6;
+  visibility: hidden;
 }
 
 .indicator {
@@ -230,12 +241,12 @@
 }
 
 #muted {
-  background: red;
-  animation: blinkred 1.4s infinite;
+  background: orange;
 }
 
 #dead {
   background: black;
+  animation: blinkblack 1.4s infinite;
 }
 
 @keyframes blinkimage {
@@ -244,10 +255,10 @@
   100% {opacity: 1}
 }
 
-@keyframes blinkred{
-  0%		{ background-color: red}
+@keyframes blinkblack{
+  0%		{ background-color: black}
   50%		{ background-color: #e5e5e5}
-  100%  { background-color: red}
+  100%  { background-color: black}
 }
 
 @keyframes blinkgreen{
