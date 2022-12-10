@@ -8,6 +8,7 @@ document.querySelector("#killconfirm").addEventListener('click', () => {
 
 
 
+
 //init
 
 /* => GAME LOOP*/ 

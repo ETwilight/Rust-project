@@ -12,6 +12,7 @@ let messageTemplate = document.getElementById('message');
 let messageField = newMessageForm.querySelector("#message");
 let roomNameField = newRoomForm.querySelector("#name");
 
+var content = document.getElementById("content"); 
 var username = "guest";
 
 const Role = {
@@ -94,7 +95,6 @@ function RoomSubscribe(uri) {
     events.addEventListener("error", () => {
       SetConnectedStatus(false);
       events.close();
-
       let timeout = retryTime;
       retryTime = Math.min(64, retryTime * 2);
       console.log(`connection lost. attempting to reconnect in ${timeout}s`);
@@ -117,6 +117,7 @@ function HashColor(str) {
 
   return `hsl(${hash % 360}, 100%, 70%)`;
 }
+ 
 
 // Add a new room `name` and change to it. Returns `true` if the room didn't
 // already exist and false otherwise.
@@ -141,7 +142,7 @@ function AddRoom(name) {
 // Change the current room to `name`, restoring its messages.
 function ChangeRoom(name) {
   if (STATE.currentRoom == name) return;
-
+  newMessageForm.addEventListener("submit", scrollToBottom);
   var newRoom = roomListDiv.querySelector(`.room[data-name='${name}']`);
   var oldRoom = roomListDiv.querySelector(`.room[data-name='${STATE.currentRoom}']`);
   if (!newRoom || !oldRoom) return;
@@ -163,6 +164,7 @@ function AddMessage(room, username, message, push = false) {
   if (push) {
     STATE.rooms[room].push({ username, message })
   }
+  newMessageForm.addEventListener("submit", scrollToBottom);
 
   if (STATE.currentRoom == room) {
     var node = messageTemplate.content.cloneNode(true);
@@ -170,6 +172,7 @@ function AddMessage(room, username, message, push = false) {
     node.querySelector(".message .username").textContent = username;
     node.querySelector(".message .username").style.color = HashColor(username);
     node.querySelector(".message .text").textContent = message;
+    newMessageForm.addEventListener("submit", scrollToBottom);
     messagesDiv.appendChild(node);
   }
 }
