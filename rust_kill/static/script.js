@@ -179,8 +179,8 @@ function MessageSubscribe(uri) {
       console.log("raw data", JSON.stringify(ev.data));
       const msg = JSON.parse(ev.data);
       console.log("decoded data", JSON.stringify(msg));
-      if (!"message" in msg || !"room" in msg || !"username" in msg) return;
-      AddMessage(msg.room, msg.username, msg.message, true);
+      if (!"message" in msg || !"room_name" in msg || !"username" in msg) return;
+      AddMessage(msg.room_name, msg.username, msg.message, true);
     });
 
     events.addEventListener("open", () => {
@@ -239,38 +239,6 @@ function PlayerInfoSubscribe(uri) {
   Connect(uri);
 }
 
-function RoomSubscribe(uri){
-  var retryTime = 1;
-  function Connect(uri) {
-    const events = new EventSource(uri);
-    events.addEventListener("message", (ev) => {
-      console.log("raw data", JSON.stringify(ev.data));
-      const room = JSON.parse(ev.data);
-      console.log("decoded data", JSON.stringify(msg));
-      //if (!"username" in msg || !"serverip" in msg) return;
-      AddMessage("rustkill", room.room_name, "Receive Room", true);
-    });
-
-    events.addEventListener("open", () => {
-      SetConnectedStatus(true);
-      console.log(`connected to event stream at ${uri}`);
-      retryTime = 1;
-    });
-
-    events.addEventListener("error", () => {
-      SetConnectedStatus(false);
-      events.close();
-
-      let timeout = retryTime;
-      retryTime = Math.min(64, retryTime * 2);
-      console.log(`connection lost. attempting to reconnect in ${timeout}s`);
-      setTimeout(() => Connect(uri), (() => timeout * 1000)());
-    });
-    console.log(events);
-  }
- 
-  Connect(uri);
-}
 
 // OnLoad will sent post to rust when the javascript start
 function OnLoad(){
@@ -299,7 +267,7 @@ function AddMessageListener(){
       if (!message || !username) return;
   
       if (STATE.connected) {
-        fetch("/game/message", {
+        fetch("/room/message", {
           method: "POST",
           body: new URLSearchParams({ room_name, username, message }),
         }).then((response) => {
@@ -339,7 +307,7 @@ function Init() {
 
   // Subscribe to server-sent events.
   MessageSubscribe("/message/event");
-  PlayerInfoSubscribe("/event/room")
+  PlayerInfoSubscribe("/playerInfo/event")
   
 }
 

@@ -55,11 +55,19 @@ fn post_game_event(form: Form<GameEvent>){
 
 /// Receive a message from a form submission and broadcast it to any receivers.
 #[post("/room/message", data = "<form>")]
-async fn post_message(form: Form<Message>, queue: &State<Sender<Json<Message>>>){
+async fn post_message(form: Form<MessageEvent>, queue: &State<Sender<Message>>){
     //A send "fails" if there are no active subscribers
     let msg = form.into_inner();
+    print!("Howdy World\n");
+    print!("{:?}", msg);
+    let message = Message {
+        room_name: msg.room_name,
+        username: msg.username,
+        message: msg.message,
+        visible_type: Default::default(),
+    };
     //let _res = queue.send(Json(msg));
-    let s = struct_to_string(&msg).0;
+    let s = struct_to_string(&message).0;
     client_send_message(&server_addr(), s).await.unwrap();
 }
 
@@ -118,7 +126,7 @@ async fn event_room(queue: &State<Sender<Room>>, mut end: Shutdown) -> EventStre
 /// pulled from a broadcast queue sent by the `post` handler.
   
 #[get("/message/event")]
-async fn events(queue: &State<Sender<Json<Message>>>, mut end: Shutdown) -> EventStream![] {
+async fn events(queue: &State<Sender<Message>>, mut end: Shutdown) -> EventStream![] {
     let mut rx = queue.subscribe();
     EventStream! {
         loop {
@@ -130,14 +138,13 @@ async fn events(queue: &State<Sender<Json<Message>>>, mut end: Shutdown) -> Even
                 },
                 _ = &mut end => break,
             };
-            let value = msg.into_inner();
-            let event = Event::json(&value);
+            let event = Event::json(&msg);
             yield event;
         }
     }
 }
 
-fn server_addr() -> String {"10.213.0.64".to_string()}
+fn server_addr() -> String {"10.214.0.22".to_string()}
 
 #[rocket::main]
 async fn main() -> Result<(), rocket::Error> {
@@ -148,7 +155,7 @@ async fn main() -> Result<(), rocket::Error> {
     let _ = server::host::start().await.unwrap();
     // a custom rocket build
     //let room_channel = channel::<Room>(1024).0;
-    let message_channel = channel::<Json<Message>>(1024).0;
+    let message_channel = channel::<Message>(1024).0;
     // a custom rocket build
     let room_channel = channel::<Room>(1024).0;
     //let event_channel = channel::<GameEvent>(1024).0;
