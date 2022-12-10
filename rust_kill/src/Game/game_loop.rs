@@ -3,8 +3,8 @@ use std::{vec, collections::HashMap};
 use rocket::serde::{Serialize, Deserialize};
 
 
-use crate::data::{Room};
-use crate::post_event::{GameEvent};
+use crate::data::{GameEvent, Room};
+
 use crate::game_info::{RoleType, Player, TurnType, WinType, RevealResult};
 
 use rand::prelude::*;
