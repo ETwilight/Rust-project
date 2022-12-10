@@ -8,7 +8,7 @@ mod game_info;
 #[path="game.rs"]
 mod game;
 
-use game::utils::{send_message, send_room};
+use game::utils::{send_message, send_room, send_delay_room};
 
 pub mod room;
 use room::connect_room;
@@ -25,7 +25,7 @@ use queues::IsQueue;
 #[path="utils.rs"]
 mod utils;
 
-pub async fn connect(server_addr: &str, client_name: &str, sender_msg: Sender<Json<Message>>, sender_room: Sender<Room>) -> Result<JoinHandle<()>, ()>{
+pub async fn connect(server_addr: &str, client_name: &str, sender_msg: Sender<Message>, sender_room: Sender<Room>) -> Result<JoinHandle<()>, ()>{
     let clt = TcpStream::connect((server_addr.to_string() + ":8080").as_str()).await.unwrap();
     let (mut reader, mut writer) = clt.into_split();
     let player = Player {
@@ -53,7 +53,7 @@ pub async fn connect(server_addr: &str, client_name: &str, sender_msg: Sender<Js
     Ok(main_task(client, sender_msg.clone(), sender_room.clone()).await)
 }
 
-pub async fn main_task(client_addr: String, sender_msg: Sender<Json<Message>>, sender_room: Sender<Room>) -> JoinHandle<()>{
+pub async fn main_task(client_addr: String, sender_msg: Sender<Message>, sender_room: Sender<Room>) -> JoinHandle<()>{
     tokio::spawn(async move {
         let listener = TcpListener::bind(client_addr.clone()).await.unwrap();
         loop {
@@ -79,7 +79,7 @@ pub async fn client_send_message(server_addr: &String, msg: String) -> Result<()
 }
 
 
-pub async fn client_receive_msg(msg: &String, sender: Sender<Json<Message>>) {
+pub async fn client_receive_msg(msg: &String, sender: Sender<Message>) {
     let msg:Message = string_to_struct(&msg);
     send_message(sender, msg.username, msg.message, VisibleType::All).unwrap();
 }
@@ -93,5 +93,5 @@ pub async fn client_send_room(server_addr: &String, room: String) -> Result<(), 
 
 pub async fn client_receive_room(room: &String, sender: Sender<Room>) {
     let value: Room = string_to_struct(&room);
-    send_room(sender, value).unwrap();
+    send_delay_room(sender, value, 10000).await.unwrap();
 }

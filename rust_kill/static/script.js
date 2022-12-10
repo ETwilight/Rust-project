@@ -179,8 +179,8 @@ function MessageSubscribe(uri) {
       console.log("raw data", JSON.stringify(ev.data));
       const msg = JSON.parse(ev.data);
       console.log("decoded data", JSON.stringify(msg));
-      if (!"message" in msg || !"room" in msg || !"username" in msg) return;
-      AddMessage(msg.room, msg.username, msg.message, true);
+      if (!"message" in msg || !"room_name" in msg || !"username" in msg) return;
+      AddMessage(msg.room_name, msg.username, msg.message, true);
     });
 
     events.addEventListener("open", () => {
@@ -239,6 +239,7 @@ function PlayerInfoSubscribe(uri) {
   Connect(uri);
 }
 
+
 // OnLoad will sent post to rust when the javascript start
 function OnLoad(){
   if (STATE.connected) {
@@ -266,7 +267,7 @@ function AddMessageListener(){
       if (!message || !username) return;
   
       if (STATE.connected) {
-        fetch("/game/message", {
+        fetch("/room/message", {
           method: "POST",
           body: new URLSearchParams({ room_name, username, message }),
         }).then((response) => {
