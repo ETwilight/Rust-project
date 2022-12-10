@@ -8,7 +8,7 @@ mod game_info;
 #[path="game.rs"]
 mod game;
 
-use game::utils::send_message;
+use game::utils::{send_message, send_room};
 
 pub mod room;
 use room::connect_room;
@@ -80,8 +80,8 @@ pub async fn client_send_message(server_addr: &String, msg: String) -> Result<()
 
 
 pub async fn client_receive_msg(msg: &String, sender: Sender<Json<Message>>) {
-    let original_msg:Message = string_to_struct(&msg);
-    send_message(sender, original_msg.username, original_msg.message, VisibleType::All).unwrap();
+    let msg:Message = string_to_struct(&msg);
+    send_message(sender, msg.username, msg.message, VisibleType::All).unwrap();
 }
 
 pub async fn client_send_room(server_addr: &String, room: String) -> Result<(), ()>{
@@ -92,6 +92,6 @@ pub async fn client_send_room(server_addr: &String, room: String) -> Result<(), 
 }
 
 pub async fn client_receive_room(room: &String, sender: Sender<Room>) {
-    let original_msg: Room = string_to_struct(&room);
-    print!("Receive Room: {}", room.clone());
+    let value: Room = string_to_struct(&room);
+    send_room(sender, value).unwrap();
 }
