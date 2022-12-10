@@ -1,27 +1,9 @@
-use serde::{Serialize, Deserialize};
-use crate::game_info::{Player, GameState};
+use crate::game_info::{GameState, Player};
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, FromFormField, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
-pub enum GameEventType{
-    Kill,
-    Poison,
-    Antidote,
-    Reveal,
-    Vote,
-}
-
-#[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
-#[serde(crate = "rocket::serde")]
-pub struct GameEvent {
-    pub event_type : GameEventType,
-    pub attacker: String, //The one who actively do something to others, like wolf, witch, prophet
-    pub target: String, //The one who passively be done something
-}
-
-#[derive(Debug, Clone, FromFormField, Serialize, Deserialize)]
-#[serde(crate = "rocket::serde")]
-pub enum VisibleType{
+pub enum VisibleType {
     #[field(value = "None")]
     None,
     #[field(value = "All")]
@@ -34,16 +16,20 @@ pub enum VisibleType{
     Prophet,
 }
 
-
+impl Default for VisibleType{
+    fn default() -> Self {
+        VisibleType::All
+    }
+}
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
-pub struct Message{
+pub struct Message {
     #[field(validate = len(..30))]
-    pub room:String, //Maximum Length is 30 for a roomName
+    pub room: String, //Maximum Length is 30 for a roomName
     #[field(validate = len(..20))]
-    pub username:String, //Maximum Length is 20 for a username
-    pub message:String,
-    pub visible_type :VisibleType
+    pub username: String, //Maximum Length is 20 for a username
+    pub message: String,
+    pub visible_type: VisibleType,
 }
 
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
@@ -53,12 +39,22 @@ pub struct UserInfo {
     pub serverip: String,
 }
 
+impl Default for UserInfo {
+    fn default() -> Self {
+        UserInfo {
+            username: "Howdy".to_string(),
+            serverip: "".to_string(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize, Default)]
 #[serde(crate = "rocket::serde")]
 pub struct Room {
     #[field(validate = len(..30))]
     pub room_name: String,
     pub players: Vec<Player>,
+    pub messages: Vec<Message>,
     pub game_state: GameState,
     //pub Listmessage
 }

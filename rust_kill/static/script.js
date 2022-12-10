@@ -1,4 +1,6 @@
 
+//variables////////////////////////////////////////////////////////////////
+
 let roomListDiv = document.getElementById('room-list');
 let messagesDiv = document.getElementById('messages');
 let newMessageForm = document.getElementById('new-message');
@@ -7,30 +9,97 @@ let statusDiv = document.getElementById('status');
 
 let roomTemplate = document.getElementById('room');
 let messageTemplate = document.getElementById('message');
-
 let messageField = newMessageForm.querySelector("#message");
 let roomNameField = newRoomForm.querySelector("#name");
 
 var username = "guest";
 
-const PlayerState = {
-  Alive: "Alive",
-  Out: "Out",
-  Leave: "Leave",
+const Role = {
+  Civilian: "Civilian",
+  Wolf: "Wolf",
+  Witch: "Witch",
+  Prophet: "Prophet",
+  Undecided: "Undecided",
 }
+const TurnType = {
+  StartTurn: "StartTurn",
+  WolfTurn: "WolfTurn",
+  WitchTurn: "WitchTurn",
+  ProphetTurn : "ProphetTurn",
+  SpeakTurn : "SpeakTurn",
+  VoteTurn: "VoteTurn",
+  LastWordTurn: "LastWordTurn",
+  EndTurn: "EndTurn",
+}
+var PlayerState = {
+  turn: false,
+  muted: true,
+  speaking: false, 
+}
+
+var Turn = {
+  turn_state : TurnType,
+}
+
+var player = {
+  name : "",
+  ip : "", 
+  role: Role,
+  player_state: PlayerState,
+}
+
+var room = {
+  room_name: "",
+  players : {}, //{'1': player, '2': player, '3': player, '4': player, '5': player, '6': player},
+  game_state : Turn,
+}
+
 var STATE = {
   currentRoom: "rustkill",
   rooms: {}, //A dictionary
   connected: false,
 }
 
-var player = {
-  name: "Guest",
-  ip: "",
-  id: 1,
-  status: PlayerState.Alive,
-  isSpeaking: false, //if it's the player's turn, it will be true
+//不一定对建议检查一下
+////////////////////////////////////////////////////////////////
+function RoomSubscribe(uri) {
+  var retryTime = 1;
+  function Connect(uri) {
+    const events = new EventSource(uri);
+    events.addEventListener("message", (ev) => {
+      const roomjson = JSON.parse(ev.data);
+      console.log("decoded data", JSON.stringify(roomjson));
+      if (!room_name || !players || !game_state in room) return;
+      //initialize
+      room.room_name = roomjson.room_name;
+      for (let i = 0, emp = roomjson.players[i]; i < roomjson.players.length; ++i){
+        room.players[emp.id] = emp;
+      }
+      room.game_state = roomjson.game_state;
+      console.log("ROOM OBJECT: " + room);
+    });
+
+    events.addEventListener("open", () => {
+      SetConnectedStatus(true);
+      console.log(`connected to event stream at ${uri}`);
+      retryTime = 1;
+    });
+
+    events.addEventListener("error", () => {
+      SetConnectedStatus(false);
+      events.close();
+
+      let timeout = retryTime;
+      retryTime = Math.min(64, retryTime * 2);
+      console.log(`connection lost. attempting to reconnect in ${timeout}s`);
+      setTimeout(() => Connect(uri), (() => timeout * 1000)());
+    });
+    console.log(events);
+  }
+ 
+  Connect(uri);
 }
+////////////////////////////////////////////////////////////////
 
 // Generate a color from a "hash" of a string. Thanks, internet.
 function HashColor(str) {
@@ -192,15 +261,14 @@ function AddMessageListener(){
     newMessageForm.addEventListener("submit", (e) => {
       e.preventDefault();
   
-      const room = STATE.currentRoom;
+      const room_name = STATE.currentRoom;
       const message = messageField.value;
-      const visible_type = "All";
       if (!message || !username) return;
   
       if (STATE.connected) {
-        fetch("/message", {
+        fetch("/game/message", {
           method: "POST",
-          body: new URLSearchParams({ room, username, message, visible_type }),
+          body: new URLSearchParams({ room_name, username, message }),
         }).then((response) => {
           if (response.ok) messageField.value = "";
         });
@@ -246,5 +314,3 @@ function Init() {
 
 
 Init();
-
-

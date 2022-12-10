@@ -25,11 +25,11 @@ use queues::IsQueue;
 #[path="utils.rs"]
 mod utils;
 
-pub async fn connect(server_addr: &str, client_name: &str, sender_msg: Sender<Json<Message>>, sender_room: Sender<Json<Room>>) -> Result<JoinHandle<()>, ()>{
+pub async fn connect(server_addr: &str, client_name: &str, sender_msg: Sender<Json<Message>>, sender_room: Sender<Room>) -> Result<JoinHandle<()>, ()>{
     let clt = TcpStream::connect((server_addr.to_string() + ":8080").as_str()).await.unwrap();
     let (mut reader, mut writer) = clt.into_split();
     let player = Player {
-        name: client_name.to_string(),
+        user_info: Default::default(),
         ip : "127.0.0.1".to_string(),
         role: RoleType::Undecided,
         state: Default::default(),
@@ -53,7 +53,7 @@ pub async fn connect(server_addr: &str, client_name: &str, sender_msg: Sender<Js
     Ok(main_task(client, sender_msg.clone(), sender_room.clone()).await)
 }
 
-pub async fn main_task(client_addr: String, sender_msg: Sender<Json<Message>>, sender_room: Sender<Json<Room>>) -> JoinHandle<()>{
+pub async fn main_task(client_addr: String, sender_msg: Sender<Json<Message>>, sender_room: Sender<Room>) -> JoinHandle<()>{
     tokio::spawn(async move {
         let listener = TcpListener::bind(client_addr.clone()).await.unwrap();
         loop {
@@ -91,7 +91,7 @@ pub async fn client_send_room(server_addr: &String, room: String) -> Result<(), 
     utils::client_write(writer, encode("ROOM", room.as_str()).as_str()).await
 }
 
-pub async fn client_receive_room(room: &String, sender: Sender<Json<Room>>) {
+pub async fn client_receive_room(room: &String, sender: Sender<Room>) {
     let original_msg: Room = string_to_struct(&room);
     print!("Receive Room: {}", room.clone());
 }

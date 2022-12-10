@@ -10,7 +10,7 @@
       font-size: 14px;
   }
   
-  html, body, main {
+  html, body {
       background-color: var(--bg-dark);
       color: #fff;
       font-family: "Inter", Arial, Helvetica, sans-serif, "Noto Color Emoji";
@@ -19,9 +19,6 @@
       height: 100%;
   }
   
-  main {
-      display: flex;
-  }
   
   button:hover:not(.active) {
       filter: brightness(1.15);
@@ -58,15 +55,7 @@
       box-shadow: 0px 2px 2px rgba(0,0,0,0.9);
       z-index: 10;
   }
-  
-  #content {
-      flex: 7 100%;
-      display: flex;
-      flex-direction: column;
-      overflow: auto;
-      position: relative;
-  }
-  
+
   .message {
       display: flex;
       flex-direction: column;
@@ -97,16 +86,7 @@
       width: 100%;
   }
   
-  form {
-      display: flex;
-      border-top: 2px solid #242424;
-  }
-  
-  form * {
-      height: 40px;
-      background: var(--fg-light);
-      color: var(--bg-dark);
-  }
+
   
   input {
       padding: 0 5px;

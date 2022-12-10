@@ -34,7 +34,7 @@ function HostInput() {
       method: "POST",
       body: new URLSearchParams({username, serverip}),
     }).then((response) => {
-      if (response.ok) console.log("OK");
+      if (response.ok) console.log("Host Form Sent");
     });
 
     return;
@@ -63,7 +63,7 @@ function ClientInput() {
       method: "POST",
       body: new URLSearchParams({username, serverip}),
     }).then((response) => {
-      if (response.ok) console.log("OK");
+      if (response.ok) console.log("Client Form Sent");
     });
     return;
   })
