@@ -51,6 +51,7 @@ pub async fn start() -> Result<JoinHandle<()>, ()>{
                     let cinfo = ClientInfo {
                         room: Room {
                             room_name: "rust_kill".to_string(), 
+                            messages:Vec::new(),
                             players:vec![player],
                             game_state: Default::default(),
                         },
