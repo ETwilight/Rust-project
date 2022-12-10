@@ -65,7 +65,7 @@ async fn post_message(form: Form<Message>, queue: &State<Sender<Json<Message>>>)
 
 
 
-#[get("/room/event")]
+#[get("/event/room")]
 async fn event_room(queue: &State<Sender<Room>>, mut end: Shutdown) -> EventStream![] {
    print!("Get event");
      let mut rx = queue.subscribe();
@@ -144,13 +144,13 @@ async fn main() -> Result<(), rocket::Error> {
     //server_addr tbd1
     let client_addr = "127.0.0.1";
     // server connection in parallel, currently in main, will be transferred
-    // let _ = server::host::start().await.unwrap();
+    let _ = server::host::start().await.unwrap();
     // a custom rocket build
     //let room_channel = channel::<Room>(1024).0;
     let message_channel = channel::<Json<Message>>(1024).0;
     // a custom rocket build
     let room_channel = channel::<Room>(1024).0;
-
+    //let event_channel = channel::<GameEvent>(1024).0;
     let _ = client::connect(server_addr().as_str(), "ThgilTac1", message_channel.clone(), room_channel.clone()).await.unwrap();
     let _ = client::connect(server_addr().as_str(), "ThgilTac2", message_channel.clone(), room_channel.clone()).await.unwrap();
     
@@ -170,6 +170,8 @@ async fn main() -> Result<(), rocket::Error> {
         .mount("/", routes![post_message, events])
         .manage(channel::<UserInfo>(1024).0)
         .mount("/", routes![post_player_info, event_player_info])
+        .manage(room_channel)
+        .mount("/", routes![event_room])
         .mount("/", FileServer::from(relative!("/static"))).launch().await.unwrap();
 
     Ok(())

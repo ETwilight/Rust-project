@@ -239,6 +239,39 @@ function PlayerInfoSubscribe(uri) {
   Connect(uri);
 }
 
+function RoomSubscribe(uri){
+  var retryTime = 1;
+  function Connect(uri) {
+    const events = new EventSource(uri);
+    events.addEventListener("message", (ev) => {
+      console.log("raw data", JSON.stringify(ev.data));
+      const room = JSON.parse(ev.data);
+      console.log("decoded data", JSON.stringify(msg));
+      //if (!"username" in msg || !"serverip" in msg) return;
+      AddMessage("rustkill", room.room_name, "Receive Room", true);
+    });
+
+    events.addEventListener("open", () => {
+      SetConnectedStatus(true);
+      console.log(`connected to event stream at ${uri}`);
+      retryTime = 1;
+    });
+
+    events.addEventListener("error", () => {
+      SetConnectedStatus(false);
+      events.close();
+
+      let timeout = retryTime;
+      retryTime = Math.min(64, retryTime * 2);
+      console.log(`connection lost. attempting to reconnect in ${timeout}s`);
+      setTimeout(() => Connect(uri), (() => timeout * 1000)());
+    });
+    console.log(events);
+  }
+ 
+  Connect(uri);
+}
+
 // OnLoad will sent post to rust when the javascript start
 function OnLoad(){
   if (STATE.connected) {
@@ -306,7 +339,7 @@ function Init() {
 
   // Subscribe to server-sent events.
   MessageSubscribe("/message/event");
-  PlayerInfoSubscribe("/playerInfo/event")
+  PlayerInfoSubscribe("/event/room")
   
 }
 
