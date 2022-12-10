@@ -19,7 +19,7 @@ pub async fn receive(rx: &mut Receiver<String>) -> (Room, Vec<String>){
     let mut clients = Vec::<String>::new();
     for _ in 0..6{
         room.players.push(Player{
-            name: "Howdy".to_string(),
+            user_info: Default::default(),
             ip: "127.0.0.1".to_string(),
             role: Default::default(),
             state: Default::default(),
@@ -33,8 +33,6 @@ pub async fn receive(rx: &mut Receiver<String>) -> (Room, Vec<String>){
         let recv = rec.unwrap();
         let player_info: Player = serde_json::from_str(&recv).expect("json deserialize failed");
         let id = player_info.id;
-        //player_info.
-        print!("Player Info: {}\n", player_info.name);
         let player_addr = client_addr(player_info.ip.clone(), id);
         room.players[id] = player_info;
         clients[id] = player_addr;

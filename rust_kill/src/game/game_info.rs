@@ -1,6 +1,7 @@
 use rocket::{serde::{Deserialize, Serialize}, form::FromForm};
 use std::collections::HashMap;
 pub use crate::data::Room;
+use crate::data::UserInfo;
 
 #[derive(Debug, Clone, FromFormField, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
@@ -42,7 +43,7 @@ pub struct RevealResult {
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize, Default)]
 #[serde(crate = "rocket::serde")]
 pub struct Player {
-    pub name: String,
+    pub user_info: UserInfo,
     pub ip: String,
     pub role: RoleType,
     pub state: PlayerState,

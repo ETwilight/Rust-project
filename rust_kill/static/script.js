@@ -261,15 +261,14 @@ function AddMessageListener(){
     newMessageForm.addEventListener("submit", (e) => {
       e.preventDefault();
   
-      const room = STATE.currentRoom;
+      const room_name = STATE.currentRoom;
       const message = messageField.value;
-      const visible_type = "All";
       if (!message || !username) return;
   
       if (STATE.connected) {
-        fetch("/message", {
+        fetch("/game/message", {
           method: "POST",
-          body: new URLSearchParams({ room, username, message, visible_type }),
+          body: new URLSearchParams({ room_name, username, message }),
         }).then((response) => {
           if (response.ok) messageField.value = "";
         });
