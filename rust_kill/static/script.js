@@ -60,6 +60,12 @@ var STATE = {
   connected: false,
 }
 
+var content = document.getElementById("content");  
+function scrollToBottom() {
+    setTimeout(function(){
+        content.scrollTop = content.scrollHeight;
+    }, 50);   
+}
 //不一定对建议检查一下
 ////////////////////////////////////////////////////////////////
 function RoomSubscribe(uri) {
@@ -160,6 +166,7 @@ function AddMessage(room, username, message, push = false) {
 
   if (STATE.currentRoom == room) {
     var node = messageTemplate.content.cloneNode(true);
+    newMessageForm.addEventListener("submit", scrollToBottom);
     node.querySelector(".message .username").textContent = username;
     node.querySelector(".message .username").style.color = HashColor(username);
     node.querySelector(".message .text").textContent = message;

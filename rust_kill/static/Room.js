@@ -1,12 +1,4 @@
-var content = document.getElementById("content");  
-function scrollToBottom() {
-    setTimeout(function(){
-        content.scrollTop = content.scrollHeight;
-    }, 1000);   
-}
-   
-let newMessageForm = document.getElementById('new-message');
-newMessageForm.addEventListener("submit", scrollToBottom);
+
 
 
 var e = document.getElementById("killoption");
