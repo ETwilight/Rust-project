@@ -146,7 +146,7 @@ async fn events(queue: &State<Sender<Message>>, mut end: Shutdown) -> EventStrea
     }
 }
 
-fn server_addr() -> String {"10.213.0.64".to_string()}
+fn server_addr() -> String {"10.214.0.22".to_string()}
 
 use std::env;
 
