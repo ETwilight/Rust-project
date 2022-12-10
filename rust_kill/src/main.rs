@@ -9,6 +9,10 @@ mod data;
 #[path = "game/game_info.rs"]
 mod game_info;
 
+#[path = "post_event.rs"]
+mod post_event;
+
+use post_event::{GameEvent, GameEventType, UserConnectEvent, MessageEvent};
 use tokio::time::Duration;
 use rocket::log::LogLevel;
 use rocket::{State, Shutdown};
@@ -22,13 +26,22 @@ use tokio::time::sleep;
 use rocket::serde::json::Json;
 use crate::client::client_send_message;
 use crate::utils::struct_to_string;
-use crate::data::{GameEvent, GameEventType, Message, UserInfo, Room};
+use crate::data::{Message, UserInfo, Room};
 
 
 
+#[post("/room/host", data = "<form>")]
+fn post_host_room(form: Form<UserConnectEvent>){
+   
+} 
 
-fn post_game_event(form: Form<GameEvent>, queue: &State<Sender<GameEvent>>){
-    //A send "fails" if there are no active subscribers
+#[post("/room/join", data = "<form>")]
+fn post_join_room(form: Form<UserConnectEvent>){
+    
+} 
+
+#[post("/game/event", data = "<form>")]
+fn post_game_event(form: Form<GameEvent>){
     match form.event_type
     {
         GameEventType::Kill => todo!(),
@@ -37,15 +50,19 @@ fn post_game_event(form: Form<GameEvent>, queue: &State<Sender<GameEvent>>){
         GameEventType::Reveal => todo!(),
         GameEventType::Vote => todo!(),
     }
-
 } 
 
 
-#[post("/room", data = "<form>")]
-fn post_room(form: Form<Room>, queue: &State<Sender<Room>>){
+/// Receive a message from a form submission and broadcast it to any receivers.
+#[post("/game/message", data = "<form>")]
+async fn post_message(form: Form<Message>, queue: &State<Sender<Json<Message>>>){
     //A send "fails" if there are no active subscribers
-    let _res = queue.send(form.into_inner());
+    let msg = form.into_inner();
+    //let _res = queue.send(Json(msg));
+    let s = struct_to_string(&msg).0;
+    client_send_message(&server_addr(), s).await.unwrap();
 } 
+
 
 
 #[get("/room/event")]
@@ -67,16 +84,6 @@ async fn event_room(queue: &State<Sender<Room>>, mut end: Shutdown) -> EventStre
      }
 }
 
-
-/// Receive a message from a form submission and broadcast it to any receivers.
-#[post("/message", data = "<form>")]
-async fn post_message(form: Form<Message>, queue: &State<Sender<Json<Message>>>){
-    //A send "fails" if there are no active subscribers
-    let msg = form.into_inner();
-    //let _res = queue.send(Json(msg));
-    let s = struct_to_string(&msg).0;
-    client_send_message(&server_addr(), s).await.unwrap();
-} 
 
  #[post("/playerInfo", data = "<form>")]
  async fn post_player_info(form: Form<UserInfo>, queue: &State<Sender<UserInfo>>){
@@ -130,28 +137,28 @@ async fn events(queue: &State<Sender<Json<Message>>>, mut end: Shutdown) -> Even
     }
 }
 
-fn server_addr() -> String {"172.20.10.2".to_string()}
+fn server_addr() -> String {"10.214.0.22".to_string()}
 
 #[rocket::main]
 async fn main() -> Result<(), rocket::Error> {
     //server_addr tbd1
     let client_addr = "127.0.0.1";
     // server connection in parallel, currently in main, will be transferred
-    let _ = server::host::start().await.unwrap();
+    // let _ = server::host::start().await.unwrap();
     // a custom rocket build
     //let room_channel = channel::<Room>(1024).0;
     let message_channel = channel::<Json<Message>>(1024).0;
     // a custom rocket build
+    let room_channel = channel::<Room>(1024).0;
 
-
-    let _ = client::connect(server_addr().as_str(), "CharlieDreemur1", message_channel.clone()).await.unwrap();
-    let _ = client::connect(server_addr().as_str(), "CharlieDreemur2", message_channel.clone()).await.unwrap();
+    let _ = client::connect(server_addr().as_str(), "ThgilTac1", message_channel.clone(), room_channel.clone()).await.unwrap();
+    let _ = client::connect(server_addr().as_str(), "ThgilTac2", message_channel.clone(), room_channel.clone()).await.unwrap();
     
-    let _ = client::connect(server_addr().as_str(), "CharlieDreemur3", message_channel.clone()).await.unwrap();
-    let _ = client::connect(server_addr().as_str(), "CharlieDreemur4", message_channel.clone()).await.unwrap();
+    let _ = client::connect(server_addr().as_str(), "CharlieDreemur3", message_channel.clone(), room_channel.clone()).await.unwrap();
+    let _ = client::connect(server_addr().as_str(), "CharlieDreemur4", message_channel.clone(), room_channel.clone()).await.unwrap();
     
-    let _ = client::connect(server_addr().as_str(), "CharlieDreemur5", message_channel.clone()).await.unwrap();
-    let _ = client::connect(server_addr().as_str(), "CharlieDreemur6", message_channel.clone()).await.unwrap();
+    let _ = client::connect(server_addr().as_str(), "CharlieDreemur5", message_channel.clone(), room_channel.clone()).await.unwrap();
+    let _ = client::connect(server_addr().as_str(), "CharlieDreemur6", message_channel.clone(), room_channel.clone()).await.unwrap();
 
    
     let figment = rocket::Config::figment()
