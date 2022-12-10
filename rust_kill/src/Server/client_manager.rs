@@ -38,7 +38,7 @@ pub async fn receive(rx: &mut Receiver<String>) -> (Room, Vec<String>){
         clients[id] = player_addr;
         for i in 0..6{
             if room.players[i].id == 7 || clients[i] == "Howdy".to_string() {continue;}
-            let res = server_send_room(&clients[i], utils::struct_to_string(&room).1, i).await;
+            let res = server_send_room(&clients[i], utils::struct_to_string(&room).0, i).await;
             if res.is_err() {continue;}
         }
     }
