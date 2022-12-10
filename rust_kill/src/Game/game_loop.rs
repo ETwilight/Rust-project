@@ -3,8 +3,8 @@ use std::{vec, collections::HashMap};
 use rocket::serde::{Serialize, Deserialize};
 
 
-use crate::data::{GameEvent, Room};
-
+use crate::data::{Room};
+use crate::post_event::{GameEvent};
 use crate::game_info::{RoleType, Player, TurnType, WinType, RevealResult};
 
 use rand::prelude::*;
@@ -99,13 +99,13 @@ pub fn detect_win(room:&mut Room){
             }
         }
     }
-    if(count_werewolf ==0 && count_good == 0){
+    if count_werewolf ==0 && count_good == 0{
         room.game_state.win_type = WinType::Draw; //平局
     }
-    else if(count_good == 0 || (count_good < count_werewolf)){
+    else if count_good == 0 || (count_good < count_werewolf) {
         room.game_state.win_type = WinType::WerewolfWin;
     }
-    else if(count_werewolf ==0){
+    else if count_werewolf ==0 {
         room.game_state.win_type = WinType::CivilianWin;
     }
     else{

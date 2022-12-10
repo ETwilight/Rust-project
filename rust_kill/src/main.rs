@@ -9,6 +9,12 @@ mod data;
 #[path = "game/game_info.rs"]
 mod game_info;
 
+#[path = "post_event.rs"]
+mod post_event;
+
+use std::io;
+
+use post_event::{GameEvent, GameEventType, UserConnectEvent, MessageEvent};
 use tokio::time::Duration;
 use rocket::log::LogLevel;
 use rocket::{State, Shutdown};
@@ -22,13 +28,22 @@ use tokio::time::sleep;
 use rocket::serde::json::Json;
 use crate::client::client_send_message;
 use crate::utils::struct_to_string;
-use crate::data::{GameEvent, GameEventType, Message, UserInfo, Room};
+use crate::data::{Message, UserInfo, Room};
 
 
 
+#[post("/room/host", data = "<form>")]
+fn post_host_room(form: Form<UserConnectEvent>){
+   
+} 
 
-fn post_game_event(form: Form<GameEvent>, queue: &State<Sender<GameEvent>>){
-    //A send "fails" if there are no active subscribers
+#[post("/room/join", data = "<form>")]
+fn post_join_room(form: Form<UserConnectEvent>){
+    
+} 
+
+#[post("/game/event", data = "<form>")]
+fn post_game_event(form: Form<GameEvent>){
     match form.event_type
     {
         GameEventType::Kill => todo!(),
@@ -37,18 +52,30 @@ fn post_game_event(form: Form<GameEvent>, queue: &State<Sender<GameEvent>>){
         GameEventType::Reveal => todo!(),
         GameEventType::Vote => todo!(),
     }
-
 } 
 
 
-#[post("/room", data = "<form>")]
-fn post_room(form: Form<Room>, queue: &State<Sender<Room>>){
+/// Receive a message from a form submission and broadcast it to any receivers.
+#[post("/room/message", data = "<form>")]
+async fn post_message(form: Form<MessageEvent>, queue: &State<Sender<Message>>){
     //A send "fails" if there are no active subscribers
-    let _res = queue.send(form.into_inner());
-} 
+    let msg = form.into_inner();
+    print!("Howdy World\n");
+    print!("{:?}", msg);
+    let message = Message {
+        room_name: msg.room_name,
+        username: msg.username,
+        message: msg.message,
+        visible_type: Default::default(),
+    };
+    //let _res = queue.send(Json(msg));
+    let s = struct_to_string(&message).0;
+    client_send_message(&server_addr(), s).await.unwrap();
+}
 
 
-#[get("/room/event")]
+
+#[get("/event/room")]
 async fn event_room(queue: &State<Sender<Room>>, mut end: Shutdown) -> EventStream![] {
    print!("Get event");
      let mut rx = queue.subscribe();
@@ -67,16 +94,6 @@ async fn event_room(queue: &State<Sender<Room>>, mut end: Shutdown) -> EventStre
      }
 }
 
-
-/// Receive a message from a form submission and broadcast it to any receivers.
-#[post("/message", data = "<form>")]
-async fn post_message(form: Form<Message>, queue: &State<Sender<Json<Message>>>){
-    //A send "fails" if there are no active subscribers
-    let msg = form.into_inner();
-    //let _res = queue.send(Json(msg));
-    let s = struct_to_string(&msg).0;
-    client_send_message(&server_addr(), s).await.unwrap();
-} 
 
  #[post("/playerInfo", data = "<form>")]
  async fn post_player_info(form: Form<UserInfo>, queue: &State<Sender<UserInfo>>){
@@ -111,7 +128,7 @@ async fn post_message(form: Form<Message>, queue: &State<Sender<Json<Message>>>)
 /// pulled from a broadcast queue sent by the `post` handler.
   
 #[get("/message/event")]
-async fn events(queue: &State<Sender<Json<Message>>>, mut end: Shutdown) -> EventStream![] {
+async fn events(queue: &State<Sender<Message>>, mut end: Shutdown) -> EventStream![] {
     let mut rx = queue.subscribe();
     EventStream! {
         loop {
@@ -123,8 +140,7 @@ async fn events(queue: &State<Sender<Json<Message>>>, mut end: Shutdown) -> Even
                 },
                 _ = &mut end => break,
             };
-            let value = msg.into_inner();
-            let event = Event::json(&value);
+            let event = Event::json(&msg);
             yield event;
         }
     }
@@ -132,37 +148,38 @@ async fn events(queue: &State<Sender<Json<Message>>>, mut end: Shutdown) -> Even
 
 fn server_addr() -> String {"10.195.172.142".to_string()}
 
+use std::env;
+
 #[rocket::main]
 async fn main() -> Result<(), rocket::Error> {
     //server_addr tbd1
     let client_addr = "127.0.0.1";
+    let arg = env::args().nth(1);
+    let server_run = env::args().nth(2).unwrap().trim().parse::<bool>().unwrap();
+    let port = arg.unwrap().trim().parse::<i32>().unwrap();
     // server connection in parallel, currently in main, will be transferred
-    let _ = server::host::start().await.unwrap();
+    if server_run {
+        let _ = server::host::start().await.unwrap();
+    }
     // a custom rocket build
     //let room_channel = channel::<Room>(1024).0;
-    let message_channel = channel::<Json<Message>>(1024).0;
+    let message_channel = channel::<Message>(1024).0;
     // a custom rocket build
-
-
-    let _ = client::connect(server_addr().as_str(), "CharlieDreemur1", message_channel.clone()).await.unwrap();
-    let _ = client::connect(server_addr().as_str(), "CharlieDreemur2", message_channel.clone()).await.unwrap();
-    
-    let _ = client::connect(server_addr().as_str(), "CharlieDreemur3", message_channel.clone()).await.unwrap();
-    let _ = client::connect(server_addr().as_str(), "CharlieDreemur4", message_channel.clone()).await.unwrap();
-    
-    let _ = client::connect(server_addr().as_str(), "CharlieDreemur5", message_channel.clone()).await.unwrap();
-    let _ = client::connect(server_addr().as_str(), "CharlieDreemur6", message_channel.clone()).await.unwrap();
-
+    let room_channel = channel::<Room>(1024).0;
+    //let event_channel = channel::<GameEvent>(1024).0;
+    let _ = client::connect(server_addr().as_str(), "ThgilTac1", message_channel.clone(), room_channel.clone()).await.unwrap();
    
     let figment = rocket::Config::figment()
         .merge(("address", client_addr))
-        .merge(("port", 8000))
+        .merge(("port", port))
         .merge(("log_level", LogLevel::Debug));
     let _rocket = rocket::custom(figment)
         .manage(message_channel) //Store the sender 
         .mount("/", routes![post_message, events])
         .manage(channel::<UserInfo>(1024).0)
         .mount("/", routes![post_player_info, event_player_info])
+        .manage(room_channel)
+        .mount("/", routes![event_room])
         .mount("/", FileServer::from(relative!("/static"))).launch().await.unwrap();
 
     Ok(())

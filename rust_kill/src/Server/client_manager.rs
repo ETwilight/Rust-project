@@ -1,7 +1,10 @@
 use std::collections::HashMap;
 
 use crate::server::host::client_addr;
+use crate::utils;
+use crate::server::command_processor::server_send_room;
 
+use tokio::net::TcpStream;
 use tokio::sync::mpsc::Receiver;
 #[path="../game.rs"]
 mod game;
@@ -13,27 +16,31 @@ use crate::game_info::{Player, RoleType};
 
 pub async fn receive(rx: &mut Receiver<String>) -> (Room, Vec<String>){
     let mut room:Room = Default::default();
-    for i in 0..6{
+    let mut clients = Vec::<String>::new();
+    for _ in 0..6{
         room.players.push(Player{
-            name: "Howdy".to_string(),
+            user_info: Default::default(),
             ip: "127.0.0.1".to_string(),
             role: Default::default(),
             state: Default::default(),
             id: 7,
         });
+        clients.push("Howdy".to_string());
     }
-    let mut clients = Vec::<String>::new();
     loop{
         let rec = rx.recv().await;
         if rec.is_none() {break;}
         let recv = rec.unwrap();
         let player_info: Player = serde_json::from_str(&recv).expect("json deserialize failed");
         let id = player_info.id;
-        //player_info.
-        print!("Player Info: {}\n", player_info.name);
         let player_addr = client_addr(player_info.ip.clone(), id);
         room.players[id] = player_info;
-        clients.push(player_addr);
+        clients[id] = player_addr;
+        for i in 0..6{
+            if room.players[i].id == 7 || clients[i] == "Howdy".to_string() {continue;}
+            let res = server_send_room(&clients[i], utils::struct_to_string(&room).0, i).await;
+            if res.is_err() {continue;}
+        }
     }
     (room, clients)
 }

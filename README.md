@@ -69,8 +69,8 @@
 | Date | Task |
 | ------------- | ------------- |
 | November 15      | Tasks up to Chatroom                       |
-| November 30       |  Complete Chat Server System and Game Website  |
-| December 5     |  Finish Game Loop System | 
+| November 30       |  Complete Server-Server Chatting and Functional Game Website  |
+| December 5     |  Complete Back-Front End Communication and Game Loop Preparations| 
  
 
 ## Expected Challenges
