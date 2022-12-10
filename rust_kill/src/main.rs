@@ -12,6 +12,8 @@ mod game_info;
 #[path = "post_event.rs"]
 mod post_event;
 
+use std::io;
+
 use post_event::{GameEvent, GameEventType, UserConnectEvent, MessageEvent};
 use tokio::time::Duration;
 use rocket::log::LogLevel;
@@ -144,15 +146,21 @@ async fn events(queue: &State<Sender<Message>>, mut end: Shutdown) -> EventStrea
     }
 }
 
-fn server_addr() -> String {"10.214.0.22".to_string()}
+fn server_addr() -> String {"10.213.0.64".to_string()}
+
+use std::env;
 
 #[rocket::main]
 async fn main() -> Result<(), rocket::Error> {
     //server_addr tbd1
     let client_addr = "127.0.0.1";
-    let port = 8000;
+    let arg = env::args().nth(1);
+    let server_run = env::args().nth(2).unwrap().trim().parse::<bool>().unwrap();
+    let port = arg.unwrap().trim().parse::<i32>().unwrap();
     // server connection in parallel, currently in main, will be transferred
-    let _ = server::host::start().await.unwrap();
+    if server_run {
+        let _ = server::host::start().await.unwrap();
+    }
     // a custom rocket build
     //let room_channel = channel::<Room>(1024).0;
     let message_channel = channel::<Message>(1024).0;
@@ -160,12 +168,6 @@ async fn main() -> Result<(), rocket::Error> {
     let room_channel = channel::<Room>(1024).0;
     //let event_channel = channel::<GameEvent>(1024).0;
     let _ = client::connect(server_addr().as_str(), "ThgilTac1", message_channel.clone(), room_channel.clone()).await.unwrap();
-    let _ = client::connect(server_addr().as_str(), "ThgilTac2", message_channel.clone(), room_channel.clone()).await.unwrap();
-    let _ = client::connect(server_addr().as_str(), "ThgilTac3", message_channel.clone(), room_channel.clone()).await.unwrap();
-    let _ = client::connect(server_addr().as_str(), "ThgilTac4", message_channel.clone(), room_channel.clone()).await.unwrap();
-    let _ = client::connect(server_addr().as_str(), "ThgilTac5", message_channel.clone(), room_channel.clone()).await.unwrap();
-    let _ = client::connect(server_addr().as_str(), "ThgilTac6", message_channel.clone(), room_channel.clone()).await.unwrap();
-
    
     let figment = rocket::Config::figment()
         .merge(("address", client_addr))
