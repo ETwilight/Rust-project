@@ -270,16 +270,15 @@ function AddMessageEventListener(){
     // Set up the new message handler.
     newMessageForm.addEventListener("submit", (e) => {
       e.preventDefault();
-  
-      const room_name = STATE.currentRoom;
+      
+      const id = localStorage.getItem('idx');
       const message = messageField.value;
-      const visible_type = "All";
       if (!message || !username) return;
   
       if (STATE.connected) {
         fetch("/room/message", {
           method: "POST",
-          body: new URLSearchParams({ room_name, username, message, visible_type }),
+          body: new URLSearchParams({id, message}),
         }).then((response) => {
           if (response.ok) messageField.value = "";
         });

@@ -30,7 +30,6 @@
 }
 
 .header2 {
-  border: 5px solid red;
   width: 265px;
 }
 
@@ -98,7 +97,6 @@
 
 .others {
   padding: 5px;
-  border: 2px solid black;
   display: flex;
   justify-content: space-between;
   height: 90px;
@@ -159,7 +157,6 @@
 }
 
 #profile {
-  border: 3px solid black;
   display: flex;
   flex-direction: row;
   float: center;
@@ -176,7 +173,6 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  border: 3px solid orange;
   overflow-y: scroll;
   height: 450px;
 }

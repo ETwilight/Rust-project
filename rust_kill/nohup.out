@@ -69997,3 +69997,984 @@ thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err`
    >> Remote left: client disconnect before response started.
    >> Remote left: channel closed.
    >> Remote left: channel closed.
+deregistering event source from poller
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: Os { code: 61, kind: ConnectionRefused, message: "Connection refused" }', src/client.rs:76:53
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: Os { code: 61, kind: ConnectionRefused, message: "Connection refused" }', src/client.rs:76:53
+deregistering event source from poller
+   >>    >> Handler post_message panicked.
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: Os { code: 61, kind: ConnectionRefused, message: "Connection refused" }', src/client.rs:76:53
+   >> This is an application bug.
+Handler post_message panicked.
+   >> Handler post_message panicked.
+   >> This is an application bug.
+   >> A panic in Rust must be treated as an exceptional event.
+   >> A panic in Rust must be treated as an exceptional event.
+   >> Panicking is not a suitable error handling mechanism.
+   >> Unwinding, the result of a panic, is an expensive operation.
+   >> Panics will degrade application performance.
+   >> Instead of panicking, return `Option` and/or `Result`.
+   >> Values of either type can be returned directly from handlers.
+   >> A panic is treated as an internal server error.
+   >>    >> This is an application bug.
+   >> A panic in Rust must be treated as an exceptional event.
+   >> Panicking is not a suitable error handling mechanism.
+   >> Panicking is not a suitable error handling mechanism.
+Unwinding, the result of a panic, is an expensive operation.
+   >>    >>    >> Outcome: Failure
+   >> No 500 catcher registered. Using Rocket default.
+Panics will degrade application performance.
+   >> Instead of panicking, return `Option` and/or `Result`.
+   >> Values of either type can be returned directly from handlers.
+   >> A panic is treated as an internal server error.
+   >> Outcome: Failure
+   >> No 500 catcher registered. Using Rocket default.
+Unwinding, the result of a panic, is an expensive operation.
+   >> Panics will degrade application performance.
+   >> Instead of panicking, return `Option` and/or `Result`.
+   >> Values of either type can be returned directly from handlers.
+   >> A panic is treated as an internal server error.
+   >>    >> Remote left: client disconnect before response started.
+Outcome: Failure
+   >> No 500 catcher registered. Using Rocket default.
+   >> Remote left: client disconnect before response started.
+   >> Remote left: client disconnect before response started.
+deregistering event source from poller
+deregistering event source from poller
+deregistering event source from poller
+registering event source with poller: token=Token(2046820367), interests=READABLE | WRITABLE
+GET /index.html text/html:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /nicepage.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+registering event source with poller: token=Token(1073741833), interests=READABLE | WRITABLE
+GET /Menu.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+registering event source with poller: token=Token(1023410193), interests=READABLE | WRITABLE
+GET /nicepage.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+registering event source with poller: token=Token(1174405123), interests=READABLE | WRITABLE
+GET /images/Screenshot2022-12-02202250.png image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >>    >> Outcome: Success
+Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+GET /images/blood-cement-wall-concrete-surface-texture-background-copy-space_51524-11509.jpg image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /Lobby.html text/html:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /Lobby.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /nicepage.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+GET /Lobby.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /images/Screenshot2022-12-02202250.png image/avif:
+GET /nicepage.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Outcome: Success
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+GET /images/flat-design-werewolf-moon-background_52683-95044-1.webp image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+POST /playerInfo application/x-www-form-urlencoded:
+   >> Matched: (post_player_info) POST /playerInfo
+   >> url-encoded field: ("username", "aweg")
+   >> url-encoded field: ("serverip", "aweg")
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /Lobby.html?username=aweg&serverip=aweg text/html:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+deregistering event source from poller
+GET /Lobby.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /nicepage.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Response succeeded.
+GET /Lobby.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+registering event source with poller: token=Token(2063597583), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1593835536), interests=READABLE | WRITABLE
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /images/Screenshot2022-12-02202250.png image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /nicepage.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >>    >> Outcome: Success
+Outcome: Success
+   >> Outcome: Success
+   >> Outcome: Success
+registering event source with poller: token=Token(1224736782), interests=READABLE | WRITABLE
+   >> Response succeeded.
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+GET /images/flat-design-werewolf-moon-background_52683-95044-1.webp image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Outcome: Success
+   >> Remote left: client disconnect before response started.
+POST /playerInfo application/x-www-form-urlencoded:
+   >> Matched: (post_player_info) POST /playerInfo
+   >> url-encoded field: ("username", "gaweg")
+   >> url-encoded field: ("serverip", "aweg")
+GET /Room.html?username=gaweg&serverip=aweg text/html:
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+deregistering event source from poller
+GET /nicepage.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /Room.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /reset.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /style.css text/css:
+   >> Outcome: Success
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+GET /script.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /Room.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+registering event source with poller: token=Token(1090519049), interests=READABLE | WRITABLE
+GET /nicepage.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /images/Screenshot2022-12-02202250.png image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Outcome: Success
+GET /images/User.jpg image/avif:
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >>    >> Matched: (FileServer: static) GET /<path..> [10]
+Response succeeded.
+   >> Response succeeded.
+   >> Outcome: Success
+   >> Response succeeded.
+GET /message/event text/event-stream:
+   >> Matched: (events) GET /message/event
+   >> Outcome: Success
+GET /playerInfo/event text/event-stream:
+   >> Matched: (event_player_info) GET /playerInfo/event
+Get event   >> Outcome: Success
+   >> Outcome: Success
+   >> Remote left: client disconnect before response started.
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("room_name", "rustkill")
+   >> url-encoded field: ("username", "gaweg")
+   >> url-encoded field: ("message", "aweg")
+   >> url-encoded field: ("visible_type", "All")
+Howdy World
+MessageEvent { room_name: "rustkill", username: "gaweg", message: "aweg" }registering event source with poller: token=Token(587202560), interests=READABLE | WRITABLE
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("room_name", "rustkill")
+   >> url-encoded field: ("username", "gaweg")
+   >> url-encoded field: ("message", "awega")
+   >> url-encoded field: ("visible_type", "All")
+Howdy World
+MessageEvent { room_name: "rustkill", username: "gaweg", message: "awega" }registering event source with poller: token=Token(117440516), interests=READABLE | WRITABLE
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("room_name", "rustkill")
+   >> url-encoded field: ("username", "gaweg")
+   >> url-encoded field: ("message", "awegaweg")
+   >> url-encoded field: ("visible_type", "All")
+Howdy World
+MessageEvent { room_name: "rustkill", username: "gaweg", message: "awegaweg" }registering event source with poller: token=Token(201326599), interests=READABLE | WRITABLE
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("room_name", "rustkill")
+   >> url-encoded field: ("username", "gaweg")
+   >> url-encoded field: ("message", "awegawegawe")
+   >> url-encoded field: ("visible_type", "All")
+Howdy World
+MessageEvent { room_name: "rustkill", username: "gaweg", message: "awegawegawe" }registering event source with poller: token=Token(50331654), interests=READABLE | WRITABLE
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: Os { code: 61, kind: ConnectionRefused, message: "Connection refused" }', src/client.rs:76:53
+   >> Handler post_message panicked.
+   >> This is an application bug.
+   >> A panic in Rust must be treated as an exceptional event.
+   >> Panicking is not a suitable error handling mechanism.
+   >> Unwinding, the result of a panic, is an expensive operation.
+   >> Panics will degrade application performance.
+   >> Instead of panicking, return `Option` and/or `Result`.
+   >> Values of either type can be returned directly from handlers.
+   >> A panic is treated as an internal server error.
+   >> Outcome: Failure
+   >> No 500 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /nicepage.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /Room.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /reset.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /style.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /Room.html? text/html:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("room_name", "rustkill")
+   >> url-encoded field: ("username", "gaweg")
+   >> url-encoded field: ("message", "awegawegawega")
+   >> url-encoded field: ("visible_type", "All")
+Howdy World
+MessageEvent { room_name: "rustkill", username: "gaweg", message: "awegawegawega" }registering event source with poller: token=Token(603979776), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(1040187409), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(50331661), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1610612752), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("room_name", "rustkill")
+   >> url-encoded field: ("username", "gaweg")
+   >> url-encoded field: ("message", "awegawegawegawegawe")
+   >> url-encoded field: ("visible_type", "All")
+Howdy World
+MessageEvent { room_name: "rustkill", username: "gaweg", message: "awegawegawegawegawe" }registering event source with poller: token=Token(1107296265), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+deregistering event source from poller
+deregistering event source from poller
+GET /nicepage.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+registering event source with poller: token=Token(1241513998), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1191182339), interests=READABLE | WRITABLE
+GET /Room.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /reset.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+registering event source with poller: token=Token(67108877), interests=READABLE | WRITABLE
+GET /style.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response succeeded.
+   >> Outcome: Success
+GET /script.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+registering event source with poller: token=Token(2080374799), interests=READABLE | WRITABLE
+   >> Outcome: Success
+GET /Room.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+registering event source with poller: token=Token(1056964625), interests=READABLE | WRITABLE
+GET /images/User.jpg image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: Os { code: 61, kind: ConnectionRefused, message: "Connection refused" }', src/client.rs:76:53
+   >> Handler post_message panicked.
+   >> This is an application bug.
+   >> A panic in Rust must be treated as an exceptional event.
+   >> Panicking is not a suitable error handling mechanism.
+   >> Unwinding, the result of a panic, is an expensive operation.
+   >> Panics will degrade application performance.
+   >> Instead of panicking, return `Option` and/or `Result`.
+   >> Values of either type can be returned directly from handlers.
+   >> A panic is treated as an internal server error.
+   >> Outcome: Failure
+   >> No 500 catcher registered. Using Rocket default.
+   >> Remote left: client disconnect before response started.
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+GET /images/Screenshot2022-12-02202250.png image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+GET /nicepage.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: Os { code: 61, kind: ConnectionRefused, message: "Connection refused" }', src/client.rs:76:53
+   >> Handler post_message panicked.
+   >> This is an application bug.
+   >> A panic in Rust must be treated as an exceptional event.
+   >> Panicking is not a suitable error handling mechanism.
+   >> Unwinding, the result of a panic, is an expensive operation.
+   >> Panics will degrade application performance.
+   >> Instead of panicking, return `Option` and/or `Result`.
+   >> Values of either type can be returned directly from handlers.
+   >> A panic is treated as an internal server error.
+   >> Outcome: Failure
+   >> No 500 catcher registered. Using Rocket default.
+   >> Remote left: client disconnect before response started.
+GET /message/event text/event-stream:
+   >> Matched: (events) GET /message/event
+   >> Outcome: Success
+GET /playerInfo/event text/event-stream:
+   >> Matched: (event_player_info) GET /playerInfo/event
+Get event   >> Outcome: Success
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: Os { code: 61, kind: ConnectionRefused, message: "Connection refused" }', src/client.rs:76:53
+   >> Handler post_message panicked.
+   >> This is an application bug.
+   >> A panic in Rust must be treated as an exceptional event.
+   >> Panicking is not a suitable error handling mechanism.
+   >> Unwinding, the result of a panic, is an expensive operation.
+   >> Panics will degrade application performance.
+   >> Instead of panicking, return `Option` and/or `Result`.
+   >> Values of either type can be returned directly from handlers.
+   >> A panic is treated as an internal server error.
+   >> Outcome: Failure
+   >> No 500 catcher registered. Using Rocket default.
+   >> Remote left: client disconnect before response started.
+   >> Remote left: channel closed.
+   >> Remote left: channel closed.
+deregistering event source from poller
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'thread 'called `Result::unwrap()` on an `Err` value: Os { code: 61, kind: ConnectionRefused, message: "Connection refused" }', src/client.rs:76:53
+rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: Os { code: 61, kind: ConnectionRefused, message: "Connection refused" }', src/client.rs:76:53
+   >> Handler post_message panicked.
+   >> This is an application bug.
+   >> A panic in Rust must be treated as an exceptional event.
+   >> Panicking is not a suitable error handling mechanism.
+   >> Unwinding, the result of a panic, is an expensive operation.
+   >> Panics will degrade application performance.
+   >> Instead of panicking, return `Option` and/or `Result`.
+   >>    >> Values of either type can be returned directly from handlers.
+   >> A panic is treated as an internal server error.
+Handler post_message panicked.
+   >> This is an application bug.
+   >> A panic in Rust must be treated as an exceptional event.
+   >> Panicking is not a suitable error handling mechanism.
+   >> Unwinding, the result of a panic, is an expensive operation.
+   >> Panics will degrade application performance.
+   >> Instead of panicking, return `Option` and/or `Result`.
+   >> Values of either type can be returned directly from handlers.
+   >> A panic is treated as an internal server error.
+   >> Outcome: Failure
+   >> No 500 catcher registered. Using Rocket default.
+   >> Outcome: Failure
+   >> No 500 catcher registered. Using Rocket default.
+   >> Remote left: client disconnect before response started.
+   >> Remote left: client disconnect before response started.
+deregistering event source from poller
+deregistering event source from poller
+deregistering event source from poller
+deregistering event source from poller
+registering event source with poller: token=Token(2097152015), interests=READABLE | WRITABLE
+GET /Room.html? text/html:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+deregistering event source from poller
+deregistering event source from poller
+GET /nicepage.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+registering event source with poller: token=Token(83886093), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1627389968), interests=READABLE | WRITABLE
+   >> Outcome: Success
+registering event source with poller: token=Token(1258291214), interests=READABLE | WRITABLE
+GET /style.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /Room.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /reset.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+GET /script.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /nicepage.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /Room.js:
+registering event source with poller: token=Token(1073741841), interests=READABLE | WRITABLE
+   >> Outcome: Success
+   >> Matched: (FileServer: static) GET /<path..> [10]
+registering event source with poller: token=Token(1207959555), interests=READABLE | WRITABLE
+   >> Outcome: Success
+   >> Outcome: Success
+GET /images/User.jpg image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /images/Screenshot2022-12-02202250.png image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response succeeded.
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+GET /message/event text/event-stream:
+   >> Matched: (events) GET /message/event
+   >> Outcome: Success
+GET /playerInfo/event text/event-stream:
+   >> Matched: (event_player_info) GET /playerInfo/event
+Get event   >> Outcome: Success
+   >>    >> Remote left: channel closed.
+Remote left: channel closed.
+GET /Room.html? text/html:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+deregistering event source from poller
+deregistering event source from poller
+GET /nicepage.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /Room.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /style.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /reset.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+GET /script.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /Room.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /nicepage.js:
+   >> Outcome: Success
+   >> Matched: (FileServer: static) GET /<path..> [10]
+registering event source with poller: token=Token(1644167184), interests=READABLE | WRITABLE
+   >> Outcome: Success
+GET /images/Screenshot2022-12-02202250.png image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /images/User.jpg image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+GET /message/event text/event-stream:
+   >> Matched: (events) GET /message/event
+GET /playerInfo/event text/event-stream:
+   >> Matched: (event_player_info) GET /playerInfo/event
+Get event   >> Outcome: Success
+   >> Outcome: Success
+   >> Remote left: channel closed.
+   >> Remote left: channel closed.
+GET /Room.html? text/html:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+deregistering event source from poller
+deregistering event source from poller
+GET /nicepage.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+registering event source with poller: token=Token(1224736771), interests=READABLE | WRITABLE
+   >> Outcome: Success
+GET /reset.css text/css:
+GET /Room.css text/css:
+GET /style.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+GET /script.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+registering event source with poller: token=Token(1275068430), interests=READABLE | WRITABLE
+   >> Outcome: Success
+GET /jquery.js:
+GET /Room.js:
+GET /nicepage.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /images/Screenshot2022-12-02202250.png image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >>    >> Matched: (FileServer: static) GET /<path..> [10]
+Outcome: Success
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Outcome: Success
+registering event source with poller: token=Token(1090519057), interests=READABLE | WRITABLE
+GET /images/User.jpg image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response succeeded.
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+GET /message/event text/event-stream:
+   >> Matched: (events) GET /message/event
+   >> Outcome: Success
+GET /playerInfo/event text/event-stream:
+   >> Matched: (event_player_info) GET /playerInfo/event
+Get event   >> Outcome: Success
+   >>    >> Remote left: channel closed.
+Remote left: channel closed.
+GET /Room.html? text/html:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+deregistering event source from poller
+deregistering event source from poller
+GET /style.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /nicepage.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /Room.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /reset.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Response succeeded.
+registering event source with poller: token=Token(1291845646), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(100663309), interests=READABLE | WRITABLE
+GET /script.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /Room.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /images/Screenshot2022-12-02202250.png image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /nicepage.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Outcome: Success
+GET /images/User.jpg image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+GET /message/event text/event-stream:
+   >> Matched: (events) GET /message/event
+   >> Outcome: Success
+GET /playerInfo/event text/event-stream:
+   >> Matched: (event_player_info) GET /playerInfo/event
+Get event   >> Outcome: Success
+GET /Room.html? text/html:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+deregistering event source from poller
+deregistering event source from poller
+   >> Remote left: channel closed.
+   >> Remote left: channel closed.
+GET /nicepage.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /Room.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /style.css text/css:
+GET /reset.css text/css:
+   >> Outcome: Success
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+GET /script.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /Room.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Outcome: Success
+GET /nicepage.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+registering event source with poller: token=Token(1107296273), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1241513987), interests=READABLE | WRITABLE
+   >> Response succeeded.
+GET /images/User.jpg image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /images/Screenshot2022-12-02202250.png image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+GET /message/event text/event-stream:
+   >> Matched: (events) GET /message/event
+   >> Outcome: Success
+GET /playerInfo/event text/event-stream:
+   >> Matched: (event_player_info) GET /playerInfo/event
+Get event   >> Outcome: Success
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("id", "null")
+   >> url-encoded field: ("message", "aweg")
+   >> Data guard `Form < MessageEvent >` failed: Errors([Error { name: Some("room_name"), value: None, kind: Missing, entity: Field }, Error { name: Some("username"), value: None, kind: Missing, entity: Field }]).
+   >> Outcome: Failure
+   >> No 422 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /Room.html? text/html:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+deregistering event source from poller
+deregistering event source from poller
+GET /nicepage.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /style.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /Room.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /reset.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+registering event source with poller: token=Token(1124073489), interests=READABLE | WRITABLE
+GET /script.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Outcome: Success
+registering event source with poller: token=Token(2113929231), interests=READABLE | WRITABLE
+GET /Room.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response succeeded.
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Outcome: Success
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response succeeded.
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+GET /nicepage.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /images/Screenshot2022-12-02202250.png image/avif:
+   >> Outcome: Success
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response succeeded.
+GET /images/User.jpg image/avif:
+   >> Outcome: Success
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response succeeded.
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+GET /message/event text/event-stream:
+   >> Matched: (events) GET /message/event
+   >> Outcome: Success
+GET /playerInfo/event text/event-stream:
+   >> Matched: (event_player_info) GET /playerInfo/event
+Get event   >> Outcome: Success
+   >> Remote left: channel closed.
+   >> Remote left: channel closed.
+   >> Remote left: channel closed.
+   >> Remote left: channel closed.
+GET /Room.html? text/html:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+deregistering event source from poller
+deregistering event source from poller
+GET /Room.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /nicepage.css text/css:
+GET /style.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /reset.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+GET /script.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /Room.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Outcome: Success
+registering event source with poller: token=Token(1308622862), interests=READABLE | WRITABLE
+GET /jquery.js:
+registering event source with poller: token=Token(2130706447), interests=READABLE | WRITABLE
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /nicepage.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /images/Screenshot2022-12-02202250.png image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Outcome: Success
+GET /images/User.jpg image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+GET /playerInfo/event text/event-stream:
+   >> Matched: (event_player_info) GET /playerInfo/event
+Get event   >> Outcome: Success
+GET /message/event text/event-stream:
+   >> Matched: (events) GET /message/event
+   >> Outcome: Success
+GET /Room.css text/css:
+GET /nicepage.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /style.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /reset.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Response succeeded.
+   >>    >> Outcome: Success
+Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >>    >> Remote left: channel closed.
+Remote left: channel closed.
+deregistering event source from poller
+deregistering event source from poller
+deregistering event source from poller
+deregistering event source from poller
+registering event source with poller: token=Token(1140850705), interests=READABLE | WRITABLE
+GET /Room.html? text/html:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+deregistering event source from poller
+deregistering event source from poller
+GET /nicepage.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+registering event source with poller: token=Token(1325400078), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(117440525), interests=READABLE | WRITABLE
+   >> Outcome: Success
+registering event source with poller: token=Token(1660944400), interests=READABLE | WRITABLE
+GET /reset.css text/css:
+GET /style.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /Room.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+GET /Room.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /script.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /jquery.js:
+   >> Outcome: Success
+   >> Matched: (FileServer: static) GET /<path..> [10]
+registering event source with poller: token=Token(1258291203), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(15), interests=READABLE | WRITABLE
+   >> Outcome: Success
+GET /nicepage.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /images/Screenshot2022-12-02202250.png image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Response succeeded.
+GET /images/User.jpg image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response succeeded.
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+GET /message/event text/event-stream:
+   >> Matched: (events) GET /message/event
+   >> Outcome: Success
+GET /playerInfo/event text/event-stream:
+   >> Matched: (event_player_info) GET /playerInfo/event
+Get event   >> Outcome: Success
+   >> Remote left: channel closed.
+   >> Remote left: channel closed.
+deregistering event source from poller
+deregistering event source from poller
+deregistering event source from poller
+registering event source with poller: token=Token(1342177294), interests=READABLE | WRITABLE
+deregistering event source from poller
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("id", "null")
+   >> url-encoded field: ("message", "aw")
+   >> Data guard `Form < MessageEvent >` failed: Errors([Error { name: Some("room_name"), value: None, kind: Missing, entity: Field }, Error { name: Some("username"), value: None, kind: Missing, entity: Field }]).
+   >> Outcome: Failure
+   >> No 422 catcher registered. Using Rocket default.
+   >> Response succeeded.
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("id", "null")
+   >> url-encoded field: ("message", "awegawe")
+   >> Data guard `Form < MessageEvent >` failed: Errors([Error { name: Some("room_name"), value: None, kind: Missing, entity: Field }, Error { name: Some("username"), value: None, kind: Missing, entity: Field }]).
+   >> Outcome: Failure
+   >> No 422 catcher registered. Using Rocket default.
+   >> Response succeeded.
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("id", "null")
+   >> url-encoded field: ("message", "awegawega")
+   >> Data guard `Form < MessageEvent >` failed: Errors([Error { name: Some("room_name"), value: None, kind: Missing, entity: Field }, Error { name: Some("username"), value: None, kind: Missing, entity: Field }]).
+   >> Outcome: Failure
+   >> No 422 catcher registered. Using Rocket default.
+   >> Response succeeded.
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("id", "null")
+   >> url-encoded field: ("message", "awegawegaweg")
+   >> Data guard `Form < MessageEvent >` failed: Errors([Error { name: Some("room_name"), value: None, kind: Missing, entity: Field }, Error { name: Some("username"), value: None, kind: Missing, entity: Field }]).
+   >> Outcome: Failure
+   >> No 422 catcher registered. Using Rocket default.
+   >> Response succeeded.
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("id", "null")
+   >> url-encoded field: ("message", "awegawegawegaw")
+   >> Data guard `Form < MessageEvent >` failed: Errors([Error { name: Some("room_name"), value: None, kind: Missing, entity: Field }, Error { name: Some("username"), value: None, kind: Missing, entity: Field }]).
+   >> Outcome: Failure
+   >> No 422 catcher registered. Using Rocket default.
+   >> Response succeeded.
+deregistering event source from poller
