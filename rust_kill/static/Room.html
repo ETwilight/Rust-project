@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="reset.css" media="screen">
     <link rel="stylesheet" href="style.css" media="screen">
     <script type = "module" src="script.js" charset="utf-8" defer></script>
-    <script type = "text/javascript" charset="utf-8" src="Room.js" defer=""></script>
     <script class="u-script" type="text/javascript" src="jquery.js" defer=""></script>
     <script class="u-script" type="text/javascript" src="nicepage.js" defer=""></script>
     <meta name="generator" content="Nicepage 5.0.7, nicepage.com">
@@ -274,7 +273,7 @@
             <form id="new-message">
               <input class = "textmessage" type="text" name="message" id="message" autocomplete="off" placeholder="Send a message..." autofocus>
               <button type="submit" id="send">Send</button>
-              <button type="submit" id="endspeakturn">End</button>
+              <button type="submit" onclick = "EndSpeakTurnListener()" id="endspeakturn">End</button>
             </form>
             <div id = "disabled">You are Muted<div>
           </div>

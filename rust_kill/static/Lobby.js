@@ -15,7 +15,7 @@ function closeHost() {
   document.getElementById("f1").style.display = "none";
 }
 
-function ChangeRoom() {
+function ChangePage() {
   location.replace('Room.html#Top');
 }
 
@@ -48,7 +48,6 @@ function ClientInput() {
   let form = document.querySelector('#clientform');
   form.addEventListener("submit", (e) => {
     //e.preventDefault();
-
     let data = new FormData(form);
     var object = {};
     data.forEach(function (value, key) {
@@ -84,23 +83,16 @@ function ClientInfoSubscribe(uri) {
       localStorage.setItem('username', msg.username);
       localStorage.setItem('client_addr', msg.client_addr);
       localStorage.setItem('idx', msg.idx);
-      console.log(localStorage.getItem('room_name'), 
-                  localStorage.getItem('username'), 
-                  localStorage.getItem('client_addr'), 
-                  localStorage.getItem('idx'));
-      ChangeRoom();
+      ChangePage();
     });
     
     events.addEventListener("open", () => {
-      SetConnectedStatus(true);
       console.log(`connected to event stream at ${uri}`);
       retryTime = 1;
     });
 
     events.addEventListener("error", () => {
-      SetConnectedStatus(false);
       events.close();
-
       let timeout = retryTime;
       retryTime = Math.min(64, retryTime * 2);
       console.log(`connection lost. attempting to reconnect in ${timeout}s`);
