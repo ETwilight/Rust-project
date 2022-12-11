@@ -26,6 +26,8 @@ function HostInput() {
   let form = document.querySelector('#hostform');
   form.addEventListener("submit", (e) => {
     //e.preventDefault();
+    ClientInfoSubscribe();
+
     window.location.href = "Room.html#top";
     let data = new FormData(form);
     var object = {};
@@ -53,6 +55,8 @@ function ClientInput() {
   let form = document.querySelector('#clientform');
   form.addEventListener("submit", (e) => {
     //e.preventDefault();
+    ClientInfoSubscribe("/");
+
     let data = new FormData(form);
     var object = {};
     data.forEach(function (value, key) {
@@ -76,3 +80,35 @@ function ClientInput() {
 }
 
 
+
+function ClientInfoSubscribe(uri) {
+  var retryTime = 1;
+  function Connect(uri) {
+    const events = new EventSource(uri);
+    events.addEventListener("message", (ev) => {
+      const msg = JSON.parse(ev.data);
+      console.log("decoded data", JSON.stringify(msg));
+      if (!"username" in msg || !"room_name" in msg || !"client_addr" in msg || !"idx" in msg) return;
+
+
+    });
+
+    events.addEventListener("open", () => {
+      SetConnectedStatus(true);
+      console.log(`connected to event stream at ${uri}`);
+      retryTime = 1;
+    });
+
+    events.addEventListener("error", () => {
+      SetConnectedStatus(false);
+      events.close();
+
+      let timeout = retryTime;
+      retryTime = Math.min(64, retryTime * 2);
+      console.log(`connection lost. attempting to reconnect in ${timeout}s`);
+      setTimeout(() => Connect(uri), (() => timeout * 1000)());
+    });
+  }
+
+  Connect(uri);
+}

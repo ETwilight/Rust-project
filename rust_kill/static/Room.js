@@ -22,6 +22,13 @@ function rolesubmit(idparam){
     console.log(form.value);
 }
 
+function witchsubmit(){
+    var form = document.getElementById('drug');
+    var drug = document.getElementById('witchoption');
+    console.log(form.value);
+    console.log(drug.value);
+}
+
 function votesubmit(){
     var form = document.getElementById('voteoption');
     console.log(form.value);
@@ -37,7 +44,7 @@ function replace(turnparam) {
             empty.innerHTML = "<div class = 'vote' id = 'reveal'> Select Target <form> <select id='revealoption'> <option value='None' Selected>None</option> <option value='0'>Player 1</option> <option value='1'>Player 2</option> <option value='2'>Player 3</option> <option value='3'>Player 4</option> <option value='4'>Player 5</option> <option value='5'>Player 6</option> </select> <button type='submit' onclick = \"rolesubmit('revealoption')\" id = 'revealconfirm'>Confirm</button> </form> Vote Out: <form> <select id='voteoption'> <option value='None' Selected>None</option> <option value='0'>Player 1</option> <option value='1'>Player 2</option> <option value='2'>Player 3</option> <option value='3'>Player 4</option> <option value='4'>Player 5</option> <option value='5'>Player 6</option> </select> <button type='submit' onclick = \"votesubmit()\" id = 'voteconfirm'>Confirm</button> </form> </div>";
             break;
         case 2:
-            empty.innerHTML = "<div class = 'vote' id = 'witchchoice'> Choose: <div> <button class = 'choose' id = 'Antidote' type='submit'>Antidote</button> <button class = 'choose' id = 'Poison' type='submit'>Poison</button> </div> <form> <select id='witchoption'> <option value='None' Selected>None</option> <option value='0'>Player 1</option> <option value='1'>Player 2</option> <option value='2'>Player 3</option> <option value='3'>Player 4</option> <option value='4'>Player 5</option> <option value='5'>Player 6</option> </select> <button type='submit' onclick=\"rolesubmit('witchoption')\" id = 'witchconfirm'>Confirm</button> </form>Vote Out: <form> <select id='voteoption'> <option value='None' Selected>None</option> <option value='0'>Player 1</option> <option value='1'>Player 2</option> <option value='2'>Player 3</option> <option value='3'>Player 4</option> <option value='4'>Player 5</option> <option value='5'>Player 6</option> </select> <button type='submit' onclick = \"votesubmit()\" id = 'voteconfirm'>Confirm</button> </form> </div>";
+            empty.innerHTML = "<div class = 'vote' id = 'witchchoice'> Choose: <div> <form> <select id = 'drug'> <option value = 'antidote' type ='submit'>Antidote</option> <option value = 'poison' type ='submit'>Poison</option> <option value = 'None' type ='submit'>None</option> </select> </form> </div> <form> <select id='witchoption'> <option value='None' Selected>None</option> <option value='0'>Player 1</option> <option value='1'>Player 2</option> <option value='2'>Player 3</option> <option value='3'>Player 4</option> <option value='4'>Player 5</option> <option value='5'>Player 6</option> </select> <button type='submit' onclick=\"witchsubmit()\" id = 'witchconfirm'>Confirm</button> </form> Vote Out: <form> <select id='voteoption'> <option value='None' Selected>None</option> <option value='0'>Player 1</option> <option value='1'>Player 2</option> <option value='2'>Player 3</option> <option value='3'>Player 4</option> <option value='4'>Player 5</option> <option value='5'>Player 6</option> </select> <button type='submit' onclick = \"votesubmit()\" id = 'voteconfirm'>Confirm</button> </form> </div> ";
             break;
         case 4:
             empty.innerHTML = "<div class = 'vote' id = 'civilianchoice'> Vote Out: <form> <select id='voteoption'> <option value='None' Selected>None</option> <option value='0'>Player 1</option> <option value='1'>Player 2</option> <option value='2'>Player 3</option> <option value='3'>Player 4</option> <option value='4'>Player 5</option> <option value='5'>Player 6</option> </select> <button type='submit' onclick = \"votesubmit()\" id = 'voteconfirm'>Confirm</button> </form> </div>";

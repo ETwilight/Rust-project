@@ -181,12 +181,17 @@
                     </form>
                   </div> -->
   
-  <!-- 
+<!--    
                   <div class = 'vote' id = 'witchchoice'>
                     Choose:
                     <div>
-                      <button class = 'choose' id = 'Antidote' type='submit'>Antidote</button>
-                      <button class = 'choose' id = 'Poison' type='submit'>Poison</button> 
+                      <form>
+                        <select id = "drug">
+                          <option value = "antidote" type ="submit">Antidote</option>
+                          <option value = "poison" type ="submit">Poison</option>
+                          <option value = "None" type ="submit">None</option>
+                        </select>
+                      </form>
                     </div>
                     <form>
                       <select id='witchoption'>
@@ -198,7 +203,7 @@
                         <option value='4'>Player 5</option>
                         <option value='5'>Player 6</option>
                       </select>
-                      <button type='submit' onclick=\"rolesubmit('witchoption')\" id = 'witchconfirm'>Confirm</button>
+                      <button type='submit' onclick="rolesubmit('witchoption')" id = 'witchconfirm'>Confirm</button>
                     </form>
                      Vote Out:
                     <form>
@@ -211,9 +216,9 @@
                         <option value='4'>Player 5</option>
                         <option value='5'>Player 6</option>
                       </select>
-                      <button type='submit' id = 'voteconfirm'>Confirm</button>
+                      <button type='submit' onclick = "votesubmit()" id = 'voteconfirm'>Confirm</button>
                     </form>
-                  </div> -->
+                  </div>  -->
   
                   <!-- <div class = 'vote' id = 'civilianchoice'>
                      Vote Out:

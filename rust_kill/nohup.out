@@ -68654,3 +68654,975 @@ deregistering event source from poller
 deregistering event source from poller
 deregistering event source from poller
 deregistering event source from poller
+registering event source with poller: token=Token(1140850702), interests=READABLE | WRITABLE
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("room_name", "rustkill")
+   >> url-encoded field: ("username", "guest")
+   >> url-encoded field: ("message", "aweg")
+   >> url-encoded field: ("visible_type", "All")
+Howdy World
+MessageEvent { room_name: "rustkill", username: "guest", message: "aweg" }registering event source with poller: token=Token(855638031), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(637534224), interests=READABLE | WRITABLE
+deregistering event source from poller
+   >> Outcome: Success
+Get results:("MSG", "{\"room_name\":\"rustkill\",\"username\":\"guest\",\"message\":\"aweg\",\"visible_type\":\"All\"}"){"room_name":"rustkill","username":"guest","message":"aweg","visible_type":"All"}
+registering event source with poller: token=Token(872415247), interests=READABLE | WRITABLE
+   >> Response succeeded.
+registering event source with poller: token=Token(1258291206), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+registering event source with poller: token=Token(889192463), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(889192456), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(905969679), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+registering event source with poller: token=Token(788529159), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(922746895), interests=READABLE | WRITABLE
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "aweg", visible_type: All })', src/./game/utils.rs:deregistering event source from poller
+registering event source with poller: token=Token(939524111), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(872415234), interests=READABLE | WRITABLE
+24:25
+deregistering event source from poller
+deregistering event source from poller
+deregistering event source from poller
+thread 'registering event source with poller: token=Token(1056964610), interests=READABLE | WRITABLE
+rocket-worker-threadregistering event source with poller: token=Token(956301327), interests=READABLE | WRITABLE
+' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "aweg", visible_type: All })thread '', rocket-worker-threadsrc/./game/utils.rs' panicked at ':called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "aweg", visible_type: All })24', :src/./game/utils.rs25deregistering event source from poller
+
+deregistering event source from poller
+:24:25
+registering event source with poller: token=Token(1040187394), interests=READABLE | WRITABLE
+deregistering event source from poller
+thread 'rocket-worker-threadderegistering event source from poller
+' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "aweg", visible_type: All })', src/./game/utils.rs:24:25
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "aweg", visible_type: All })', src/./game/utils.rs:24:25
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("room_name", "rustkill")
+   >> url-encoded field: ("username", "guest")
+   >> url-encoded field: ("message", "awe")
+   >> url-encoded field: ("visible_type", "All")
+Howdy World
+MessageEvent { room_name: "rustkill", username: "guest", message: "awe" }registering event source with poller: token=Token(654311440), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(973078543), interests=READABLE | WRITABLE
+Get results:("MSG", "{\"room_name\":\"rustkill\",\"username\":\"guest\",\"message\":\"awe\",\"visible_type\":\"All\"}"){"room_name":"rustkill","username":"guest","message":"awe","visible_type":"All"}
+registering event source with poller: token=Token(1275068422), interests=READABLE | WRITABLE
+deregistering event source from poller
+   >> Outcome: Success
+registering event source with poller: token=Token(671088656), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+   >> Response succeeded.
+registering event source with poller: token=Token(1291845638), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(905969672), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1308622854), interests=READABLE | WRITABLE
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "awe", visible_type: All })', src/./game/utils.rs:24:25
+registering event source with poller: token=Token(805306375), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(1325400070), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(1342177286), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(889192450), interests=READABLE | WRITABLE
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "awe", visible_type: All })', src/./game/utils.rs:24:25
+deregistering event source from poller
+registering event source with poller: token=Token(1073741826), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1358954502), interests=READABLE | WRITABLE
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "awe", visible_type: All })', src/./game/utils.rs:24deregistering event source from poller
+:deregistering event source from poller
+25
+deregistering event source from poller
+thread 'rocket-worker-threadregistering event source with poller: token=Token(1056964610), interests=READABLE | WRITABLE
+' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "awe", visible_type: All })deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "awe", visible_type: All })', src/./game/utils.rs:24:25
+', src/./game/utils.rs:24:25
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("room_name", "rustkill")
+   >> url-encoded field: ("username", "guest")
+   >> url-encoded field: ("message", "awe")
+   >> url-encoded field: ("visible_type", "All")
+Howdy World
+MessageEvent { room_name: "rustkill", username: "guest", message: "awe" }registering event source with poller: token=Token(989855759), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1375731718), interests=READABLE | WRITABLE
+deregistering event source from poller
+   >> Outcome: Success
+Get results:("MSG", "{\"room_name\":\"rustkill\",\"username\":\"guest\",\"message\":\"awe\",\"visible_type\":\"All\"}"){"room_name":"rustkill","username":"guest","message":"awe","visible_type":"All"}
+   >> Response succeeded.
+registering event source with poller: token=Token(1006632975), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(687865872), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1023410191), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(922746888), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(1040187407), interests=READABLE | WRITABLE
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "awe", visible_type: All })', src/./game/utils.rsderegistering event source from poller
+:24:25
+registering event source with poller: token=Token(1056964623), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(822083591), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(1073741839), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(905969666), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "awe", visible_type: All })', thread 'src/./game/utils.rs:rocket-worker-thread24:25
+deregistering event source from poller
+registering event source with poller: token=Token(1090519042), interests=READABLE | WRITABLE
+' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "awe", visible_type: All })', src/./game/utils.rs:24:25
+registering event source with poller: token=Token(1090519055), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "awe", visible_type: All })', registering event source with poller: token=Token(1073741826), interests=READABLE | WRITABLE
+src/./game/utils.rs:24:25
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "awe", visible_type: All })', src/./game/utils.rs:24:25
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("room_name", "rustkill")
+   >> url-encoded field: ("username", "guest")
+   >> url-encoded field: ("message", "gawe")
+   >> url-encoded field: ("visible_type", "All")
+Howdy World
+MessageEvent { room_name: "rustkill", username: "guest", message: "gawe" }registering event source with poller: token=Token(1392508934), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1107296271), interests=READABLE | WRITABLE
+deregistering event source from poller
+   >> Outcome: Success
+Get results:("MSG", "{\"room_name\":\"rustkill\",\"username\":\"guest\",\"message\":\"gawe\",\"visible_type\":\"All\"}"){"room_name":"rustkill","username":"guest","message":"gawe","visible_type":"All"}
+   >> Response succeeded.
+registering event source with poller: token=Token(1409286150), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(704643088), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+registering event source with poller: token=Token(721420304), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(738197520), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(939524104), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(838860807), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(754974736), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+thread 'thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "gawe", visible_type: All })', src/./game/utils.rs:24:deregistering event source from poller
+25
+registering event source with poller: token=Token(771751952), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(922746882), interests=READABLE | WRITABLE
+deregistering event source from poller
+rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "gawe", visible_type: All })', src/./game/utils.rs:24:25
+registering event source with poller: token=Token(788529168), interests=READABLE | WRITABLE
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "gawe", visible_type: All })', src/./game/utils.rs:24:25
+registering event source with poller: token=Token(1107296258), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+deregistering event source from poller
+registering event source with poller: token=Token(1090519042), interests=READABLE | WRITABLE
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "gawe", visible_type: All })', src/./game/utils.rs:24:25
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "gawe", visible_type: All })', src/./game/utils.rs:24:25
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("room_name", "rustkill")
+   >> url-encoded field: ("username", "guest")
+   >> url-encoded field: ("message", "gawe")
+   >> url-encoded field: ("visible_type", "All")
+Howdy World
+MessageEvent { room_name: "rustkill", username: "guest", message: "gawe" }registering event source with poller: token=Token(1124073487), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(805306384), interests=READABLE | WRITABLE
+deregistering event source from poller
+   >> Outcome: Success
+Get results:("MSG", "{\"room_name\":\"rustkill\",\"username\":\"guest\",\"message\":\"gawe\",\"visible_type\":\"All\"}"){"room_name":"rustkill","username":"guest","message":"gawe","visible_type":"All"}
+   >> Response succeeded.
+registering event source with poller: token=Token(1140850703), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(1426063366), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(1157627919), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(1174405135), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(956301320), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(1191182351), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(855638023), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+thread 'registering event source with poller: token=Token(1207959567), interests=READABLE | WRITABLE
+rocket-worker-thread' panicked at 'registering event source with poller: token=Token(939524098), interests=READABLE | WRITABLE
+called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "gawe", visible_type: All })', src/./game/utils.rs:deregistering event source from poller
+registering event source with poller: token=Token(1224736783), interests=READABLE | WRITABLE
+deregistering event source from poller
+thread 'deregistering event source from poller
+rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "gawe", visible_type: All })', src/./game/utils.rs:24thread ':rocket-worker-thread25' panicked at '
+called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "gawe", visible_type: All })', src/./game/utils.rs:24:25
+24:25
+registering event source with poller: token=Token(1124073474), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(1107296258), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "gawe", visible_type: All })', src/./game/utils.rsthread ':rocket-worker-thread24' panicked at ':called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "gawe", visible_type: All })25', 
+src/./game/utils.rs:24:25
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("room_name", "rustkill")
+   >> url-encoded field: ("username", "guest")
+   >> url-encoded field: ("message", "gaw")
+   >> url-encoded field: ("visible_type", "All")
+Howdy World
+MessageEvent { room_name: "rustkill", username: "guest", message: "gaw" }registering event source with poller: token=Token(822083600), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1241513999), interests=READABLE | WRITABLE
+deregistering event source from poller
+Get results:("MSG", "{\"room_name\":\"rustkill\",\"username\":\"guest\",\"message\":\"gaw\",\"visible_type\":\"All\"}"){"room_name":"rustkill","username":"guest","message":"gaw","visible_type":"All"}
+   >> Outcome: Success
+registering event source with poller: token=Token(838860816), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1442840582), interests=READABLE | WRITABLE
+   >> Response succeeded.
+deregistering event source from poller
+registering event source with poller: token=Token(855638032), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+registering event source with poller: token=Token(872415248), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(973078536), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+registering event source with poller: token=Token(889192464), interests=READABLE | WRITABLE
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "gaw", visible_type: All })', src/./game/utils.rs:24:25
+deregistering event source from poller
+registering event source with poller: token=Token(872415239), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(956301314), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(905969680), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "gaw", visible_type: All })', src/./game/utils.rs:24:25
+deregistering event source from poller
+thread 'registering event source with poller: token=Token(922746896), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1140850690), interests=READABLE | WRITABLE
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "gaw", visible_type: All })', src/./game/utils.rs:24:25
+rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "gaw", visible_type: All })', src/./game/utils.rs:24:25
+deregistering event source from poller
+deregistering event source from poller
+registering event source with poller: token=Token(1124073474), interests=READABLE | WRITABLE
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "gaw", visible_type: All })', src/./game/utils.rs:24:25
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("room_name", "rustkill")
+   >> url-encoded field: ("username", "guest")
+   >> url-encoded field: ("message", "eg")
+   >> url-encoded field: ("visible_type", "All")
+Howdy World
+MessageEvent { room_name: "rustkill", username: "guest", message: "eg" }registering event source with poller: token=Token(1258291215), interests=READABLE | WRITABLE
+deregistering event source from poller
+   >> Outcome: Success
+   >> Response succeeded.
+registering event source with poller: token=Token(1275068431), interests=READABLE | WRITABLE
+Get results:("MSG", "{\"room_name\":\"rustkill\",\"username\":\"guest\",\"message\":\"eg\",\"visible_type\":\"All\"}"){"room_name":"rustkill","username":"guest","message":"eg","visible_type":"All"}
+registering event source with poller: token=Token(939524112), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1459617798), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+registering event source with poller: token=Token(956301328), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(973078544), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(989855752), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(889192455), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(989855760), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "eg", visible_type: All })', src/./game/utils.rs:24:25
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "eg", visible_type: All })', src/./game/utils.rs:deregistering event source from poller
+registering event source with poller: token=Token(973078530), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1006632976), interests=READABLE | WRITABLE
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "eg", visible_type: All })', src/./game/utils.rs:24:25
+24:25
+deregistering event source from poller
+registering event source with poller: token=Token(1157627906), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1023410192), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+deregistering event source from poller
+registering event source with poller: token=Token(1140850690), interests=READABLE | WRITABLE
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "eg", visible_type: All })', src/./game/utils.rs:24:25deregistering event source from poller
+
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "eg", visible_type: All })', src/./game/utils.rs:24:25
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("room_name", "rustkill")
+   >> url-encoded field: ("username", "guest")
+   >> url-encoded field: ("message", "weg")
+   >> url-encoded field: ("visible_type", "All")
+Howdy World
+MessageEvent { room_name: "rustkill", username: "guest", message: "weg" }registering event source with poller: token=Token(1291845647), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1040187408), interests=READABLE | WRITABLE
+deregistering event source from poller
+   >> Outcome: Success
+Get results:("MSG", "{\"room_name\":\"rustkill\",\"username\":\"guest\",\"message\":\"weg\",\"visible_type\":\"All\"}"){"room_name":"rustkill","username":"guest","message":"weg","visible_type":"All"}
+registering event source with poller: token=Token(1308622863), interests=READABLE | WRITABLE
+   >> Response succeeded.
+deregistering event source from poller
+registering event source with poller: token=Token(1325400079), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1476395014), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1006632968), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+registering event source with poller: token=Token(1493172230), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+thread 'registering event source with poller: token=Token(1509949446), interests=READABLE | WRITABLE
+rocket-worker-thread' panicked at 'registering event source with poller: token=Token(905969671), interests=READABLE | WRITABLE
+called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "weg", visible_type: All })', src/./game/utils.rs:24:25
+deregistering event source from poller
+registering event source with poller: token=Token(989855746), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1526726662), interests=READABLE | WRITABLE
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'deregistering event source from poller
+called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "weg", visible_type: All })', deregistering event source from poller
+src/./game/utils.rs:24:25
+registering event source with poller: token=Token(1543503878), interests=READABLE | WRITABLE
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "weg", visible_type: All })', src/./game/utils.rsregistering event source with poller: token=Token(1174405122), interests=READABLE | WRITABLE
+:24:25
+deregistering event source from poller
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'deregistering event source from poller
+called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "weg", visible_type: All })', src/./game/utils.rsregistering event source with poller: token=Token(1157627906), interests=READABLE | WRITABLE
+:24:25
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "weg", visible_type: All })', src/./game/utils.rs:24:25
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("room_name", "rustkill")
+   >> url-encoded field: ("username", "guest")
+   >> url-encoded field: ("message", "aweg")
+   >> url-encoded field: ("visible_type", "All")
+Howdy World
+MessageEvent { room_name: "rustkill", username: "guest", message: "aweg" }registering event source with poller: token=Token(1056964624), interests=READABLE | WRITABLE
+deregistering event source from poller
+   >> Outcome: Success
+   >> Response succeeded.
+registering event source with poller: token=Token(1073741840), interests=READABLE | WRITABLE
+Get results:("MSG", "{\"room_name\":\"rustkill\",\"username\":\"guest\",\"message\":\"aweg\",\"visible_type\":\"All\"}"){"room_name":"rustkill","username":"guest","message":"aweg","visible_type":"All"}
+registering event source with poller: token=Token(1560281094), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1342177295), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(1577058310), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+registering event source with poller: token=Token(1023410184), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1593835526), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(922746887), interests=READABLE | WRITABLE
+deregistering event source from poller
+thread 'registering event source with poller: token=Token(1610612742), interests=READABLE | WRITABLE
+rocket-worker-threadderegistering event source from poller
+thread 'rocket-worker-threadregistering event source with poller: token=Token(1006632962), interests=READABLE | WRITABLE
+' panicked at 'deregistering event source from poller
+called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "aweg", visible_type: All })', src/./game/utils.rs:24:25
+registering event source with poller: token=Token(1627389958), interests=READABLE | WRITABLE
+' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "aweg", visible_type: All })', src/./game/utils.rs:24:25
+deregistering event source from poller
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "aweg", visible_type: All })', registering event source with poller: token=Token(1191182338), interests=READABLE | WRITABLE
+src/./game/utils.rsregistering event source with poller: token=Token(1644167174), interests=READABLE | WRITABLE
+:24:25
+deregistering event source from poller
+deregistering event source from poller
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "aweg", visible_type: All })', registering event source with poller: token=Token(1174405122), interests=READABLE | WRITABLE
+src/./game/utils.rs:24:25
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "aweg", visible_type: All })', src/./game/utils.rs:24:25
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("room_name", "rustkill")
+   >> url-encoded field: ("username", "guest")
+   >> url-encoded field: ("message", "aw")
+   >> url-encoded field: ("visible_type", "All")
+Howdy World
+MessageEvent { room_name: "rustkill", username: "guest", message: "aw" }registering event source with poller: token=Token(1090519056), interests=READABLE | WRITABLE
+deregistering event source from poller
+   >> Outcome: Success
+   >> Response succeeded.
+registering event source with poller: token=Token(1107296272), interests=READABLE | WRITABLE
+Get results:("MSG", "{\"room_name\":\"rustkill\",\"username\":\"guest\",\"message\":\"aw\",\"visible_type\":\"All\"}"){"room_name":"rustkill","username":"guest","message":"aw","visible_type":"All"}
+registering event source with poller: token=Token(1660944390), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(1677721606), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(1694498822), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1040187400), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1358954511), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(939524103), interests=READABLE | WRITABLE
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "aw", visible_type: All })', src/./game/utils.rs:24:25
+deregistering event source from poller
+registering event source with poller: token=Token(1375731727), interests=READABLE | WRITABLE
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "aw", visible_type: All })', src/./game/utils.rs:24:25
+deregistering event source from poller
+registering event source with poller: token=Token(1023410178), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1392508943), interests=READABLE | WRITABLE
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "aw", visible_type: All })', src/./game/utils.rs:24:25
+deregistering event source from poller
+registering event source with poller: token=Token(1207959554), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1409286159), interests=READABLE | WRITABLE
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'deregistering event source from poller
+called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "aw", visible_type: All })', src/./game/utils.rsderegistering event source from poller
+:registering event source with poller: token=Token(1191182338), interests=READABLE | WRITABLE
+24:25
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "aw", visible_type: All })', src/./game/utils.rs:24:25
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("room_name", "rustkill")
+   >> url-encoded field: ("username", "guest")
+   >> url-encoded field: ("message", "eg")
+   >> url-encoded field: ("visible_type", "All")
+Howdy World
+MessageEvent { room_name: "rustkill", username: "guest", message: "eg" }registering event source with poller: token=Token(1124073488), interests=READABLE | WRITABLE
+deregistering event source from poller
+   >> Outcome: Success
+   >> Response succeeded.
+registering event source with poller: token=Token(1140850704), interests=READABLE | WRITABLE
+Get results:("MSG", "{\"room_name\":\"rustkill\",\"username\":\"guest\",\"message\":\"eg\",\"visible_type\":\"All\"}"){"room_name":"rustkill","username":"guest","message":"eg","visible_type":"All"}
+registering event source with poller: token=Token(1426063375), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(1442840591), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1711276038), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(1056964616), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(1459617807), interests=READABLE | WRITABLE
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "eg", visible_type: All })', src/./game/utils.rsregistering event source with poller: token=Token(956301319), interests=READABLE | WRITABLE
+deregistering event source from poller
+:24:25
+registering event source with poller: token=Token(1476395023), interests=READABLE | WRITABLE
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'deregistering event source from poller
+called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "eg", visible_type: All })', src/./game/utils.rsregistering event source with poller: token=Token(1040187394), interests=READABLE | WRITABLE
+:24:25
+registering event source with poller: token=Token(1493172239), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "eg", visible_type: All })', src/./game/utils.rs:24:25
+registering event source with poller: token=Token(1509949455), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1224736770), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+registering event source with poller: token=Token(1207959554), interests=READABLE | WRITABLE
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "eg", visible_type: All })', src/./game/utils.rs:24:deregistering event source from poller
+25
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "eg", visible_type: All })', src/./game/utils.rs:24:25
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("room_name", "rustkill")
+   >> url-encoded field: ("username", "guest")
+   >> url-encoded field: ("message", "aweg")
+   >> url-encoded field: ("visible_type", "All")
+Howdy World
+MessageEvent { room_name: "rustkill", username: "guest", message: "aweg" }registering event source with poller: token=Token(1157627920), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(1526726671), interests=READABLE | WRITABLE
+   >> Outcome: Success
+Get results:("MSG", "{\"room_name\":\"rustkill\",\"username\":\"guest\",\"message\":\"aweg\",\"visible_type\":\"All\"}"){"room_name":"rustkill","username":"guest","message":"aweg","visible_type":"All"}
+   >> Response succeeded.
+registering event source with poller: token=Token(1174405136), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1728053254), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+registering event source with poller: token=Token(1191182352), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(1073741832), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1207959568), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+registering event source with poller: token=Token(1224736784), interests=READABLE | WRITABLE
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "aweg", visible_type: All })', src/./game/utils.rs:24:25registering event source with poller: token=Token(973078535), interests=READABLE | WRITABLE
+
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "aweg", visible_type: All })', src/./game/utils.rs:24:25deregistering event source from poller
+
+registering event source with poller: token=Token(1056964610), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1241514000), interests=READABLE | WRITABLE
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "aweg", visible_type: All })', src/./game/utils.rs:24:25
+deregistering event source from poller
+registering event source with poller: token=Token(1241513986), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1258291216), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "aweg", visible_type: All })', src/./game/utils.rs:24:25
+registering event source with poller: token=Token(1224736770), interests=READABLE | WRITABLE
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "aweg", visible_type: All })', src/./game/utils.rs:24:25
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("room_name", "rustkill")
+   >> url-encoded field: ("username", "guest")
+   >> url-encoded field: ("message", "w")
+   >> url-encoded field: ("visible_type", "All")
+Howdy World
+MessageEvent { room_name: "rustkill", username: "guest", message: "w" }registering event source with poller: token=Token(1543503887), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1275068432), interests=READABLE | WRITABLE
+deregistering event source from poller
+   >> Outcome: Success
+Get results:("MSG", "{\"room_name\":\"rustkill\",\"username\":\"guest\",\"message\":\"w\",\"visible_type\":\"All\"}"){"room_name":"rustkill","username":"guest","message":"w","visible_type":"All"}
+registering event source with poller: token=Token(1560281103), interests=READABLE | WRITABLE
+   >> Response succeeded.
+deregistering event source from poller
+registering event source with poller: token=Token(1577058319), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1744830470), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+registering event source with poller: token=Token(1090519048), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1761607686), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "w", visible_type: All })', registering event source with poller: token=Token(989855751), interests=READABLE | WRITABLE
+src/./game/utils.rsregistering event source with poller: token=Token(1778384902), interests=READABLE | WRITABLE
+deregistering event source from poller
+:24:25
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "w", visible_type: All })', src/./game/utils.rs:24:25
+registering event source with poller: token=Token(1073741826), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+registering event source with poller: token=Token(1795162118), interests=READABLE | WRITABLE
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "w", visible_type: All })', src/./game/utils.rs:24:25
+deregistering event source from poller
+registering event source with poller: token=Token(1811939334), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1258291202), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+registering event source with poller: token=Token(1241513986), interests=READABLE | WRITABLE
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "w", visible_type: All })', src/./game/utils.rs:24:25
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "w", visible_type: All })', src/./game/utils.rs:24:25
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("room_name", "rustkill")
+   >> url-encoded field: ("username", "guest")
+   >> url-encoded field: ("message", "eg")
+   >> url-encoded field: ("visible_type", "All")
+Howdy World
+MessageEvent { room_name: "rustkill", username: "guest", message: "eg" }registering event source with poller: token=Token(1291845648), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1828716550), interests=READABLE | WRITABLE
+deregistering event source from poller
+   >> Outcome: Success
+Get results:("MSG", "{\"room_name\":\"rustkill\",\"username\":\"guest\",\"message\":\"eg\",\"visible_type\":\"All\"}"){"room_name":"rustkill","username":"guest","message":"eg","visible_type":"All"}
+   >> Response succeeded.
+registering event source with poller: token=Token(1308622864), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(1593835535), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(1325400080), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(1107296264), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1342177296), interests=READABLE | WRITABLE
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "eg", visible_type: All })deregistering event source from poller
+', src/./game/utils.rs:24:25
+registering event source with poller: token=Token(1358954512), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1006632967), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+registering event source with poller: token=Token(1090519042), interests=READABLE | WRITABLE
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "eg", visible_type: All })', src/./game/utils.rs:24:25
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "eg", visible_type: All })', src/./game/utils.rs:24:25
+registering event source with poller: token=Token(1375731728), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(1275068418), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1392508944), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+deregistering event source from poller
+thread 'registering event source with poller: token=Token(1258291202), interests=READABLE | WRITABLE
+rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "eg", visible_type: All })', src/./game/utils.rs:24:25
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "eg", visible_type: All })', src/./game/utils.rs:24:25
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("room_name", "rustkill")
+   >> url-encoded field: ("username", "guest")
+   >> url-encoded field: ("message", "awe")
+   >> url-encoded field: ("visible_type", "All")
+Howdy World
+MessageEvent { room_name: "rustkill", username: "guest", message: "awe" }registering event source with poller: token=Token(1845493766), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1409286160), interests=READABLE | WRITABLE
+deregistering event source from poller
+   >> Outcome: Success
+Get results:("MSG", "{\"room_name\":\"rustkill\",\"username\":\"guest\",\"message\":\"awe\",\"visible_type\":\"All\"}"){"room_name":"rustkill","username":"guest","message":"awe","visible_type":"All"}
+   >> Response succeeded.
+registering event source with poller: token=Token(1862270982), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(1879048198), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1610612751), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+registering event source with poller: token=Token(1124073480), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1627389967), interests=READABLE | WRITABLE
+deregistering event source from poller
+thread 'registering event source with poller: token=Token(1023410183), interests=READABLE | WRITABLE
+rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "awe", visible_type: All })', src/./game/utils.rs:24deregistering event source from poller
+:registering event source with poller: token=Token(1644167183), interests=READABLE | WRITABLE
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at '25called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "awe", visible_type: All })
+deregistering event source from poller
+', src/./game/utils.rs:24:25
+registering event source with poller: token=Token(1660944399), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1107296258), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "awe", visible_type: All })', src/./game/utils.rsregistering event source with poller: token=Token(1291845634), interests=READABLE | WRITABLE
+:registering event source with poller: token=Token(1677721615), interests=READABLE | WRITABLE
+24:25
+deregistering event source from poller
+deregistering event source from poller
+deregistering event source from poller
+registering event source with poller: token=Token(1275068418), interests=READABLE | WRITABLE
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "awe", visible_type: All })', src/./game/utils.rs:24:25
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "awe", visible_type: All })', src/./game/utils.rs:24:25
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("room_name", "rustkill")
+   >> url-encoded field: ("username", "guest")
+   >> url-encoded field: ("message", "g")
+   >> url-encoded field: ("visible_type", "All")
+Howdy World
+MessageEvent { room_name: "rustkill", username: "guest", message: "g" }registering event source with poller: token=Token(1426063376), interests=READABLE | WRITABLE
+deregistering event source from poller
+   >> Outcome: Success
+   >> Response succeeded.
+registering event source with poller: token=Token(1442840592), interests=READABLE | WRITABLE
+Get results:("MSG", "{\"room_name\":\"rustkill\",\"username\":\"guest\",\"message\":\"g\",\"visible_type\":\"All\"}"){"room_name":"rustkill","username":"guest","message":"g","visible_type":"All"}
+registering event source with poller: token=Token(1694498831), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(1711276047), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(1895825414), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1728053263), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1140850696), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+registering event source with poller: token=Token(1040187399), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1744830479), interests=READABLE | WRITABLE
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'deregistering event source from poller
+called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "g", visible_type: All })', src/./game/utils.rs:24:25
+deregistering event source from poller
+registering event source with poller: token=Token(1761607695), interests=READABLE | WRITABLE
+thread 'rocket-worker-threadregistering event source with poller: token=Token(1124073474), interests=READABLE | WRITABLE
+' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "g", visible_type: All })deregistering event source from poller
+', registering event source with poller: token=Token(1308622850), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1778384911), interests=READABLE | WRITABLE
+src/./game/utils.rs:24:deregistering event source from poller
+25
+thread 'deregistering event source from poller
+rocket-worker-threadderegistering event source from poller
+' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "g", visible_type: All })deregistering event source from poller
+', src/./game/utils.rsthread ':rocket-worker-thread24' panicked at ':called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "g", visible_type: All })25registering event source with poller: token=Token(1291845634), interests=READABLE | WRITABLE
+', 
+src/./game/utils.rs:24:25
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "g", visible_type: All })', src/./game/utils.rs:24:25
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("room_name", "rustkill")
+   >> url-encoded field: ("username", "guest")
+   >> url-encoded field: ("message", "wg")
+   >> url-encoded field: ("visible_type", "All")
+Howdy World
+MessageEvent { room_name: "rustkill", username: "guest", message: "wg" }registering event source with poller: token=Token(1459617808), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1795162127), interests=READABLE | WRITABLE
+deregistering event source from poller
+   >> Outcome: Success
+Get results:("MSG", "{\"room_name\":\"rustkill\",\"username\":\"guest\",\"message\":\"wg\",\"visible_type\":\"All\"}"){"room_name":"rustkill","username":"guest","message":"wg","visible_type":"All"}
+   >> Response succeeded.
+registering event source with poller: token=Token(1476395024), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1912602630), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+registering event source with poller: token=Token(1929379846), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(1157627912), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1946157062), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "wg", visible_type: All })', registering event source with poller: token=Token(1056964615), interests=READABLE | WRITABLE
+src/./game/utils.rs:24:registering event source with poller: token=Token(1962934278), interests=READABLE | WRITABLE
+25
+deregistering event source from poller
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "wg", visible_type: All })registering event source with poller: token=Token(1140850690), interests=READABLE | WRITABLE
+', src/./game/utils.rs:24:25
+registering event source with poller: token=Token(1979711494), interests=READABLE | WRITABLE
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "wg", visible_type: All })', src/./game/utils.rs:24:25deregistering event source from poller
+
+registering event source with poller: token=Token(1325400066), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1996488710), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+deregistering event source from poller
+thread 'rocket-worker-threadregistering event source with poller: token=Token(1308622850), interests=READABLE | WRITABLE
+' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "wg", visible_type: All })', src/./game/utils.rs:24:25
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "wg", visible_type: All })', src/./game/utils.rs:24:25
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("room_name", "rustkill")
+   >> url-encoded field: ("username", "guest")
+   >> url-encoded field: ("message", "awe")
+   >> url-encoded field: ("visible_type", "All")
+Howdy World
+MessageEvent { room_name: "rustkill", username: "guest", message: "awe" }registering event source with poller: token=Token(1811939343), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(2013265926), interests=READABLE | WRITABLE
+deregistering event source from poller
+   >> Outcome: Success
+Get results:("MSG", "{\"room_name\":\"rustkill\",\"username\":\"guest\",\"message\":\"awe\",\"visible_type\":\"All\"}"){"room_name":"rustkill","username":"guest","message":"awe","visible_type":"All"}
+registering event source with poller: token=Token(1828716559), interests=READABLE | WRITABLE
+   >> Response succeeded.
+registering event source with poller: token=Token(1493172240), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+registering event source with poller: token=Token(1845493775), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(1174405128), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1862270991), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+thread 'registering event source with poller: token=Token(1073741831), interests=READABLE | WRITABLE
+rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "awe", visible_type: All })', src/./game/utils.rs:24registering event source with poller: token=Token(1879048207), interests=READABLE | WRITABLE
+:25
+deregistering event source from poller
+deregistering event source from poller
+thread 'registering event source with poller: token=Token(1895825423), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1157627906), interests=READABLE | WRITABLE
+rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "awe", visible_type: All })', src/./game/utils.rs:24:25
+deregistering event source from poller
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "awe", visible_type: All })', src/./game/utils.rs:24:registering event source with poller: token=Token(1342177282), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1912602639), interests=READABLE | WRITABLE
+25
+deregistering event source from poller
+deregistering event source from poller
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "awe", visible_type: All })', src/./game/utils.rs:24:25
+registering event source with poller: token=Token(1325400066), interests=READABLE | WRITABLE
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "awe", visible_type: All })', src/./game/utils.rs:24:25
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("room_name", "rustkill")
+   >> url-encoded field: ("username", "guest")
+   >> url-encoded field: ("message", "gaw")
+   >> url-encoded field: ("visible_type", "All")
+Howdy World
+MessageEvent { room_name: "rustkill", username: "guest", message: "gaw" }registering event source with poller: token=Token(2030043142), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1929379855), interests=READABLE | WRITABLE
+deregistering event source from poller
+   >> Outcome: Success
+Get results:("MSG", "{\"room_name\":\"rustkill\",\"username\":\"guest\",\"message\":\"gaw\",\"visible_type\":\"All\"}"){"room_name":"rustkill","username":"guest","message":"gaw","visible_type":"All"}
+   >> Response succeeded.
+registering event source with poller: token=Token(2046820358), interests=READABLE | WRITABLE
+deregistering event source from poller
+registering event source with poller: token=Token(1509949456), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(2063597574), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+registering event source with poller: token=Token(1191182344), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(2080374790), interests=READABLE | WRITABLE
+deregistering event source from poller
+deregistering event source from poller
+registering event source with poller: token=Token(1090519047), interests=READABLE | WRITABLE
+thread 'registering event source with poller: token=Token(2097152006), interests=READABLE | WRITABLE
+rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "gaw", visible_type: All })', deregistering event source from poller
+deregistering event source from poller
+registering event source with poller: token=Token(1174405122), interests=READABLE | WRITABLE
+thread 'src/./game/utils.rsregistering event source with poller: token=Token(2113929222), interests=READABLE | WRITABLE
+:rocket-worker-thread24:25
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at '' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "gaw", visible_type: All })called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "gaw", visible_type: All })', ', src/./game/utils.rssrc/./game/utils.rs::deregistering event source from poller
+2424::25
+registering event source with poller: token=Token(1358954498), interests=READABLE | WRITABLE
+25registering event source with poller: token=Token(2130706438), interests=READABLE | WRITABLE
+
+deregistering event source from poller
+deregistering event source from poller
+deregistering event source from poller
+registering event source with poller: token=Token(1342177282), interests=READABLE | WRITABLE
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "gaw", visible_type: All })', src/./game/utils.rs:24:25
+deregistering event source from poller
+thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: SendError(Message { room_name: "rustkill", username: "guest", message: "gaw", visible_type: All })', src/./game/utils.rs:24:25
+deregistering event source from poller
+registering event source with poller: token=Token(1157627918), interests=READABLE | WRITABLE
+GET /Room.html?username=wag&serverip=awg text/html:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+deregistering event source from poller
+deregistering event source from poller
+GET /nicepage.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+registering event source with poller: token=Token(939524113), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(989855753), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1946157071), interests=READABLE | WRITABLE
+GET /reset.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /style.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /Room.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+GET /Room.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /script.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+registering event source with poller: token=Token(6), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1526726672), interests=READABLE | WRITABLE
+GET /jquery.js:
+GET /images/Screenshot2022-12-02202250.png image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /images/User.jpg image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Response succeeded.
+GET /nicepage.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+GET /message/event text/event-stream:
+   >> Matched: (events) GET /message/event
+   >> Outcome: Success
+GET /playerInfo/event text/event-stream:
+   >> Matched: (event_player_info) GET /playerInfo/event
+Get event   >> Outcome: Success
+   >> Remote left: channel closed.
+   >> Remote left: channel closed.
+deregistering event source from poller
+deregistering event source from poller
+deregistering event source from poller
+deregistering event source from poller
+registering event source with poller: token=Token(1543503888), interests=READABLE | WRITABLE
+GET /Lobby.html text/html:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+deregistering event source from poller
+deregistering event source from poller
+registering event source with poller: token=Token(1174405134), interests=READABLE | WRITABLE
+GET /nicepage.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /Lobby.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /Lobby.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+registering event source with poller: token=Token(1962934287), interests=READABLE | WRITABLE
+   >> Outcome: Success
+GET /nicepage.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+registering event source with poller: token=Token(16777222), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1006632969), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(956301329), interests=READABLE | WRITABLE
+GET /jquery.js:
+GET /images/flat-design-werewolf-moon-background_52683-95044-1.webp image/avif:
+GET /images/Screenshot2022-12-02202250.png image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Remote left: channel closed.
+   >> Remote left: channel closed.
+POST /playerInfo application/x-www-form-urlencoded:
+   >> Matched: (post_player_info) POST /playerInfo
+   >> url-encoded field: ("username", "ygihujoi")
+   >> url-encoded field: ("serverip", "hjnm")
+GET /Lobby.html?username=ygihujoi&serverip=hjnm text/html:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+deregistering event source from poller
+GET /Lobby.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /nicepage.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Outcome: Success
+GET /Lobby.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /nicepage.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /images/Screenshot2022-12-02202250.png image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+GET /images/flat-design-werewolf-moon-background_52683-95044-1.webp image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Outcome: Success
+   >> Remote left: client disconnect before response started.
