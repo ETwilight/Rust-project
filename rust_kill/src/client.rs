@@ -19,7 +19,7 @@ use rocket::tokio::sync::broadcast::Sender;
 use queues::Queue;
 use queues::IsQueue;
 
-use self::game::utils::{send_message, send_delay_room};
+use self::game::utils::{send_message, send_delay_room, send_room};
 #[path="utils.rs"]
 mod utils;
 
@@ -124,5 +124,5 @@ pub async fn client_send_gme(server_addr: &String, gme: String, tpe: String) -> 
 
 pub async fn client_receive_room(room: &String, sender: Sender<Room>) {
     let value: Room = string_to_struct(&room);
-    //send_delay_room(sender, value, 10000).await.unwrap();
+    send_room(sender, value).unwrap();
 }

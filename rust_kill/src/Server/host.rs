@@ -9,14 +9,14 @@ use tokio::time::sleep;
 use tokio::{net::TcpListener, task::JoinHandle, sync::mpsc, io::BufReader};
 
 use crate::data::Room;
-
+use crate::game_main::update;
 use crate::server::client_manager::receive;
 use crate::game_info::{Player, GameState, TurnType, ClientInfo, RevealResult};
 use crate::server::host::utils::decode_type;
 use crate::server::host::utils::encode;
 use crate::server::host::utils::string_to_struct;
 use crate::server::host::utils::struct_to_string;
-
+use crate::game_main::game_start;
 #[path="../utils.rs"]
 mod utils;
 
@@ -70,6 +70,7 @@ pub async fn start() -> Result<JoinHandle<()>, ()>{
         let main_tcp = TcpListener::bind(server_addr()).await.unwrap();
         let clients = r2.1;
         let mut room = r2.0;
+        game_start(&mut room);
         loop {
             // Process Client Events
             let (socket, _) = main_tcp.accept().await.unwrap();
@@ -104,5 +105,5 @@ pub async fn start() -> Result<JoinHandle<()>, ()>{
 }
 
 pub fn receive_from_server(room:&mut Room, game_event:&String, tpe:&String) {
-    todo!()
+    update(room, game_event);
 }

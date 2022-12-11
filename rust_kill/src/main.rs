@@ -20,6 +20,7 @@ mod post_event;
 use std::io;
 
 use tokio::join;
+use client::client_send_gme;
 use tokio::time::Duration;
 use rocket::{State, Shutdown};
 use rocket::fs::{relative, FileServer};
@@ -37,6 +38,7 @@ use rocket::tokio::select;
 use rocket::tokio::sync::broadcast::{channel, error::RecvError, Sender};
 use tokio::time::sleep;
 
+
 #[post("/room/host", data = "<form>")]
 async fn post_host_room(form: Form<UserConnectEvent>, qs: &State<tokio::sync::mpsc::Sender<(bool, String, String)>>) {
     qs.inner().clone().send((true, form.serverip.clone(), form.username.clone())).await.unwrap();
@@ -48,10 +50,18 @@ async fn post_join_room(form: Form<UserConnectEvent>, qs: &State<tokio::sync::mp
 }
 
 #[post("/game/event", data = "<form>")]
-fn post_game_event(form: Form<VoteEvent>) {}
+fn post_game_event(form: Form<VoteEvent>) {
+    let vote_event = form.into_inner();
+    let s = struct_to_string(&vote_event).0;
+    //client_send_gme(s);
+}
 
 #[post("/game/endSpeak", data = "<form>")]
-fn post_end_speak(form: Form<EndSpeakEvent>) {}
+fn post_end_speak(form: Form<EndSpeakEvent>) {
+    let end_speak_event = form.into_inner();
+    let s = struct_to_string(&end_speak_event).0;
+    //client_send_gme(s);
+}
 
 /// Receive a message from a form submission and broadcast it to any receivers.
 #[post("/room/message", data = "<form>")]
