@@ -13,13 +13,17 @@ pub fn update(room: &mut Room, json_string: &String) {
     let value: serde_json::Value = serde_json::from_str(json_string).unwrap();
     match serde_json::from_value(value) {
         Ok(PostEventType::VoteEvent(event)) => {
-            update_turn(&event, room);
+            update_vote(&event, room);
         }
         Ok(PostEventType::UserConnectEvent(event)) => {}
         Ok(PostEventType::MessageEvent(event)) => {
             add_message(&event, room);
         }
         Ok(PostEventType::EndSpeakEvent(event)) => {
+            if(room.game_state.speak_id == get_last_id(room)){
+                room.game_state.turn = room.game_state.turn.next();
+                return;
+            }
             match room.game_state.turn {
                 TurnType::SpeakTurn => {
                     room.players[event.id].state.is_speaking = false;
@@ -34,11 +38,14 @@ pub fn update(room: &mut Room, json_string: &String) {
         Err(_) => print!("my_struct is of unknown type"),
     }
 }
-pub fn update_turn(event: &VoteEvent, room: &mut Room) {
+
+pub fn game_start(room: &mut Room){
+    assign_role(room);
+    room.game_state.turn = room.game_state.turn.next();
+    return;
+}
+pub fn update_vote(event: &VoteEvent, room: &mut Room) {
     match room.game_state.turn {
-        TurnType::StartTurn => {
-            assign_role(room);
-        }
         TurnType::WerewolfTurn => {
             match event.event_type {
                 VoteEventType::Kill => {
@@ -113,6 +120,17 @@ pub fn update_turn(event: &VoteEvent, room: &mut Room) {
             print!["\n Warning!: Not My Turn \n"];
         }
     }
+}
+
+//Get the alive player with last id
+pub fn get_last_id(room: &mut Room) -> usize{
+    let mut id:usize = 0;
+    for player in room.players.iter() {
+        if matches!(player.state.is_alive, AliveType::Alive) {
+            id = player.id;
+        }
+    }
+    return id;
 }
 
 pub fn assign_role(room: &mut Room) {
