@@ -24,8 +24,6 @@ function HostInput() {
   let form = document.querySelector('#hostform');
   form.addEventListener("submit", (e) => {
     //e.preventDefault();
-    ClientInfoSubscribe("/clientInfo");
-
     window.location.href = "Room.html#top";
     let data = new FormData(form);
     var object = {};
@@ -44,6 +42,7 @@ function HostInput() {
     }).then((response) => {
       if (response.ok) console.log("Host Form Sent");
     });
+    ClientInfoSubscribe("/clientInfo");
     return;
   })
 
@@ -53,8 +52,6 @@ function ClientInput() {
   let form = document.querySelector('#clientform');
   form.addEventListener("submit", (e) => {
     //e.preventDefault();
-    ClientInfoSubscribe("/clientInfo");
-
     let data = new FormData(form);
     var object = {};
     data.forEach(function (value, key) {
@@ -72,6 +69,7 @@ function ClientInput() {
     }).then((response) => {
       if (response.ok) console.log("Client Form Sent");
     });
+    ClientInfoSubscribe("/clientInfo");
     return;
   })
 
@@ -91,6 +89,7 @@ function ClientInfoSubscribe(uri) {
       localStorage.setItem('username', msg.username);
       localStorage.setItem('client_addr', msg.client_addr);
       localStorage.setItem('idx', msg.idx);
+      console.log(localStorage.getItem('room_name'), localStorage.getItem('username'), localStorage.getItem('client_addr'), localStorage.getItem('idx'));
       ChangeRoom();
     });
 
