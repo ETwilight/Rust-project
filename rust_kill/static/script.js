@@ -12,6 +12,7 @@ let messageTemplate = document.getElementById('message');
 let messageField = newMessageForm.querySelector("#message");
 let roomNameField = newRoomForm.querySelector("#name");
 
+var content = document.getElementById("content"); 
 var username = "guest";
 
 const Role = {
@@ -60,6 +61,12 @@ var STATE = {
   connected: false,
 }
 
+var content = document.getElementById("content");  
+function scrollToBottom() {
+    setTimeout(function(){
+        content.scrollTop = content.scrollHeight;
+    }, 50);   
+}
 //不一定对建议检查一下
 ////////////////////////////////////////////////////////////////
 function RoomSubscribe(uri) {
@@ -88,7 +95,6 @@ function RoomSubscribe(uri) {
     events.addEventListener("error", () => {
       SetConnectedStatus(false);
       events.close();
-
       let timeout = retryTime;
       retryTime = Math.min(64, retryTime * 2);
       console.log(`connection lost. attempting to reconnect in ${timeout}s`);
@@ -111,6 +117,7 @@ function HashColor(str) {
 
   return `hsl(${hash % 360}, 100%, 70%)`;
 }
+ 
 
 // Add a new room `name` and change to it. Returns `true` if the room didn't
 // already exist and false otherwise.
@@ -135,7 +142,7 @@ function AddRoom(name) {
 // Change the current room to `name`, restoring its messages.
 function ChangeRoom(name) {
   if (STATE.currentRoom == name) return;
-
+  newMessageForm.addEventListener("submit", scrollToBottom);
   var newRoom = roomListDiv.querySelector(`.room[data-name='${name}']`);
   var oldRoom = roomListDiv.querySelector(`.room[data-name='${STATE.currentRoom}']`);
   if (!newRoom || !oldRoom) return;
@@ -160,9 +167,11 @@ function AddMessage(room, username, message, push = false) {
 
   if (STATE.currentRoom == room) {
     var node = messageTemplate.content.cloneNode(true);
+    newMessageForm.addEventListener("submit", scrollToBottom);
     node.querySelector(".message .username").textContent = username;
     node.querySelector(".message .username").style.color = HashColor(username);
     node.querySelector(".message .text").textContent = message;
+    newMessageForm.addEventListener("submit", scrollToBottom);
     messagesDiv.appendChild(node);
   }
 }
@@ -257,25 +266,27 @@ function SetConnectedStatus(status) {
   statusDiv.className = (status) ? "connected" : "reconnecting";
 }
 
-function AddMessageListener(){
+function AddMessageEventListener(){
     // Set up the new message handler.
     newMessageForm.addEventListener("submit", (e) => {
       e.preventDefault();
   
       const room_name = STATE.currentRoom;
       const message = messageField.value;
+      const visible_type = "All";
       if (!message || !username) return;
   
       if (STATE.connected) {
         fetch("/room/message", {
           method: "POST",
-          body: new URLSearchParams({ room_name, username, message }),
+          body: new URLSearchParams({ room_name, username, message, visible_type }),
         }).then((response) => {
           if (response.ok) messageField.value = "";
         });
       }
     })
 }
+
 
 function AddRoomListener(){
    // Set up the new room handler.
@@ -302,7 +313,7 @@ function Init() {
   ChangeRoom("rustkill");
   AddMessage("rustkill", "Rocket", "Howdy! Open another browser tab, send a message.", true);
 
-  AddMessageListener();
+  AddMessageEventListener();
   AddRoomListener();
 
   // Subscribe to server-sent events.

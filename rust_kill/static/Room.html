@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="reset.css" media="screen">
     <link rel="stylesheet" href="style.css" media="screen">
     <script type = "module" src="script.js" charset="utf-8" defer></script>
-    <script type = "text/javascript" src="Room.js" defer=""></script>
+    <script type = "text/javascript" charset="utf-8" src="Room.js" defer=""></script>
     <script class="u-script" type="text/javascript" src="jquery.js" defer=""></script>
     <script class="u-script" type="text/javascript" src="nicepage.js" defer=""></script>
     <meta name="generator" content="Nicepage 5.0.7, nicepage.com">
@@ -42,12 +42,21 @@
           <div id="status" class="pending"></div>
         </div>
         </div>
-        <div class="testsuite"><b>TESTSUITE</b>
+        <div class="testsuite">
           <div class="showicons">
             <input type="range" min="0" max="6" value="0" class="slider" id="myRange">
           </div>
           <div class="dimensions">
             <div>Height: <span id="height"></span> Width: <span id="width"></span></div></div>
+          <div>
+            <button id="colormode" type="submit">Switch Color</button>
+            <button onclick="replace(1)" type="submit">Switch Wolf</button>
+            <button onclick="replace(2)" type="submit">Switch Witch</button>
+            <button onclick="replace(3)" type="submit">Switch Reveal</button>
+            <button onclick="replace(4)" type="submit">Switch Civilian</button>
+            <button onclick="mute()" type="submit">Mute</button>
+            <button onclick="unmute()" type="submit">UnMute</button>
+          </div>
           </div>
         </div>
 
@@ -55,6 +64,7 @@
         </div>
 
 <!--MAIN CONTENT-->
+
         <div class = "wrapped"> 
 
           <div class="others">
@@ -96,72 +106,181 @@
           </div>  
           
 
-          <div class="window">
-            <div class="self">
-
-              <div id="profile">
-              <div class="selfStatus" id="speaking">
-                <img src="./images/User.jpg" alt="Wolf" class="role"> 
-              </div>
-              </div>
-
-              <div class = "controls">
+            <div class="window">
 
 
-                <div class = "vote" id = "wolfkill">
-                  <form>
-                    <select id="killoption">
-                      <option value="Player 2">Player 2</option>
-                      <option value="Player 3">Player 3</option>
-                      <option value="Player 4">Player 4</option>
-                      <option value="Player 5">Player 5</option>
-                      <option value="Player 6">Player 6</option>
-                    </select>
-                    <button type="submit" id = "killconfirm">Confirm</button>
-                  </form>
+              <div class="self">
+  
+                <div id="profile">
+                <div class="selfStatus" id="dead">
+                  <img src="./images/User.jpg" alt="Wolf" class="role"> 
+                </div>
+                </div>
+  
+                <div class = "controls">
+  
+  
+                  <div vote="vote" id="empty"></div>
+  <!-- 
+                    <div class = 'vote' id = 'wolfkill'>
+                    Select Target
+                    <form>
+                      <select id='killoption'>
+                        <option value='None' Selected>None</option>
+                        <option value='0'>Player 1</option> 
+                        <option value='1'>Player 2</option>
+                        <option value='2'>Player 3</option>
+                        <option value='3'>Player 4</option>
+                        <option value='4'>Player 5</option>
+                        <option value='5'>Player 6</option>
+                      </select>
+                      <button type='submit' onclick = \"rolesubmit('killoption')\" id = 'killconfirm'>Confirm</button>
+                    </form>
+                    Vote Out:
+                    <form>
+                      <select id='voteoption'>
+                        <option value='None' Selected>None</option>
+                        <option value='0'>Player 1</option> 
+                        <option value='1'>Player 2</option>
+                        <option value='2'>Player 3</option>
+                        <option value='3'>Player 4</option>
+                        <option value='4'>Player 5</option>
+                        <option value='5'>Player 6</option>
+                      </select>
+                      <button type='submit' onclick = \"votesubmit()\" id = 'voteconfirm'>Confirm</button>
+                    </form>
+                  </div> -->
+  
+                  
+                  <!-- <div class = 'vote' id = 'reveal'>
+                    Select Target
+                    <form>
+                      <select id='revealoption'>
+                        <option value='None' Selected>None</option>
+                        <option value='0'>Player 1</option> 
+                        <option value='1'>Player 2</option>
+                        <option value='2'>Player 3</option>
+                        <option value='3'>Player 4</option>
+                        <option value='4'>Player 5</option>
+                        <option value='5'>Player 6</option>
+                      </select>
+                      <button type='submit' onclick = \"rolesubmit('revealoption')\" id = 'revealconfirm'>Confirm</button>
+                    </form>
+                     Vote Out:
+                    <form>
+                      <select id='voteoption'>
+                        <option value='None' Selected>None</option>
+                        <option value='0'>Player 1</option> 
+                        <option value='1'>Player 2</option>
+                        <option value='2'>Player 3</option>
+                        <option value='3'>Player 4</option>
+                        <option value='4'>Player 5</option>
+                        <option value='5'>Player 6</option>
+                      </select>
+                      <button type='submit' id = 'voteconfirm'>Confirm</button>
+                    </form>
+                  </div> -->
+  
+<!--    
+                  <div class = 'vote' id = 'witchchoice'>
+                    Choose:
+                    <div>
+                      <form>
+                        <select id = "drug">
+                          <option value = "antidote" type ="submit">Antidote</option>
+                          <option value = "poison" type ="submit">Poison</option>
+                          <option value = "None" type ="submit">None</option>
+                        </select>
+                      </form>
+                    </div>
+                    <form>
+                      <select id='witchoption'>
+                     <option value='None' Selected>None</option>
+                        <option value='0'>Player 1</option> 
+                        <option value='1'>Player 2</option>
+                        <option value='2'>Player 3</option>
+                        <option value='3'>Player 4</option>
+                        <option value='4'>Player 5</option>
+                        <option value='5'>Player 6</option>
+                      </select>
+                      <button type='submit' onclick="rolesubmit('witchoption')" id = 'witchconfirm'>Confirm</button>
+                    </form>
+                     Vote Out:
+                    <form>
+                      <select id='voteoption'>
+                       <option value='None' Selected>None</option>
+                        <option value='0'>Player 1</option> 
+                        <option value='1'>Player 2</option>
+                        <option value='2'>Player 3</option>
+                        <option value='3'>Player 4</option>
+                        <option value='4'>Player 5</option>
+                        <option value='5'>Player 6</option>
+                      </select>
+                      <button type='submit' onclick = "votesubmit()" id = 'voteconfirm'>Confirm</button>
+                    </form>
+                  </div>  -->
+  
+                  <!-- <div class = 'vote' id = 'civilianchoice'>
+                     Vote Out:
+                    <form>
+                      <select id='voteoption'>
+                        <option value='None' Selected>None</option>
+                        <option value='0'>Player 1</option> 
+                        <option value='1'>Player 2</option>
+                        <option value='2'>Player 3</option>
+                        <option value='3'>Player 4</option>
+                        <option value='4'>Player 5</option>
+                        <option value='5'>Player 6</option>
+                      </select>
+                      <button type='submit' id = 'voteconfirm'>Confirm</button>
+                    </form>
+                  </div> -->
+                
+                  <div class = "overlay2">
+                    RESPONSE:
+                    <div class ="response"></div>
+                  </div>
+                  
                 </div>
 
-
                 
-
-
-
-
-
-
-
-              </div>
-
-            </div>  
-            
-            <div class="chat">
-                      <div id="sidebar">
-                        <div id="room-list">
-                            <template id="room">
-                              <button class="room"></button>
-                            </template>
-                        </div>
-                        <spam id="new-room"></span>
-                        </div>
-                        <div id="content">
-                          <div id="messages">
-                            <template id="message">
-                              <div class="message">
-                                <span class="username"></span>
-                                <span class="text"></span>
-                              </div>
-                            </template>
+              </div>  
+              
+              <div class="chat">
+                        <div id="sidebar">
+                          <div id="room-list">
+                              <template id="room">
+                                <button class="room"></button>
+                              </template>
                           </div>
-                      </div>
+                          <spam id="new-room"></span>
+                          </div>
+                          <div id="content">
+                            <div id="messages">
+                              <template id="message">
+                                <div class="message">
+                                  <span class="username"></span>
+                                  <span class="text"></span>
+                                </div>
+                              </template>
+                            </div>
+                        </div>
+              </div>
+    
             </div>
-          </div>
-
+          
+        
           <div class="textbox">
-          <form id="new-message">
-            <input type="text" name="message" id="message" autocomplete="off" placeholder="Send a message..." autofocus>
-            <button onclick = "scrollToBottom()" type="submit" id="send">Send</button>
+            <form id="new-message">
+              <input class = "textmessage" type="text" name="message" id="message" autocomplete="off" placeholder="Send a message..." autofocus>
+              <button type="submit" id="send">Send</button>
+              <button type="submit" id="endspeakturn">End</button>
             </form>
+            <div id = "disabled">You are Muted<div>
           </div>
+          
+
+          
 
   
 
