@@ -104,5 +104,6 @@ pub async fn start() -> Result<JoinHandle<()>, ()>{
 }
 
 pub fn receive_from_server(room:&mut Room, game_event:&String) {
+    print!("Client Receive GME");
     update(room, game_event);
 }

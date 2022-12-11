@@ -131,7 +131,6 @@ function scrollToBottom() {
     }, 50);   
 }
 
-////////////////////////////////////////////////////////////////
 function RoomSubscribe(uri) {
   var retryTime = 1;
   function Connect(uri) {
@@ -144,6 +143,9 @@ function RoomSubscribe(uri) {
         room.messages.push(val);
       });
       console.log(room.messages);
+      if(localStorage.getItem("idx") == null){
+        AssignPlayerid(roomjson);
+      }
 
 
     });
@@ -495,6 +497,17 @@ function unmute(){
   var w = document.getElementById('disabled').style.visibility = "hidden";
   document.querySelector('.textmessage').disabled = false;
 }
+
+function AssignPlayerid(roomjson){
+  let count = 0;
+  roomjson.players.forEach((player) => {
+    if(player.id != '7'){
+      count++;
+    }
+  })
+  localStorage.setItem("idx", count);
+}
+
 /*Utilities*/
 
 var slider = document.getElementById("myRange");
