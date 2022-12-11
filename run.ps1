@@ -3,12 +3,12 @@ $urls = "127.0.0.1:8000", "127.0.0.1:8001", "127.0.0.1:8002", "127.0.0.1:8003", 
 
 $commands =
 "cd rust_kill",
-"Start-Process cargo 'run 8000 true'",
-"Start-Process cargo 'run 8001 false'",
-"Start-Process cargo 'run 8002 false'",
-"Start-Process cargo 'run 8003 false'",
-"Start-Process cargo 'run 8004 false'",
-"Start-Process cargo 'run 8005 false'",
+"Start-Process cargo 'run 8000'",
+"Start-Process cargo 'run 8001'",
+"Start-Process cargo 'run 8002'",
+"Start-Process cargo 'run 8003'",
+"Start-Process cargo 'run 8004'",
+"Start-Process cargo 'run 8005'",
 "Start-Sleep -Seconds 3.0"
 # Run the commands using the iex cmdlet
 foreach ($command in $commands) {

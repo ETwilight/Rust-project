@@ -13,7 +13,7 @@ use game::utils::{send_message, send_room, send_delay_room};
 pub mod room;
 use room::connect_room;
 
-use crate::client::game_info::{Player, RoleType, ClientInfo};
+use crate::game_info::{Player, RoleType, ClientInfo};
 use crate::data::{Message, VisibleType, Room};
 use crate::server::host::client_addr;
 use crate::client::utils::encode;
@@ -45,11 +45,14 @@ pub async fn connect(server_addr: &str, client_name: &str, sender_msg: Sender<Me
     let client = tokio::spawn(async move{
         let auth = match utils::client_response(BufReader::new(&mut reader), queue!["AUTH".to_string(), "CLI".to_string()], "client get").await {
             Ok(r) => r,
-            Err(e) => panic!("{}", e),
+            Err(e) => "err".to_string()
         };
+        if auth == "err".to_string() {
+            print!("ERR! Cannot Authorize!\n");
+        }
         let cinfo : ClientInfo = serde_json::from_str(&auth).expect("json deserialize failed");
-        connect_room(cinfo.room.room_name.clone(), inner_sender).await;
-        client_addr(cinfo.room.players[0].to_owned().ip, cinfo.idx)
+        connect_room(cinfo.clone(), inner_sender).await;
+        client_addr(cinfo.client_addr, cinfo.idx)
     }).await.unwrap();
     Ok(main_task(client, sender_msg.clone(), sender_room.clone()).await)
 }
