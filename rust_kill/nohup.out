@@ -71956,3 +71956,304 @@ GET /clientInfo text/event-stream:
    >> No matching routes for GET /clientInfo text/event-stream.
    >> No 404 catcher registered. Using Rocket default.
    >> Response succeeded.
+deregistering event source from poller
+registering event source with poller: token=Token(100663311), interests=READABLE | WRITABLE
+GET /index.html text/html:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /nicepage.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+registering event source with poller: token=Token(184549389), interests=READABLE | WRITABLE
+GET /Menu.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /nicepage.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+registering event source with poller: token=Token(1207959569), interests=READABLE | WRITABLE
+   >> Response succeeded.
+GET /images/Screenshot2022-12-02202250.png image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+GET /images/blood-cement-wall-concrete-surface-texture-background-copy-space_51524-11509.jpg image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /Lobby.html text/html:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /Lobby.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /nicepage.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Outcome: Success
+GET /Lobby.js:
+registering event source with poller: token=Token(1711276048), interests=READABLE | WRITABLE
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+registering event source with poller: token=Token(1392508942), interests=READABLE | WRITABLE
+   >> Outcome: Success
+GET /nicepage.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /images/Screenshot2022-12-02202250.png image/avif:
+   >>    >> Matched: (FileServer: static) GET /<path..> [10]
+Outcome: Success
+   >> Outcome: Success
+registering event source with poller: token=Token(1308622851), interests=READABLE | WRITABLE
+   >> Response succeeded.
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+GET /images/flat-design-werewolf-moon-background_52683-95044-1.webp image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /Lobby.html?username=aweg&serverip=awe text/html:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /nicepage.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /Lobby.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+GET /Lobby.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /nicepage.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /images/Screenshot2022-12-02202250.png image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+GET /images/flat-design-werewolf-moon-background_52683-95044-1.webp image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /Lobby.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /nicepage.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Outcome: Success
+   >> Response succeeded.
+GET /Lobby.html?username=aweg&serverip=wag text/html:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /nicepage.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /Lobby.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+GET /Lobby.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response succeeded.
+   >> Outcome: Success
+   >> Response succeeded.
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /nicepage.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /images/Screenshot2022-12-02202250.png image/avif:
+   >> Outcome: Success
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+GET /images/flat-design-werewolf-moon-background_52683-95044-1.webp image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /Lobby.html?username=aweg&serverip=172.20.10.2 text/html:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /Lobby.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /nicepage.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+GET /Lobby.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+GET /jquery.js:
+GET /images/Screenshot2022-12-02202250.png image/avif:
+GET /nicepage.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >>    >> Outcome: Success
+Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+GET /images/flat-design-werewolf-moon-background_52683-95044-1.webp image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /Lobby.html?username=aweg&serverip=172.20.10.2 text/html:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /Lobby.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /nicepage.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+GET /Lobby.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /nicepage.js:
+GET /images/Screenshot2022-12-02202250.png image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+GET /images/flat-design-werewolf-moon-background_52683-95044-1.webp image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /Lobby.html?username=aweg&serverip=172.20.10.2 text/html:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /nicepage.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /Lobby.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+GET /Lobby.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /nicepage.js:
+GET /images/Screenshot2022-12-02202250.png image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >>    >> Outcome: Success
+Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+GET /images/flat-design-werewolf-moon-background_52683-95044-1.webp image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.

@@ -1,3 +1,5 @@
+let hform = document.querySelector('#hostform');
+let cForm = document.querySelector('#clientform');
 
 function openClient() {
   document.getElementById("f2").style.display = "block";
@@ -20,10 +22,9 @@ function ChangePage() {
 }
 
 function HostInput() {
-  let form = document.querySelector('#hostform');
-  form.addEventListener("submit", (e) => {
+  hform.addEventListener("submit", (e) => {
     //e.preventDefault();
-    let data = new FormData(form);
+    let data = new FormData(hform);
     var object = {};
     data.forEach(function (value, key) {
       object[key] = value;
@@ -45,10 +46,9 @@ function HostInput() {
 }
 
 function ClientInput() {
-  let form = document.querySelector('#clientform');
-  form.addEventListener("submit", (e) => {
+  cForm.addEventListener("submit", (e) => {
     //e.preventDefault();
-    let data = new FormData(form);
+    let data = new FormData(cForm);
     var object = {};
     data.forEach(function (value, key) {
       object[key] = value;
@@ -72,6 +72,7 @@ function ClientInput() {
 
 
 function ClientInfoSubscribe(uri) {
+  
   var retryTime = 1000;
   function Connect(uri) {
     const events = new EventSource(uri);
