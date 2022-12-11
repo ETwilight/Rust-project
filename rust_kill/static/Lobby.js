@@ -85,10 +85,15 @@ function ClientInfoSubscribe(uri) {
       localStorage.setItem('idx', msg.idx);
       ChangePage();
     });
-    
+
     events.addEventListener("open", () => {
       console.log(`connected to event stream at ${uri}`);
+      console.log(localStorage.getItem('room_name'), 
+                  localStorage.getItem('username'), 
+                  localStorage.getItem('client_addr'), 
+                  localStorage.getItem('idx'));
       retryTime = 1;
+      ChangeRoom();
     });
 
     events.addEventListener("error", () => {
