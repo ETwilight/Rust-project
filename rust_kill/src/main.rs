@@ -39,34 +39,29 @@ use rocket::tokio::select;
 use rocket::tokio::sync::broadcast::{channel, error::RecvError, Sender};
 use tokio::time::sleep;
 
-
 #[post("/room/host", data = "<form>")]
-async fn post_host_room(form: Form<UserConnectEvent>, rc: &State<Sender<Room>>, cc: &State<Sender<ClientInfo>>) {
-    let host_event = form.into_inner();
-
-    let _ = server::host::start().await.unwrap();
-    let _ = client::connect(&host_event.serverip, &host_event.username, rc.inner().clone(), cc.inner().clone()).await.unwrap();
-   
+async fn post_host_room(form: Form<UserConnectEvent>, qs: &State<tokio::sync::mpsc::Sender<(bool, String, String)>>) {
+    qs.inner().clone().send((true, form.serverip.clone(), form.username.clone())).await.unwrap();
 }
 
 #[post("/room/join", data = "<form>")]
-async fn post_join_room(form: Form<UserConnectEvent>, rc: &State<Sender<Room>>, cc: &State<Sender<ClientInfo>>){
-    let join_event = form.into_inner();
-    let _ = client::connect(&join_event.serverip, &join_event.username, rc.inner().clone(), cc.inner().clone()).await.unwrap();
+async fn post_join_room(form: Form<UserConnectEvent>, qs: &State<tokio::sync::mpsc::Sender<(bool, String, String)>>){
+    qs.inner().clone().send((false, form.serverip.clone(), form.username.clone())).await.unwrap();
 }
+
 
 #[post("/game/event", data = "<form>")]
 async fn post_game_event(form: Form<VoteEvent>) {
     let vote_event = form.into_inner();
     let s = struct_to_string(&vote_event).0;
-    client_send_gme(&server_addr(), s).await.unwrap();
+    client_send_gme(&server_addr(), s).await;
 }
 
 #[post("/game/endSpeak", data = "<form>")]
 async fn post_end_speak(form: Form<EndSpeakEvent>) {
     let end_speak_event = form.into_inner();
     let s = struct_to_string(&end_speak_event).0;
-    client_send_gme(&server_addr(), s).await.unwrap();
+    client_send_gme(&server_addr(), s).await;
 }
 
 /// Receive a message from a form submission and broadcast it to any receivers.
@@ -75,7 +70,7 @@ async fn post_message(form: Form<MessageEvent>) {
     //A send "fails" if there are no active subscribers
     let message_event = form.into_inner();
     let s = struct_to_string(&message_event).0;
-    client_send_gme(&server_addr(), s).await.unwrap();
+    client_send_gme(&server_addr(), s).await;
 }
 
 #[get("/event/room")]
@@ -144,6 +139,30 @@ async fn main() -> Result<(), rocket::Error> {
     let message_channel = channel::<Message>(1024).0;
     let room_channel = channel::<Room>(1024).0;
     let cinfo_channel = channel::<ClientInfo>(1024).0;
+    let (tx, mut rx) = tokio::sync::mpsc::channel::<(bool, String, String)>(2);
+    let mc = message_channel.clone();
+    let rc = room_channel.clone();
+    let cc = cinfo_channel.clone();
+    let recth = tokio::spawn(async move{
+        print!("in thread\n");
+        let result;
+        loop{
+            let rec = rx.recv().await;
+            if rec.is_none() {continue;}
+            result = rec.unwrap();
+            break;
+        }
+        if result.0 {
+            print!("Try Host {:?}", result.1.clone());
+            let _ = server::host::start().await.unwrap();
+            let _ = client::connect(result.1.as_str(), &result.2, rc, cc).await.unwrap();
+        }
+        else {
+            print!("Try Join {:?}", result.1.clone());
+            let _ = client::connect(result.1.as_str(), &result.2, rc, cc).await.unwrap();
+        }
+    });
+
     let figment = rocket::Config::figment()
         .merge(("address", client_addr))
         .merge(("port", port))
@@ -153,10 +172,12 @@ async fn main() -> Result<(), rocket::Error> {
         .mount("/", routes![event_room])
         .mount("/", routes![post_message, post_end_speak, post_game_event])
         .manage(message_channel) 
-        .manage(cinfo_channel)
+        .manage(tx)
         .mount("/", routes![post_host_room, post_join_room])
+        .manage(cinfo_channel)
         .mount("/", routes![event_client_info])
-        .mount("/", FileServer::from(relative!("/static"))).launch().await.unwrap();
+        .mount("/", FileServer::from(relative!("/static"))).launch();
+    join!(recth, rocket).0.unwrap();
     // a custom rocket build
     //let event_channel = channel::<GameEvent>(1024).0;
     //let _ = client::connect(server_addr().as_str(), "ThgilTac1", message_channel.clone(), room_channel.clone()).await.unwrap();

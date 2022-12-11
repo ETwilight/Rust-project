@@ -147,7 +147,7 @@ pub fn assign_role(room: &mut Room) {
     let mut rng = rand::thread_rng();
     // Shuffle the vector
     vec.shuffle(&mut rng);
-    for i in 1..6 {
+    for i in 0..5 {
         room.players[i].role = vec[i].clone();
     }
 }

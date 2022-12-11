@@ -114,7 +114,6 @@ var room = {
   room_name: "",
   players : [],
   messages : [],
-  game_state : GameState,
 }
 
 //refreshing content/////////
@@ -145,7 +144,7 @@ function RoomSubscribe(uri) {
         room.messages.push(val);
       });
       var l = room.messages.length - 1;
-      AddMessage(room.room_name, room.messages[l].username, 
+      AddMessage(room.room_name, room.messages[l], 
         room.messages[l].message, true);
       scrollToBottom();
       console.log(room.messages);
