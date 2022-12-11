@@ -45,7 +45,7 @@ pub fn send_client_info(queue: Sender<ClientInfo>, client_info: ClientInfo) -> R
 
 pub fn send_room(queue: Sender<Room>, room: Room) -> Result<JoinHandle<()>, ()>{
     let task = tokio::spawn(async move{
-        queue.send(room).unwrap();
+        //queue.send(room).unwrap();
     });
     return Ok(task)
 }
@@ -53,7 +53,7 @@ pub fn send_room(queue: Sender<Room>, room: Room) -> Result<JoinHandle<()>, ()>{
 pub async fn send_delay_room(queue: Sender<Room>, room: Room, millisecond:u64) -> Result<JoinHandle<()>, ()>{
     let task = tokio::spawn(async move{
         sleep(Duration::from_millis(millisecond)).await;
-        queue.send(room).unwrap();
+        //queue.send(room).unwrap();
     });
     return Ok(task)
 }
