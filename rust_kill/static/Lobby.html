@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html style="font-size: 16px;" lang="en"><head>
+<html style="font-size: 16px;" lang="en">
+<head>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
@@ -7,8 +8,7 @@
     <meta name="description" content="">
     <title>Lobby</title>
     <link rel="stylesheet" href="nicepage.css" media="screen">
-<link rel="stylesheet" href="Lobby.css" media="screen">
-    <script class="u-script" type="module" type="text/javascript" src="jquery.js" defer=""></script>
+    <link rel="stylesheet" href="Lobby.css" media="screen">
     <script class="u-script" type="module" type="text/javascript" src="jquery.js" defer=""></script>
     <script class="u-script" type="text/javascript" src="nicepage.js" defer=""></script>
     <meta name="generator" content="Nicepage 5.0.7, nicepage.com">
@@ -23,6 +23,8 @@
     <meta property="og:title" content="Lobby">
     <meta property="og:type" content="website">
   </head>
+
+
   <body class="u-body u-xl-mode" data-lang="en"><header class="u-black u-clearfix u-header u-sticky u-header" id="sec-ec8f"><div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
       
         <img style="margin: 0 auto; width: 220x; height:60px;" src="images/Screenshot2022-12-02202250.png" alt="" data-image-width="957" data-image-height="280">
@@ -41,15 +43,14 @@
       </div>
     </section>
 
-  
-    <script src="Lobby.js"></script>
+
     <div class="form-popup1" id="f1">
-      <form id = "hostform" class="form-container">
+      <form id = "hostform" action="Room.html#top" class="form-container">
         <label for="host"><b>Name</b></label>
         <input id = "hostname" type="text" placeholder="Enter Name" name="username" maxlength="15" autocomplete="on" required>
         <label for="hostip"><b>Host IP</b></label>
         <input id = "hostip" type="text" placeholder="x.x.x.x" name="serverip" autocomplete="on" required>
-        <button type="submit" onclick="HostInput()" class="btn" >Login</button>
+        <button type = "submit" class="btn" >Login</button>
         <button id = "test1" type="button" class="btn cancel" onclick="closeHost()">Close</button>
       </form>
     </div>
@@ -57,14 +58,16 @@
     <div class="form-popup2" id = "f2">
       <form id="clientform" class="form-container">
         <label for="cname"><b>Name</b></label>
-
         <input id = "clientname" type="text" placeholder="Enter Name" name="username" maxlength="15" autocomplete="on" required>
         <label for="serverip"><b>Server IP</b></label>
         <input id = "serverip" type="text" placeholder="x.x.x.x" name="serverip" autocomplete="on"  required>
-        <button id = "test2" onclick="ClientInput()" type="submit" class="btn">Login</button>
+        <button id = "test2" type="submit" class="btn">Login</button>
         <button type="button" class="btn cancel" onclick="closeClient()">Close</button>
       </form>
     </div>
+
+    <script type="text/javascript" src="Lobby.js"></script>
+
     
   
 </body></html>
