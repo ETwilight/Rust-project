@@ -124,8 +124,6 @@ var STATE = {
   connected: false,
 }
 
-
-
 var content = document.getElementById("content");  
 function scrollToBottom() {
     setTimeout(function(){
@@ -133,7 +131,6 @@ function scrollToBottom() {
     }, 50);   
 }
 
-////////////////////////////////////////////////////////////////
 function RoomSubscribe(uri) {
   var retryTime = 1;
   function Connect(uri) {
@@ -142,11 +139,13 @@ function RoomSubscribe(uri) {
       const roomjson = JSON.parse(ev.data);
       console.log("decoded data", JSON.stringify(roomjson));
       localStorage.setItem("roomjson", roomjson);
-      roomjson.messages.forEach(function(val){
+      roomjson['messages'].forEach(function(val){
         room.messages.push(val);
       });
       console.log(room.messages);
-      
+      if(localStorage.getItem("idx") == null){
+        AssignPlayerid(roomjson);
+      }
 
     });
 
@@ -333,9 +332,8 @@ function AddMessageEventListener(){
     // Set up the new message handler.
     newMessageForm.addEventListener("submit", (e) => {
       e.preventDefault();
-  
       const message = messageField.value;
-      if (!message || !username) return;
+      if (!message) return;
   
       if (STATE.connected) {
         fetch("/room/message", {
@@ -498,6 +496,17 @@ function unmute(){
   var w = document.getElementById('disabled').style.visibility = "hidden";
   document.querySelector('.textmessage').disabled = false;
 }
+
+function AssignPlayerid(roomjson){
+  let count = 0;
+  roomjson.players.forEach((player) => {
+    if(player.id != '7'){
+      count++;
+    }
+  })
+  localStorage.setItem("idx", count);
+}
+
 /*Utilities*/
 
 var slider = document.getElementById("myRange");
@@ -551,11 +560,9 @@ function Init() {
 
   // Subscribe to server-sent events.
   MessageSubscribe("/message/event");
-  PlayerInfoSubscribe("/playerInfo/event")
+  RoomSubscribe("/event/room")
   
 }
-
-// export {AddMessage, GetStatus};
 
 
 Init();
