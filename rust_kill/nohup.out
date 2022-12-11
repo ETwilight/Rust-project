@@ -70978,3 +70978,304 @@ POST /room/message application/x-www-form-urlencoded:
    >> No 422 catcher registered. Using Rocket default.
    >> Response succeeded.
 deregistering event source from poller
+registering event source with poller: token=Token(1358954510), interests=READABLE | WRITABLE
+GET /Room.html? text/html:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+deregistering event source from poller
+deregistering event source from poller
+GET /nicepage.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+registering event source with poller: token=Token(1157627921), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(16777231), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(134217741), interests=READABLE | WRITABLE
+GET /reset.css text/css:
+GET /style.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /Room.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+GET /script.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+registering event source with poller: token=Token(1677721616), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(1275068419), interests=READABLE | WRITABLE
+   >> Outcome: Success
+GET /nicepage.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /Room.js:
+GET /images/Screenshot2022-12-02202250.png image/avif:
+   >> Outcome: Success
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /images/User.jpg image/avif:
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+GET /message/event text/event-stream:
+   >> Matched: (events) GET /message/event
+   >> Outcome: Success
+GET /playerInfo/event text/event-stream:
+   >> Matched: (event_player_info) GET /playerInfo/event
+Get event   >> Outcome: Success
+GET /reset.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /nicepage.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Outcome: Success
+GET /style.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /Room.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Remote left: channel closed.
+   >> Remote left: channel closed.
+GET /Room.html? text/html:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+deregistering event source from poller
+deregistering event source from poller
+GET /Room.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /nicepage.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /style.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /reset.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Outcome: Success
+   >> Response succeeded.
+GET /script.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+registering event source with poller: token=Token(33554447), interests=READABLE | WRITABLE
+registering event source with poller: token=Token(150994957), interests=READABLE | WRITABLE
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /nicepage.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /images/Screenshot2022-12-02202250.png image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /images/User.jpg image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Remote left: channel closed.
+   >> Remote left: channel closed.
+GET /Room.html? text/html:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /Room.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /nicepage.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /style.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /reset.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /script.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /nicepage.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /images/User.jpg image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /images/Screenshot2022-12-02202250.png image/avif:
+   >> Outcome: Success
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+GET /message/event text/event-stream:
+   >> Matched: (events) GET /message/event
+   >> Outcome: Success
+GET /playerInfo/event text/event-stream:
+   >> Matched: (event_player_info) GET /playerInfo/event
+Get event   >> Outcome: Success
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("id", "null")
+   >> url-encoded field: ("message", "jopk")
+   >> Data guard `Form < MessageEvent >` failed: Errors([Error { name: Some("room_name"), value: None, kind: Missing, entity: Field }, Error { name: Some("username"), value: None, kind: Missing, entity: Field }]).
+   >> Outcome: Failure
+   >> No 422 catcher registered. Using Rocket default.
+   >> Response succeeded.
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("id", "null")
+   >> url-encoded field: ("message", "jopkj")
+   >> Data guard `Form < MessageEvent >` failed: Errors([Error { name: Some("room_name"), value: None, kind: Missing, entity: Field }, Error { name: Some("username"), value: None, kind: Missing, entity: Field }]).
+   >> Outcome: Failure
+   >> No 422 catcher registered. Using Rocket default.
+   >> Response succeeded.
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("id", "null")
+   >> url-encoded field: ("message", "jopkjj")
+   >> Data guard `Form < MessageEvent >` failed: Errors([Error { name: Some("room_name"), value: None, kind: Missing, entity: Field }, Error { name: Some("username"), value: None, kind: Missing, entity: Field }]).
+   >> Outcome: Failure
+   >> No 422 catcher registered. Using Rocket default.
+   >> Response succeeded.
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("id", "null")
+   >> url-encoded field: ("message", "jopkjjj")
+   >> Data guard `Form < MessageEvent >` failed: Errors([Error { name: Some("room_name"), value: None, kind: Missing, entity: Field }, Error { name: Some("username"), value: None, kind: Missing, entity: Field }]).
+   >> Outcome: Failure
+   >> No 422 catcher registered. Using Rocket default.
+   >> Response succeeded.
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("id", "null")
+   >> url-encoded field: ("message", "jopkjjjj")
+   >> Data guard `Form < MessageEvent >` failed: Errors([Error { name: Some("room_name"), value: None, kind: Missing, entity: Field }, Error { name: Some("username"), value: None, kind: Missing, entity: Field }]).
+   >> Outcome: Failure
+   >> No 422 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /Room.html? text/html:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+deregistering event source from poller
+deregistering event source from poller
+GET /nicepage.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /Room.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /reset.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /style.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+GET /script.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /nicepage.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /images/User.jpg image/avif:
+   >> Outcome: Success
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /images/Screenshot2022-12-02202250.png image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+GET /playerInfo/event text/event-stream:
+   >> Matched: (event_player_info) GET /playerInfo/event
+Get eventGET /message/event text/event-stream:
+   >> Matched: (events) GET /message/event
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Remote left: channel closed.
+   >> Remote left: channel closed.
+deregistering event source from poller
+deregistering event source from poller
+registering event source with poller: token=Token(1174405137), interests=READABLE | WRITABLE
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("id", "null")
+   >> url-encoded field: ("message", "aweg")
+   >> Data guard `Form < MessageEvent >` failed: Errors([Error { name: Some("room_name"), value: None, kind: Missing, entity: Field }, Error { name: Some("username"), value: None, kind: Missing, entity: Field }]).
+   >> Outcome: Failure
+   >> No 422 catcher registered. Using Rocket default.
+   >> Response succeeded.
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("id", "null")
+   >> url-encoded field: ("message", "aweg")
+   >> Data guard `Form < MessageEvent >` failed: Errors([Error { name: Some("room_name"), value: None, kind: Missing, entity: Field }, Error { name: Some("username"), value: None, kind: Missing, entity: Field }]).
+   >> Outcome: Failure
+   >> No 422 catcher registered. Using Rocket default.
+   >> Response succeeded.
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("id", "null")
+   >> url-encoded field: ("message", "awegaewg")
+   >> Data guard `Form < MessageEvent >` failed: Errors([Error { name: Some("room_name"), value: None, kind: Missing, entity: Field }, Error { name: Some("username"), value: None, kind: Missing, entity: Field }]).
+   >> Outcome: Failure
+   >> No 422 catcher registered. Using Rocket default.
+   >> Response succeeded.
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("id", "null")
+   >> url-encoded field: ("message", "awegaewga")
+   >> Data guard `Form < MessageEvent >` failed: Errors([Error { name: Some("room_name"), value: None, kind: Missing, entity: Field }, Error { name: Some("username"), value: None, kind: Missing, entity: Field }]).
+   >> Outcome: Failure
+   >> No 422 catcher registered. Using Rocket default.
+   >> Response succeeded.
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("id", "null")
+   >> url-encoded field: ("message", "awegaewgaweg")
+   >> Data guard `Form < MessageEvent >` failed: Errors([Error { name: Some("room_name"), value: None, kind: Missing, entity: Field }, Error { name: Some("username"), value: None, kind: Missing, entity: Field }]).
+   >> Outcome: Failure
+   >> No 422 catcher registered. Using Rocket default.
+   >> Response succeeded.
