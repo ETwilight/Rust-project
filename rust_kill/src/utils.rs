@@ -7,12 +7,26 @@ pub fn spliter() -> char {'\x03'}
 
 pub fn spliter_kv() -> char {'\x04'}
 
+pub fn spliter_vt() -> char {'\x05'}
+
 pub fn encode(key: &str, val: &str) -> String {
     (key.to_string()+spliter_kv().to_string().as_str())+val
 }
 
+pub fn encode_type(val: &str, tpe: &str) -> String {
+    (val.to_string()+spliter_vt().to_string().as_str())+tpe
+}
+
 pub fn decode(encoded: &str) -> (&str, &str) {
     let dec = encoded.split_once(spliter_kv());
+    if dec.is_none() {
+        panic!("cannot decode a wrong string")
+    }
+    dec.unwrap()
+}
+
+pub fn decode_type(encoded: &str) -> (&str, &str) {
+    let dec = encoded.split_once(spliter_vt());
     if dec.is_none() {
         panic!("cannot decode a wrong string")
     }
