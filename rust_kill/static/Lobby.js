@@ -88,12 +88,17 @@ function ClientInfoSubscribe(uri) {
 
     events.addEventListener("open", () => {
       console.log(`connected to event stream at ${uri}`);
+      if (window.localStorage.length != 0) {
       console.log(localStorage.getItem('room_name'), 
                   localStorage.getItem('username'), 
                   localStorage.getItem('client_addr'), 
                   localStorage.getItem('idx'));
       retryTime = 1;
-      ChangeRoom();
+      ChangePage();
+      }
+      else {
+        console.log("nothing in open");
+      }
     });
 
     events.addEventListener("error", () => {
