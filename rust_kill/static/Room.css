@@ -2,7 +2,6 @@
 
 .u-section-1 {
   height: 95%;
-  border: 3px solid orange;
   display: flex;
 }
 
@@ -10,7 +9,7 @@
   background-color: black;
   font-weight: 700;
   border-radius: 20px !important;
-  font-size: 0.875rem;
+  font-size: 0.87res;
   letter-spacing: 1px;
   margin: 16px auto 0 0;
 }
@@ -30,7 +29,7 @@
 }
 
 .header2 {
-  border: 5px solid red;
+
   width: 265px;
 }
 
@@ -88,7 +87,6 @@
 
 .wrapped{
   padding: 10px;
-  border: 3px solid black;
   margin-left:auto;
   margin-right:auto;
   display: flex;
@@ -98,13 +96,13 @@
 
 .others {
   padding: 5px;
-  border: 2px solid black;
   display: flex;
   justify-content: space-between;
   height: 90px;
   margin-left: auto;
   margin-right: auto;
   min-width: 10px; 
+  visibility: hidden;
 }
 
 .popup {
@@ -136,7 +134,6 @@
 
 .self{
   padding: 5px;
-  border: 3px solid black;
   width: 280px;
   display: flex;
   flex-direction: column;
@@ -176,7 +173,6 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  border: 3px solid orange;
   overflow-y: scroll;
   height: 450px;
 }
@@ -231,7 +227,7 @@ form * {
 
 .indicator {
   text-align: center;
-  visibility: hidden;
+  /* visibility: hidden; */
 }
 
 .playerStatus {
@@ -276,16 +272,16 @@ form * {
   animation: blinkimage 5s infinite;
 
 }
-#speaking {
+.speaking {
   background: green;
   animation: blinkgreen 1.4s infinite;
 }
 
-#muted {
+.muted {
   background: orange;
 }
 
-#dead {
+.dead {
   background: black;
   animation: blinkblack 1.4s infinite;
 }

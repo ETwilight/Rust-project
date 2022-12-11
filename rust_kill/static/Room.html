@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="Room.css" media="screen">
     <link rel="stylesheet" href="reset.css" media="screen">
     <link rel="stylesheet" href="style.css" media="screen">
-    <script type = "module" src="script.js" charset="utf-8" defer></script>
+    <script type = "text/javascript" src="script.js" charset="utf-8" defer></script>
     <script class="u-script" type="text/javascript" src="jquery.js" defer=""></script>
     <script class="u-script" type="text/javascript" src="nicepage.js" defer=""></script>
     <meta name="generator" content="Nicepage 5.0.7, nicepage.com">
@@ -48,17 +48,18 @@
           <div class="dimensions">
             <div>Height: <span id="height"></span> Width: <span id="width"></span></div></div>
           <div>
-            <button id="colormode" type="submit">Switch Color</button>
             <button onclick="replace(1)" type="submit">Switch Wolf</button>
             <button onclick="replace(2)" type="submit">Switch Witch</button>
             <button onclick="replace(3)" type="submit">Switch Reveal</button>
             <button onclick="replace(4)" type="submit">Switch Civilian</button>
             <button onclick="mute()" type="submit">Mute</button>
             <button onclick="unmute()" type="submit">UnMute</button>
+            <button onclick="dead()" type="submit">SetDead</button>
+            <button onclick="muted()" type="submit">SetMuted</button>
+            <button onclick="speaking()" type="submit">SetSpeaking</button>
           </div>
           </div>
         </div>
-
 
         </div>
 
@@ -68,35 +69,35 @@
 
           <div class="others">
             <div class="indicator player1" >
-              <div class="playerStatus" id="speaking">
+              <div class="playerStatus speaking">
                 <img class="role" src="./images/User.jpg" alt="Wolf" >
                 <!--<img class="overlay" src="./images/Mute.png" alt="Mute">-->
               </div>Null1
             </div>  
 
             <div class="indicator player2" >
-              <div class="playerStatus" id="speaking">
+              <div class="playerStatus speaking">
                 <img class="role" src="./images/User.jpg" alt="Wolf" >
                 <!--<img class="overlay" src="./images/Mute.png" alt="Mute">-->
               </div>Null2
             </div>  
   
             <div class="indicator player3" >
-              <div class="playerStatus" id="speaking">
+              <div class="playerStatus speaking">
                 <img class="role" src="./images/User.jpg" alt="Wolf" > 
                 <!--<img class="overlay" src="./images/Mute.png" alt="Mute">-->
               </div>Null3
             </div>  
   
             <div class="indicator player4" >
-              <div class="playerStatus" id="speaking">
+              <div class="playerStatus speaking">
                 <img class="role" src="./images/User.jpg" alt="Wolf"> 
                 <!--<img class="overlay" src="./images/Mute.png" alt="Mute">-->
               </div>Null4
             </div>  
   
             <div class="indicator player5" >
-              <div class="playerStatus" id="speaking">
+              <div class="playerStatus speaking">
                 <img class="role" src="./images/User.jpg" alt="Wolf" > 
                 <!--<img class="overlay" src="./images/Mute.png" alt="Mute">-->
               </div>Null5
@@ -111,7 +112,7 @@
               <div class="self">
   
                 <div id="profile">
-                <div class="selfStatus" id="dead">
+                <div class="selfStatus" id="speaking">
                   <img src="./images/User.jpg" alt="Wolf" class="role"> 
                 </div>
                 </div>
