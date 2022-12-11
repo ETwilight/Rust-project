@@ -205,7 +205,7 @@ async fn main() -> Result<(), rocket::Error> {
             .mount("/", routes![post_player_info, event_player_info])
             .manage(ROOM_CHANNEL.clone().unwrap())
             .mount("/", routes![event_room])
-            .manage("/", CINFO_CHANNEL.clone().unwrap())
+            .manage(CINFO_CHANNEL.clone().unwrap())
             .mount("/", routes![event_client_info])
             .mount("/", FileServer::from(relative!("/static"))).launch().await.unwrap();
     }

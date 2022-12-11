@@ -1,18 +1,10 @@
-use std::collections::HashMap;
-
 use crate::server::host::client_addr;
 use crate::utils;
 use crate::server::command_processor::server_send_room;
 
-use tokio::net::TcpStream;
 use tokio::sync::mpsc::Receiver;
-#[path="../game.rs"]
-mod game;
-#[path="../game/game_info.rs"]
-mod game_info;
-use crate::server::client_manager::game_info::{GameState, TurnType, RevealResult};
 use crate::data::{Room};
-use crate::game_info::{Player, RoleType};
+use crate::game_info::Player;
 
 pub async fn receive(rx: &mut Receiver<String>) -> (Room, Vec<String>){
     let mut room:Room = Default::default();
