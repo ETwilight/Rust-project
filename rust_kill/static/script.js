@@ -72,7 +72,7 @@ var role;
 
 //refreshing content/////////
 var STATE = {
-  currentRoom: "rustkill",
+  currentRoom: "rust_kill",
   rooms: {}, //A dictionary
   connected: false,
 }
@@ -92,14 +92,17 @@ function RoomSubscribe(uri) {
       const roomjson = JSON.parse(ev.data);
       console.log("decoded data", JSON.stringify(roomjson));
       localStorage.setItem("roomjson", roomjson);
-      
-      room.room_name = roomjson['room_name'];
-      room.messages = [];
+      messagesDiv.innerHTML = "";
+      room.messages = new Array();
       roomjson['messages'].forEach(function(val){
-        room.messages.push(val);
+        console.log(val);
+        var rm = room.messages;
+        rm.push(val);
+        room.messages = rm;
       });
+   
       room.messages.forEach(function(val){
-        AddMessage(room.room_name, val.username, 
+        AddMessage(roomjson["room_name"], val.username, 
           val.message, true);
           scrollToBottom();
       });
@@ -185,10 +188,11 @@ function ChangeRoom(name) {
 // message. If the current room is `room`, render the message.
 function AddMessage(room_, username, message, push = false) {
   if (push) {
-    STATE.rooms[room_].push({ username, message })
+    console.log(STATE.rooms[room_]);
+    STATE.rooms[room_].push({ username, message });
   }
 
-  if (STATE.currentRoom == room) {
+  if (STATE.currentRoom == room_) {
     var node = messageTemplate.content.cloneNode(true);
     newMessageForm.addEventListener("submit", scrollToBottom);
     node.querySelector(".message .username").textContent = username;
@@ -247,7 +251,7 @@ function PlayerInfoSubscribe(uri) {
       console.log("decoded data", JSON.stringify(msg));
       if (!"username" in msg || !"serverip" in msg) return;
       username = msg.username;
-      AddMessage("rustkill", msg.username, msg.username+" has joined the chatroom", true);
+      AddMessage("rust_kill", msg.username, msg.username+" has joined the chatroom", true);
     });
 
     events.addEventListener("open", () => {
@@ -541,9 +545,9 @@ function AssignPlayerid(roomjson){
 
 function Init() {
   // Initialize the room.
-  AddRoom("rustkill");
-  ChangeRoom("rustkill");
-  AddMessage("rustkill", "Rocket", "Howdy! Open another browser tab, send a message.", true);
+  AddRoom("rust_kill");
+  ChangeRoom("rust_kill");
+  AddMessage("rust_kill", "Rocket", "Howdy! Open another browser tab, send a message.", true);
 
   AddMessageEventListener();
   AddRoomListener();

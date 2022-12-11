@@ -26,8 +26,9 @@ pub async fn receive(rx: &mut Receiver<String>) -> (Room, Vec<String>){
         let player_info: Player = serde_json::from_str(&recv).expect("json deserialize failed");
         let id = player_info.id;
         let player_addr = client_addr(player_info.ip.clone(), id);
-        room.players[id] = player_info;
+        room.players[id] = player_info.clone();
         clients[id] = player_addr;
+        print!("{}\n", player_info.clone().user_info.clone().username.clone());
         for i in 0..6{
             if room.players[i].id == 7 || clients[i] == "Howdy".to_string() {continue;}
             let res = server_send_room(&clients[i], utils::struct_to_string(&room).0, i).await;
