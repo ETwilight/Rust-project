@@ -34,21 +34,16 @@
   width: 265px;
 }
 
-@media only screen and (min-height: 0) and (max-height: 740px) {
+@media only screen and (min-height: 0) and (max-height: 650px) {
   .wrapped{
     height: 90%;
   }
-  #content{
-    height: 300px;
-  }
+
 }
 
-@media only screen and (min-height: 740) and (max-height: 1308px) {
+@media only screen and (min-height: 650) and (max-height: 1308px) {
   .wrapped{
     height: 100%;
-  }
-  #content{
-    height: 300px;
   }
 }
 
@@ -112,12 +107,31 @@
   min-width: 10px; 
 }
 
+.popup {
+  position: fixed;
+  background: #000;
+  opacity: 0.4;
+}
+
 .window {
   padding: 5px;
   border: 2px solid black; 
   display: flex;
   flex-direction: row;
   justify-content: center;
+  position: relative;
+}
+
+.main {
+  position: relative;
+}
+
+.overlay2{
+  background-color: #000;
+  opacity: 0.5;
+  z-index: 999;
+  color: white; 
+  position: relative;
 }
 
 .self{
@@ -164,12 +178,39 @@
   position: relative;
   border: 3px solid orange;
   overflow-y: scroll;
-  height: 500px;
+  height: 450px;
 }
 
-/* #content::-webkit-scrollbar {
+.vote {
+  border: 2px solid green;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.choose {
+  border: 1px solid black;
+}
+
+#killoption {
+  border: none;
+}
+
+form {
+  display: flex;
+}
+
+form * {
+  height: 40px;
+  background: #d7d7d7;
+  color: var(--bg-dark);
+}
+
+
+
+#content::-webkit-scrollbar {
   display: none; 
-} */
+}
 
 .textbox {
   border: 3px solid black;
@@ -267,16 +308,6 @@
   100%  { background-color: green}
 }
 
-form {
-  display: flex;
-  border-top: 2px solid #242424;
-}
-
-form * {
-  height: 40px;
-  background: #d7d7d7;
-  color: var(--bg-dark);
-}
 
 
 

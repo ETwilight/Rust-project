@@ -164,7 +164,6 @@ function AddMessage(room, username, message, push = false) {
   if (push) {
     STATE.rooms[room].push({ username, message })
   }
-  newMessageForm.addEventListener("submit", scrollToBottom);
 
   if (STATE.currentRoom == room) {
     var node = messageTemplate.content.cloneNode(true);
@@ -318,7 +317,7 @@ function Init() {
   AddRoomListener();
 
   // Subscribe to server-sent events.
-  MessageSubscribe("/room/message");
+  MessageSubscribe("/message/event");
   PlayerInfoSubscribe("/playerInfo/event")
   
 }
