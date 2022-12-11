@@ -1,8 +1,6 @@
 use tokio::{net::TcpStream, task::JoinHandle, sync::mpsc};
 #[path="../utils.rs"]
 mod utils;
-#[path="../game.rs"]
-pub mod game;
 
 pub async fn connect(server_addr: &str, client_addr: &str, client_name: &str) -> Result<JoinHandle<()>, ()>{
     let clt = TcpStream::connect((server_addr.to_string() + ":8080").as_str()).await.unwrap();

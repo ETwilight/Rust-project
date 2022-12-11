@@ -2,31 +2,28 @@ use queues::queue;
 use tokio::net::TcpListener;
 use tokio::{net::TcpStream, task::JoinHandle, io::BufReader};
 
-#[path="game/game_info.rs"]
-mod game_info;
-
-#[path="game.rs"]
-mod game;
-
-use game::utils::{send_message, send_room, send_delay_room};
-
 pub mod room;
 use room::connect_room;
 
-use crate::game_info::{Player, RoleType, ClientInfo};
 use crate::data::{Message, VisibleType, Room};
 use crate::server::host::client_addr;
 use crate::client::utils::encode;
 use crate::client::utils::encode_type;
 use crate::client::utils::string_to_struct;
+use crate::game_info::{Player, RoleType, ClientInfo};
 
-use rocket::{tokio::sync::broadcast::Sender, serde::json::Json};
+use rocket::tokio::sync::broadcast::Sender;
 use queues::Queue;
 use queues::IsQueue;
+
+use self::game::utils::{send_message, send_delay_room};
 #[path="utils.rs"]
 mod utils;
 
-pub async fn connect(server_addr: &str, client_name: &str, sender_msg: Sender<Message>, sender_room: Sender<Room>) -> Result<JoinHandle<()>, ()>{
+#[path="game.rs"]
+mod game;
+
+pub async fn connect(server_addr: &str, client_name: &str, sender_msg: Sender<Message>, sender_room: Sender<Room>, sender_cinfo: Sender<ClientInfo>) -> Result<JoinHandle<()>, ()>{
     let clt = TcpStream::connect((server_addr.to_string() + ":8080").as_str()).await.unwrap();
     let (mut reader, mut writer) = clt.into_split();
     let player = Player {
@@ -51,7 +48,7 @@ pub async fn connect(server_addr: &str, client_name: &str, sender_msg: Sender<Me
             print!("ERR! Cannot Authorize!\n");
         }
         let cinfo : ClientInfo = serde_json::from_str(&auth).expect("json deserialize failed");
-        connect_room(cinfo.clone(), inner_sender).await;
+        connect_room(cinfo.clone(), sender_cinfo).await;
         client_addr(cinfo.client_addr, cinfo.idx)
     }).await.unwrap();
     Ok(main_task(client, sender_msg.clone(), sender_room.clone()).await)
