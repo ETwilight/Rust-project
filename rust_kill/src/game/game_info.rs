@@ -87,7 +87,6 @@ pub enum TurnType {
     ProphetTurn,
     SpeakTurn,
     VoteTurn,
-    LastWordTurn,
     EndTurn, //The turn after game ends
 }
 
@@ -97,19 +96,6 @@ impl Default for TurnType{
     }
 }
 impl TurnType {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            TurnType::StartTurn => "StartTurn",
-            TurnType::WerewolfTurn => "WerewolfTurn",
-            TurnType::WitchTurn => "WitchTurn",
-            TurnType::ProphetTurn => "ProphetTurn",
-            TurnType::SpeakTurn => "SpeakTurn",
-            TurnType::VoteTurn => "VoteTurn",
-            TurnType::LastWordTurn => "LastWordTurn",
-            TurnType::EndTurn => "EndTurn",
-        }
-    }
-
     pub fn next(&self) -> Self {
         match self {
             TurnType::StartTurn => TurnType::WerewolfTurn,
@@ -117,8 +103,7 @@ impl TurnType {
             TurnType::WitchTurn => TurnType::ProphetTurn,
             TurnType::ProphetTurn => TurnType::SpeakTurn,
             TurnType::SpeakTurn => TurnType::VoteTurn,
-            TurnType::VoteTurn => TurnType::LastWordTurn,
-            TurnType::LastWordTurn => TurnType::WerewolfTurn,
+            TurnType::VoteTurn => TurnType::WerewolfTurn,
             TurnType::EndTurn => TurnType::StartTurn,
         }
     }

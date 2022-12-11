@@ -4,13 +4,35 @@ use rocket::serde::{Deserialize, Serialize};
 
 use crate::data::{Message, Room, VisibleType};
 use crate::game_info::{AliveType, Player, RevealResult, RoleType, TurnType, VoteResult, WinType};
-use crate::post_event::{MessageEvent, VoteEvent, VoteEventType};
-use crate::utils::struct_to_string;
+use crate::post_event::{MessageEvent, PostEventType, UserConnectEvent, VoteEvent, VoteEventType};
+use crate::utils::{string_to_struct, struct_to_string};
 use rand::prelude::*;
 
-pub fn update(room: &mut Room, event_json: &String) {
-    let event = struct_to_string(&event_json).0;
-    let event_type = struct_to_string(&event_json).1;
+pub fn update(room: &mut Room, json_string: &String) {
+    print!("\n Update Howdy");
+    let value: serde_json::Value = serde_json::from_str(json_string).unwrap();
+    match serde_json::from_value(value) {
+        Ok(PostEventType::VoteEvent(event)) => {
+            update_turn(&event, room);
+        }
+        Ok(PostEventType::UserConnectEvent(event)) => {}
+        Ok(PostEventType::MessageEvent(event)) => {
+            add_message(&event, room);
+        }
+        Ok(PostEventType::EndSpeakEvent(event)) => {
+            match room.game_state.turn {
+                TurnType::SpeakTurn => {
+                    room.players[event.id].state.is_speaking = false;
+                    room.game_state.speak_id += 1;
+                }
+                _ => {
+                    print!["\n Warning!: Not My Turn \n"];
+                }
+            };
+        }
+        _ => print!("my_struct is of unknown type"),
+        Err(_) => print!("my_struct is of unknown type"),
+    }
 }
 pub fn update_turn(event: &VoteEvent, room: &mut Room) {
     match room.game_state.turn {
@@ -32,7 +54,7 @@ pub fn update_turn(event: &VoteEvent, room: &mut Room) {
                     return;
                 }
             };
-            if room.game_state.kill_vote_state.count >= 2 {
+            if room.game_state.kill_vote_state.count >= count_werewolf(room) {
                 calculate_kill_vote_result(room);
                 room.game_state.turn = room.game_state.turn.next();
                 return;
@@ -56,25 +78,40 @@ pub fn update_turn(event: &VoteEvent, room: &mut Room) {
             return;
         }
         TurnType::ProphetTurn => {
-            if matches!(event.event_type, VoteEventType::Reveal){
+            if matches!(event.event_type, VoteEventType::Reveal) {
                 reveal(event, room);
             }
             wound_to_dead(room);
-            if detect_win(room){
+            if detect_win(room) {
                 room.game_state.turn = TurnType::EndTurn;
                 print!["\nGame Ends!!!!!!!!!!!!!!! \n"];
                 return;
             }
             room.game_state.turn = room.game_state.turn.next();
             return;
-        },
-        TurnType::SpeakTurn => {
-            
-            room.game_state.speak_id += 1;   
-        },
-        TurnType::VoteTurn => todo!(),
-        TurnType::LastWordTurn => todo!(),
-        TurnType::EndTurn => todo!(),
+        }
+        TurnType::VoteTurn => {
+            match event.event_type {
+                VoteEventType::Vote => {
+                    vote(event, room);
+                    room.game_state.vote_state.count += 1;
+                }
+                VoteEventType::VoteGiveUp => {
+                    room.game_state.vote_state.count += 1;
+                }
+                _ => {}
+            };
+            if room.game_state.vote_state.count >= count_all(room) {
+                room.game_state.turn = room.game_state.turn.next();
+                return;
+            }
+        }
+        TurnType::EndTurn => {
+            print!["\nHowdy Ends!!!!!!!!!!!!!!! \n"];
+        }
+        _ => {
+            print!["\n Warning!: Not My Turn \n"];
+        }
     }
 }
 
@@ -96,13 +133,52 @@ pub fn assign_role(room: &mut Room) {
     }
 }
 
-pub fn wound_to_dead(room: &mut Room){
-    for player in room.players.iter_mut(){
-        if matches!(player.state.is_alive, AliveType::Wound){
+pub fn wound_to_dead(room: &mut Room) {
+    for player in room.players.iter_mut() {
+        if matches!(player.state.is_alive, AliveType::Wound) {
             player.state.is_alive = AliveType::Dead;
         }
     }
 }
+pub fn count_player(room: &mut Room) -> (usize, usize, usize) {
+    let mut count_all: usize = 0;
+    let mut count_good: usize = 0;
+    let mut count_werewolf: usize = 0;
+    for player in room.players.iter() {
+        if matches!(player.state.is_alive, AliveType::Alive) {
+            count_all += 1;
+            match player.role {
+                RoleType::Undecided => (),
+                RoleType::Civilian => {
+                    count_good += 1;
+                }
+                RoleType::Werewolf => {
+                    count_werewolf += 1;
+                }
+                RoleType::Witch => {
+                    count_good += 1;
+                }
+                RoleType::Prophet => {
+                    count_good += 1;
+                }
+            }
+        }
+    }
+    return (count_all, count_good, count_werewolf);
+}
+
+pub fn count_all(room: &mut Room) -> usize {
+    return count_player(room).0;
+}
+
+pub fn count_good(room: &mut Room) -> usize {
+    return count_player(room).1;
+}
+
+pub fn count_werewolf(room: &mut Room) -> usize {
+    return count_player(room).2;
+}
+
 pub fn calculate_vote_resulte(room: &mut Room) {
     let mut vote_map: HashMap<usize, usize> = HashMap::new();
     for vote in room.game_state.vote_state.votes.iter() {
@@ -191,35 +267,19 @@ pub fn reveal(event: &VoteEvent, room: &mut Room) {
 }
 
 pub fn add_message(event: &MessageEvent, room: &mut Room) {
-    let msg = Message {
-        username: event.username.clone(),
+    let player = &(room.players[event.id]);
+    let message = Message {
+        id: event.id,
+        username: player.clone().user_info.username,
         message: event.message.clone(),
-        visible_type: VisibleType::All,
+        visible_type: Default::default(),
     };
-    room.messages.push(msg);
+    room.messages.push(message);
 }
-pub fn detect_win(room: &mut Room) -> bool{
-    let mut count_werewolf = 0;
-    let mut count_good = 0;
-    for player in room.players.iter() {
-        if matches!(player.state.is_alive, AliveType::Alive) {
-            match player.role {
-                RoleType::Undecided => (),
-                RoleType::Civilian => {
-                    count_good += 1;
-                }
-                RoleType::Werewolf => {
-                    count_werewolf += 1;
-                }
-                RoleType::Witch => {
-                    count_good += 1;
-                }
-                RoleType::Prophet => {
-                    count_good += 1;
-                }
-            }
-        }
-    }
+pub fn detect_win(room: &mut Room) -> bool {
+    let mut count_werewolf = count_werewolf(room);
+    let mut count_good = count_good(room);
+
     if count_werewolf == 0 && count_good == 0 {
         room.game_state.win_type = WinType::Draw; //平局
         return true;
