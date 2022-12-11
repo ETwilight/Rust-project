@@ -1,5 +1,13 @@
 use serde::{Serialize, Deserialize};
 
+#[derive(Deserialize)]
+#[serde(untagged)]
+pub enum PostEventType{
+    VoteEvent(VoteEvent),
+    UserConnectEvent(UserConnectEvent),
+    MessageEvent(MessageEvent),
+    EndSpeakEvent(EndSpeakEvent),
+}
 
 #[derive(Debug, Clone, FromFormField, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
@@ -11,6 +19,7 @@ pub enum VoteEventType {
     WitchGiveUp,
     Reveal,
     Vote,
+    VoteGiveUp,
 }
 
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
@@ -33,7 +42,7 @@ pub struct UserConnectEvent {
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize, Default)]
 #[serde(crate = "rocket::serde")]
 pub struct MessageEvent {
-    pub username: String,
+    pub id: usize,
     pub message:String,
 }
 

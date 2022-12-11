@@ -20,8 +20,8 @@ use crate::server::host::utils::struct_to_string;
 #[path="../utils.rs"]
 mod utils;
 
-#[path="../game/game_loop.rs"]
-mod game_loop;
+#[path="../game/game_main.rs"]
+mod game_main;
 
 pub fn port() -> u16 {8080}
 pub fn client_addr(ip:String, id:usize)->String {ip + ":" + (port() + id as u16 + 1).to_string().as_str()}

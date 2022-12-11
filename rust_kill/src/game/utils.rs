@@ -8,9 +8,10 @@ use crate::data::{Message, VisibleType, Room};
 use crate::ClientInfo;
 use crate::game_info::Player;
 
-pub fn send_message(queue: Sender<Message>, name:String, text:String, visible_type:VisibleType) -> Result<JoinHandle<()>, ()>{
+pub fn send_message(queue: Sender<Message>, id:usize, name:String, text:String, visible_type:VisibleType) -> Result<JoinHandle<()>, ()>{
     let task = tokio::spawn(async move{
         let msg = Message{
+            id,
             username: name,
             message: text,
             visible_type
@@ -20,10 +21,11 @@ pub fn send_message(queue: Sender<Message>, name:String, text:String, visible_ty
     return Ok(task)
 }
 
-pub async fn send_delay_message(queue: Sender<Message>, name:String, text:String, visible_type:VisibleType, millisecond:u64) -> Result<JoinHandle<()>, ()>{
+pub async fn send_delay_message(queue: Sender<Message>, id:usize, name:String, text:String, visible_type:VisibleType, millisecond:u64) -> Result<JoinHandle<()>, ()>{
     let task = tokio::spawn(async move{
         sleep(Duration::from_millis(millisecond)).await;
         let msg = Message{
+            id,
             username: name.clone(),
             message: text.to_string(),
             visible_type
@@ -55,11 +57,4 @@ pub async fn send_delay_room(queue: Sender<Room>, room: Room, millisecond:u64) -
     return Ok(task)
 }
 
-
-pub fn mute(player:Player){
-    
-}
-pub fn mute_all(){
-
-}
 

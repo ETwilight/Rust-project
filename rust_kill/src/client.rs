@@ -83,7 +83,7 @@ pub async fn client_send_message(server_addr: &String, msg: String) -> Result<()
 #[deprecated]
 pub async fn client_receive_msg(msg: &String, sender: Sender<Message>) {
     let msg:Message = string_to_struct(&msg);
-    send_message(sender, msg.username, msg.message, VisibleType::All).unwrap();
+    send_message(sender, msg.id,msg.username, msg.message, VisibleType::All).unwrap();
 }
 
 #[deprecated]
