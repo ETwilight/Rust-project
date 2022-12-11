@@ -63,59 +63,59 @@ const TurnType = {
 
 //refreshing content/////////
 
-var PlayerState = {
-  is_alive: AliveType,
-  is_turn: false,
-  is_muted: true,
-  is_speaking: false, 
-}
+// var PlayerState = {
+//   is_alive: AliveType,
+//   is_turn: false,
+//   is_muted: true,
+//   is_speaking: false, 
+// }
 
-var player = {
-  name : "",
-  ip : 0,
-  role: RoleType,
-  player_state: PlayerState,
-  id: 0,
-}
+// var player = {
+//   name : "",
+//   ip : 0,
+//   role: RoleType,
+//   player_state: PlayerState,
+//   id: 0,
+// }
 
-var VoteState = {
-  votes: {},
-  count: 0,
-  vote_result: [],
-}
+// var VoteState = {
+//   votes: {},
+//   count: 0,
+//   vote_result: [],
+// }
 
-var KillVoteState = {
-  votes: {},
-  count: 0,
-  vote_result: [],
-}
+// var KillVoteState = {
+//   votes: {},
+//   count: 0,
+//   vote_result: [],
+// }
 
-var WitchState = {
-  is_poison_used: false,
-  is_antidote_used: false,
-}
+// var WitchState = {
+//   is_poison_used: false,
+//   is_antidote_used: false,
+// }
 
-var RevealResult = {
-  id: 0,
-  is_good: true,
-}
+// var RevealResult = {
+//   id: 0,
+//   is_good: true,
+// }
 
-var GameState = {
-  turn: TurnType,
-  win_type: WinType,
-  speak_id: 0,
-  vote_state: VoteState,
-  kill_vote_state: KillVoteState,
-  witch_state: WitchState,
-  reveal_result: RevealResult,
-}
+// var GameState = {
+//   turn: TurnType,
+//   win_type: WinType,
+//   speak_id: 0,
+//   vote_state: VoteState,
+//   kill_vote_state: KillVoteState,
+//   witch_state: WitchState,
+//   reveal_result: RevealResult,
+// }
 
-var room = {
-  room_name: "",
-  players : [],
-  messages : [],
-  game_state : GameState,
-}
+// var room = {
+//   room_name: "",
+//   players : [],
+//   messages : [],
+//   game_state : GameState,
+// }
 
 //refreshing content/////////
 var STATE = {
@@ -123,6 +123,8 @@ var STATE = {
   rooms: {}, //A dictionary
   connected: false,
 }
+
+
 
 var content = document.getElementById("content");  
 function scrollToBottom() {
@@ -139,12 +141,12 @@ function RoomSubscribe(uri) {
     events.addEventListener("message", (ev) => {
       const roomjson = JSON.parse(ev.data);
       console.log("decoded data", JSON.stringify(roomjson));
-
-      roomjson['messages'].forEach(function(val){
+      localStorage.setItem("roomjson", roomjson);
+      roomjson.messages.forEach(function(val){
         room.messages.push(val);
       });
       console.log(room.messages);
-
+      
 
     });
 
