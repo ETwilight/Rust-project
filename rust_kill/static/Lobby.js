@@ -64,6 +64,7 @@ function ClientInput() {
       const serverip = parsedjson["serverip"];
       console.log("username: " + username);
       console.log("serverip: " + serverip);
+      localStorage.setItem('username', username);
       fetch("/room/join", {
         method: "POST",
         body: new URLSearchParams({ username, serverip }),
@@ -90,7 +91,6 @@ function ClientInfoSubscribe(uri) {
       //if (!"username" in msg && !"room_name" in msg && !"client_addr" in msg && !"idx" in msg) return;
       localStorage.clear();
       localStorage.setItem('room_name', msg.room_name);
-      localStorage.setItem('username', msg.username);
       localStorage.setItem('client_addr', msg.client_addr);
       localStorage.setItem('idx', msg.idx);
       ChangePage();

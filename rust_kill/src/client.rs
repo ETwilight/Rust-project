@@ -29,13 +29,15 @@ mod game;
 pub async fn connect(server_addr: &str, client_name: &str, sender_room: Sender<Room>, sender_cinfo: Sender<ClientInfo>) -> Result<JoinHandle<()>, ()>{
     let clt = TcpStream::connect((server_addr.to_string() + ":8080").as_str()).await.unwrap();
     let (mut reader, mut writer) = clt.into_split();
-    let player = Player {
+    let mut player = Player {
         user_info: Default::default(),
         ip : "127.0.0.1".to_string(),
         role: RoleType::Undecided,
         state: Default::default(),
         id: 7,
     };
+    player.user_info.username = client_name.clone().to_string();
+    player.user_info.serverip = server_addr.clone().to_string();
     let player_info = serde_json::to_string(&player);
     if player_info.is_err() {
         panic!("cannot serialize into playerInfo")
