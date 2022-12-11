@@ -16,7 +16,6 @@ use super::game_info::{Player};
 pub fn send_message(queue: Sender<Message>, name:String, text:String, visible_type:VisibleType) -> Result<JoinHandle<()>, ()>{
     let task = tokio::spawn(async move{
         let msg = Message{
-            room_name: "rustkill".to_string(),
             username: name,
             message: text,
             visible_type
@@ -30,7 +29,6 @@ pub async fn send_delay_message(queue: Sender<Message>, name:String, text:String
     let task = tokio::spawn(async move{
         sleep(Duration::from_millis(millisecond)).await;
         let msg = Message{
-            room_name: "rustkill".to_string(),
             username: name.clone(),
             message: text.to_string(),
             visible_type

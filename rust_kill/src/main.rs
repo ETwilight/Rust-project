@@ -9,12 +9,15 @@ mod data;
 #[path = "game/game_info.rs"]
 mod game_info;
 
+#[path = "game/game_loop.rs"]
+mod game_loop;
+
 #[path = "post_event.rs"]
 mod post_event;
 
 use std::io;
 
-use post_event::{GameEvent, GameEventType, UserConnectEvent, MessageEvent};
+use post_event::{VoteEvent, VoteEventType, UserConnectEvent, MessageEvent};
 use tokio::time::Duration;
 use rocket::log::LogLevel;
 use rocket::{State, Shutdown};
@@ -35,24 +38,17 @@ use crate::data::{Message, UserInfo, Room};
 #[post("/room/host", data = "<form>")]
 fn post_host_room(form: Form<UserConnectEvent>){
    
-} 
+}
 
 #[post("/room/join", data = "<form>")]
 fn post_join_room(form: Form<UserConnectEvent>){
     
-} 
+}
 
 #[post("/game/event", data = "<form>")]
-fn post_game_event(form: Form<GameEvent>){
-    match form.event_type
-    {
-        GameEventType::Kill => todo!(),
-        GameEventType::Poison => todo!(),
-        GameEventType::Antidote => todo!(),
-        GameEventType::Reveal => todo!(),
-        GameEventType::Vote => todo!(),
-    }
-} 
+fn post_game_event(form: Form<VoteEvent>){
+    
+}
 
 
 /// Receive a message from a form submission and broadcast it to any receivers.
@@ -63,7 +59,6 @@ async fn post_message(form: Form<MessageEvent>, queue: &State<Sender<Message>>){
     print!("Howdy World\n");
     print!("{:?}", msg);
     let message = Message {
-        room_name: msg.room_name,
         username: msg.username,
         message: msg.message,
         visible_type: Default::default(),
