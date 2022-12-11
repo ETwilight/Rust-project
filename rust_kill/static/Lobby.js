@@ -72,45 +72,40 @@ function ClientInput() {
 
 
 function ClientInfoSubscribe(uri) {
-  var retryTime = 1;
+  var retryTime = 1000;
   function Connect(uri) {
     const events = new EventSource(uri);
     events.addEventListener("message", (ev) => {
+      console.log("message: ");
+      console.log(ev);
       const msg = JSON.parse(ev.data);
-      console.log("decoded data", JSON.stringify(msg));
-      if (!"username" in msg || !"room_name" in msg || !"client_addr" in msg || !"idx" in msg) return;
-      localStorage.setItem('room_name', msg.room_name);
-      localStorage.setItem('username', msg.username);
-      localStorage.setItem('client_addr', msg.client_addr);
-      localStorage.setItem('idx', msg.idx);
+      console.log(msg);
+      //localStorage.setItem('msgs', msg);
+      //console.log("decoded data", JSON.stringify(msg));
+      //if (!"username" in msg && !"room_name" in msg && !"client_addr" in msg && !"idx" in msg) return;
+      //localStorage.setItem('room_name', msg.room_name);
+      //localStorage.setItem('username', msg.username);
+      //localStorage.setItem('client_addr', msg.client_addr);
+      //localStorage.setItem('idx', msg.idx);
       ChangePage();
     });
-
     events.addEventListener("open", () => {
       console.log(`connected to event stream at ${uri}`);
       if (window.localStorage.length != 0) {
-      console.log(localStorage.getItem('room_name'), 
-                  localStorage.getItem('username'), 
-                  localStorage.getItem('client_addr'), 
-                  localStorage.getItem('idx'));
-      retryTime = 1;
-      ChangePage();
-      }
-      else {
-        console.log("nothing in open");
+        retryTime = 1;
+        ChangePage();
       }
     });
 
     events.addEventListener("error", () => {
       events.close();
       let timeout = retryTime;
-      retryTime = Math.min(64, retryTime * 2);
+      //retryTime = Math.min(64, retryTime * 2);
       console.log(`connection lost. attempting to reconnect in ${timeout}s`);
       setTimeout(() => Connect(uri), (() => timeout * 1000)());
     });
   }
   Connect(uri);
 }
-
 
 ClientInfoSubscribe("/clientInfo");
