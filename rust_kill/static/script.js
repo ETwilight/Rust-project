@@ -69,7 +69,7 @@ var PlayerState = {
 var player = {
   name : "",
   ip : "", 
-  role: Role,
+  role: RoleType,
   player_state: PlayerState,
 }
 

@@ -1,6 +1,3 @@
-let hform = document.querySelector('#hostform');
-let cForm = document.querySelector('#clientform');
-
 function openClient() {
   document.getElementById("f2").style.display = "block";
 }
@@ -22,7 +19,8 @@ function ChangePage() {
 }
 
 function HostInput() {
-  hform.addEventListener("submit", (e) => {
+  localStorage.setItem('is_input', true);
+  let hform = document.querySelector('#hostform');
     //e.preventDefault();
     let data = new FormData(hform);
     var object = {};
@@ -41,12 +39,13 @@ function HostInput() {
     }).then((response) => {
       if (response.ok) console.log("Host Form Sent");
     });
-  })
+
 
 }
 
 function ClientInput() {
-  cForm.addEventListener("submit", (e) => {
+  localStorage.setItem('is_input', true);
+  let cForm = document.querySelector('#clientform');
     //e.preventDefault();
     let data = new FormData(cForm);
     var object = {};
@@ -65,35 +64,36 @@ function ClientInput() {
     }).then((response) => {
       if (response.ok) console.log("Client Form Sent");
     });
-  })
 
 }
 
 
 
 function ClientInfoSubscribe(uri) {
-  
   var retryTime = 1000;
   function Connect(uri) {
     const events = new EventSource(uri);
+    console.log(events);
     events.addEventListener("message", (ev) => {
+      //ev.preventDefault();
       console.log("message: ");
-      console.log(ev);
       const msg = JSON.parse(ev.data);
       console.log(msg);
-      //localStorage.setItem('msgs', msg);
+      localStorage.setItem('msgs', msg);
       //console.log("decoded data", JSON.stringify(msg));
       //if (!"username" in msg && !"room_name" in msg && !"client_addr" in msg && !"idx" in msg) return;
-      //localStorage.setItem('room_name', msg.room_name);
-      //localStorage.setItem('username', msg.username);
-      //localStorage.setItem('client_addr', msg.client_addr);
-      //localStorage.setItem('idx', msg.idx);
+      localStorage.setItem('room_name', msg.room_name);
+      localStorage.setItem('username', msg.username);
+      localStorage.setItem('client_addr', msg.client_addr);
+      localStorage.setItem('idx', msg.idx);
       ChangePage();
     });
-    events.addEventListener("open", () => {
+    events.addEventListener("open", (ev) => {
       console.log(`connected to event stream at ${uri}`);
-      if (window.localStorage.length != 0) {
-        retryTime = 1;
+      console.log(ev);
+      console.log(window.localStorage);
+      //const msg = JSON.parse(ev.data);
+      if(window.localStorage.getItem('is_input') == true){
         ChangePage();
       }
     });
@@ -109,4 +109,9 @@ function ClientInfoSubscribe(uri) {
   Connect(uri);
 }
 
-ClientInfoSubscribe("/clientInfo");
+function Init(){
+  //localStorage.clear();
+  ClientInfoSubscribe("/clientInfo");
+}
+
+Init();

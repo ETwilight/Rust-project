@@ -35,14 +35,12 @@ pub async fn send_delay_message(queue: Sender<Message>, id:usize, name:String, t
     return Ok(task)
 }
 
-pub async fn send_client_info(queue: Sender<ClientInfo>, client_info: ClientInfo) -> Result<JoinHandle<()>, ()>{
-    print!("in send client info");
+pub fn send_client_info(queue: Sender<ClientInfo>, client_info: ClientInfo) -> Result<JoinHandle<()>, ()>{
     let task = tokio::spawn(async move{
-        print!("client info thread inner");
-        print!("{:?}", client_info.clone());
-        queue.send(client_info).unwrap();
+         print!("{:?}", queue.clone());
+         queue.send(client_info).unwrap();
     });
-    print!("returning send client info");
+    print!("---------Send ClientInfo----------");
     return Ok(task)
 }
 
