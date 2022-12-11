@@ -71292,3 +71292,667 @@ deregistering event source from poller
    >> Remote left: channel closed.
    >> Remote left: channel closed.
 deregistering event source from poller
+registering event source with poller: token=Token(1191182353), interests=READABLE | WRITABLE
+GET /index.html text/html:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+registering event source with poller: token=Token(1375731726), interests=READABLE | WRITABLE
+GET /nicepage.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /Menu.css text/css:
+   >> Outcome: Success
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /nicepage.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+registering event source with poller: token=Token(1291845635), interests=READABLE | WRITABLE
+GET /images/Screenshot2022-12-02202250.png image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+GET /images/blood-cement-wall-concrete-surface-texture-background-copy-space_51524-11509.jpg image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /Lobby.html text/html:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /nicepage.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /Lobby.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+GET /Lobby.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /nicepage.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /images/Screenshot2022-12-02202250.png image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /images/flat-design-werewolf-moon-background_52683-95044-1.webp image/avif:
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response succeeded.
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+POST /room/join application/x-www-form-urlencoded:
+   >> No matching routes for POST /room/join application/x-www-form-urlencoded.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /Lobby.html?username=aweg&serverip=aeg text/html:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /nicepage.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /Lobby.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /jquery.js:
+GET /Lobby.js:
+registering event source with poller: token=Token(167772173), interests=READABLE | WRITABLE
+   >> Response succeeded.
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Matched: (FileServer: static) GET /<path..> [10]
+registering event source with poller: token=Token(50331663), interests=READABLE | WRITABLE
+   >> Outcome: Success
+   >> Outcome: Success
+GET /nicepage.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /images/Screenshot2022-12-02202250.png image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Response succeeded.
+registering event source with poller: token=Token(1694498832), interests=READABLE | WRITABLE
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+GET /images/flat-design-werewolf-moon-background_52683-95044-1.webp image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+POST /room/join application/x-www-form-urlencoded:
+   >> No matching routes for POST /room/join application/x-www-form-urlencoded.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /Lobby.html?username=waeg&serverip=aweg text/html:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /nicepage.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /Lobby.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /Lobby.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /nicepage.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response succeeded.
+   >> GET /images/Screenshot2022-12-02202250.png image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+Response succeeded.
+   >> GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+Outcome: Success
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >>    >> Response succeeded.
+Response succeeded.
+GET /images/flat-design-werewolf-moon-background_52683-95044-1.webp image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+POST /room/host application/x-www-form-urlencoded:
+   >> No matching routes for POST /room/host application/x-www-form-urlencoded.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /Lobby.html?username=weg&serverip=aweg text/html:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /Lobby.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /nicepage.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Response succeeded.
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /Lobby.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /nicepage.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Outcome: Success
+GET /images/Screenshot2022-12-02202250.png image/avif:
+   >> Response succeeded.
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+GET /images/flat-design-werewolf-moon-background_52683-95044-1.webp image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+POST /room/host application/x-www-form-urlencoded:
+   >> No matching routes for POST /room/host application/x-www-form-urlencoded.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /Lobby.html?username=weg&serverip=aweg text/html:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /nicepage.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /Lobby.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /images/Screenshot2022-12-02202250.png image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /nicepage.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /Lobby.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Response succeeded.
+GET /images/flat-design-werewolf-moon-background_52683-95044-1.webp image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+POST /room/join application/x-www-form-urlencoded:
+   >> No matching routes for POST /room/join application/x-www-form-urlencoded.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /Lobby.html?username=aweg&serverip=aweg text/html:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /nicepage.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /Lobby.css text/css:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /images/Screenshot2022-12-02202250.png image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /jquery.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+GET /Lobby.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /nicepage.js:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Outcome: Success
+   >> Outcome: Success
+   >> Response succeeded.
+   >> Response succeeded.
+   >> Response succeeded.
+   >>    >> Response succeeded.
+Response succeeded.
+GET /images/flat-design-werewolf-moon-background_52683-95044-1.webp image/avif:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Outcome: Success
+GET /clientInfo text/event-stream:
+   >> Response succeeded.
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+deregistering event source from poller
+deregistering event source from poller
+deregistering event source from poller
+deregistering event source from poller
+deregistering event source from poller
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+deregistering event source from poller
+registering event source with poller: token=Token(67108879), interests=READABLE | WRITABLE
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+deregistering event source from poller
+registering event source with poller: token=Token(83886095), interests=READABLE | WRITABLE
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
+GET /clientInfo text/event-stream:
+   >> Matched: (FileServer: static) GET /<path..> [10]
+   >> Response was `None`.
+   >> Outcome: Forward
+   >> No matching routes for GET /clientInfo text/event-stream.
+   >> No 404 catcher registered. Using Rocket default.
+   >> Response succeeded.
