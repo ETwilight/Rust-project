@@ -16,17 +16,15 @@ function closeHost() {
 }
 
 function ChangeRoom() {
-  location.replace('Room.html');
+  location.replace('Room.html#Top');
 }
-
-
 
 function HostInput() {
   window.location.href = "./Room.html#top";
   let form = document.querySelector('#hostform');
   form.addEventListener("submit", (e) => {
     //e.preventDefault();
-    ClientInfoSubscribe();
+    ClientInfoSubscribe("/clientInfo");
 
     window.location.href = "Room.html#top";
     let data = new FormData(form);
@@ -55,7 +53,7 @@ function ClientInput() {
   let form = document.querySelector('#clientform');
   form.addEventListener("submit", (e) => {
     //e.preventDefault();
-    ClientInfoSubscribe("/");
+    ClientInfoSubscribe("/clientInfo");
 
     let data = new FormData(form);
     var object = {};
@@ -89,8 +87,11 @@ function ClientInfoSubscribe(uri) {
       const msg = JSON.parse(ev.data);
       console.log("decoded data", JSON.stringify(msg));
       if (!"username" in msg || !"room_name" in msg || !"client_addr" in msg || !"idx" in msg) return;
-
-
+      localStorage.setItem('room_name', msg.room_name);
+      localStorage.setItem('username', msg.username);
+      localStorage.setItem('client_addr', msg.client_addr);
+      localStorage.setItem('idx', msg.idx);
+      ChangeRoom();
     });
 
     events.addEventListener("open", () => {
