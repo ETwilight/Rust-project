@@ -110,12 +110,12 @@ const TurnType = {
 //   reveal_result: RevealResult,
 // }
 
-// var room = {
-//   room_name: "",
-//   players : [],
-//   messages : [],
-//   game_state : GameState,
-// }
+var room = {
+  room_name: "",
+  players : [],
+  messages : [],
+  game_state : GameState,
+}
 
 //refreshing content/////////
 var STATE = {
@@ -139,14 +139,19 @@ function RoomSubscribe(uri) {
       const roomjson = JSON.parse(ev.data);
       console.log("decoded data", JSON.stringify(roomjson));
       localStorage.setItem("roomjson", roomjson);
+      
+      room.room_name = roomjson['room_name'];
       roomjson['messages'].forEach(function(val){
         room.messages.push(val);
       });
+      var l = room.messages.length - 1;
+      AddMessage(room.room_name, room.messages[l].username, 
+        room.messages[l].message, true);
+      scrollToBottom();
       console.log(room.messages);
       if(localStorage.getItem("idx") == null){
         AssignPlayerid(roomjson);
       }
-
     });
 
     events.addEventListener("open", () => {
@@ -486,8 +491,6 @@ function replace(turnparam) {
 }
 
 /* => GAME LOOP*/ 
-
-// for each to check which to mute and which to unmute 
 function mute(){
   var w = document.getElementById('disabled').style.visibility = "visible";
   document.querySelector('.textmessage').disabled = true;
@@ -503,20 +506,17 @@ function AssignPlayerid(roomjson){
     if(player.id != '7'){
       count++;
     }
+    let i = 1;
+    for(;i<=count;){
+      document.querySelector(".player"+(i).toString()).style.visibility = "visible";
+      i++;
+    }
   })
   localStorage.setItem("idx", count);
 }
 
 /*Utilities*/
 
-var slider = document.getElementById("myRange");
-slider.onchange = function() {
-  let i = 1;
-  for(;i<=this.value;){
-      document.querySelector(".player"+(i).toString()).style.visibility = "visible";
-      i++;
-  }
-}
 
 
 
