@@ -128,8 +128,9 @@ impl TurnType {
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize, Default)]
 #[serde(crate = "rocket::serde")]
 pub struct ClientInfo {
-    pub room: Room,
-    pub ts: TurnType,
+    pub room_name: String,
+    pub username: String,
+    pub client_addr: String, 
     pub idx: usize,
 }
 
