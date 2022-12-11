@@ -43,28 +43,26 @@
 
 
     <script src="Lobby.js"></script>
-
+    <button type="button">CHANGEWEBPAGE</button>
     <div class="form-popup1" id="f1">
       <form id = "hostform" action="Room.html#top" class="form-container">
         <label for="host"><b>Name</b></label>
         <input id = "hostname" type="text" placeholder="Enter Name" name="username" maxlength="15" autocomplete="on" required>
         <label for="hostip"><b>Host IP</b></label>
         <input id = "hostip" type="text" placeholder="x.x.x.x" name="serverip" autocomplete="on" required>
-        <button type="submit" onclick="HostInput();" class="btn" >Login</button>
+        <button type="submit" onclick="HostInput()" class="btn" >Login</button>
         <button id = "test1" type="button" class="btn cancel" onclick="closeHost()">Close</button>
       </form>
     </div>
 
     <div class="form-popup2" id = "f2">
-      <form id="clientform" action="Room.html#top" class="form-container">
+      <form id="clientform" class="form-container">
         <label for="cname"><b>Name</b></label>
 
         <input id = "clientname" type="text" placeholder="Enter Name" name="username" maxlength="15" autocomplete="on" required>
-        <!--<label for="clientip"><b>Local IP</b></label>
-        <input id = "clientip" type="text" placeholder="x.x.x.x" name="clientip" required>-->
         <label for="serverip"><b>Server IP</b></label>
         <input id = "serverip" type="text" placeholder="x.x.x.x" name="serverip" autocomplete="on"  required>
-        <button id = "test2" onclick="ClientInput();" type="submit" class="btn">Login</button>
+        <button id = "test2" onclick="ClientInput()" type="submit" class="btn">Login</button>
         <button type="button" class="btn cancel" onclick="closeClient()">Close</button>
       </form>
     </div>

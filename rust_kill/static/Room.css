@@ -1,7 +1,7 @@
 
 
 .u-section-1 {
-  height: 92.5%;
+  height: 95%;
   border: 3px solid orange;
   display: flex;
 }
@@ -34,8 +34,50 @@
   width: 265px;
 }
 
+@media only screen and (min-height: 0) and (max-height: 650px) {
+  .wrapped{
+    height: 90%;
+  }
 
-@media only screen and (min-width: 1220px) and (max-width: 2880px) { 
+}
+
+@media only screen and (min-height: 650) and (max-height: 1308px) {
+  .wrapped{
+    height: 100%;
+  }
+}
+
+
+@media only screen and (min-width: 0px) and (max-width: 1250px) { 
+  .wrapped{
+    width: 70vw;
+  } 
+  .others {
+    width: 400px
+  }
+  .chat {
+    width: 80%;
+    margin-left: 5px;
+  }
+  .self {
+    margin-right: 5px;
+  }
+}
+
+@media only screen and (min-width: 1250px) and (max-width: 3500px) { 
+  .wrapped{
+    width: 90%;
+  } 
+  .others {
+    width: 600px;
+  }
+  .chat {
+    width: 70%;
+    margin-left: 10px;
+  }
+  .self {
+    margin-right: 10px;
+  }
 }
 
 :root {
@@ -47,25 +89,28 @@
 .wrapped{
   padding: 10px;
   border: 3px solid black;
-  width: var(--wrapped-width);
-  height: auto;
   margin-left:auto;
   margin-right:auto;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
 }
-
 
 .others {
   padding: 5px;
   border: 2px solid black;
   display: flex;
   justify-content: space-between;
-  width: 600px;
   height: 90px;
-  margin-left: 180px;
+  margin-left: auto;
+  margin-right: auto;
   min-width: 10px; 
+}
+
+.popup {
+  position: fixed;
+  background: #000;
+  opacity: 0.4;
 }
 
 .window {
@@ -73,8 +118,20 @@
   border: 2px solid black; 
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  
+  justify-content: center;
+  position: relative;
+}
+
+.main {
+  position: relative;
+}
+
+.overlay2{
+  background-color: #000;
+  opacity: 0.5;
+  z-index: 999;
+  color: white; 
+  position: relative;
 }
 
 .self{
@@ -86,13 +143,20 @@
   justify-content: center;
 }
 
+.chat {
+  display:flex;
+  background-color: var(--bg-dark);
+  color: #fff;
+  font-weight: 400;
+  text-shadow: rgb(77, 81, 86) 0px 0px 0px;
+}
+
 .selfStatus {
   width: 100px;
   height: 100px;
   border-radius: 50%;
   position: relative;
 }
-
 
 #profile {
   border: 3px solid black;
@@ -107,29 +171,62 @@
   border: 3px solid black;
 }
 
-.chat {
-  display:flex;
-  height: 500px;
-  width: 650px;
-  display: flex;
-  background-color: var(--bg-dark);
-  color: #fff;
-  font-weight: 400;
-  text-shadow: rgb(77, 81, 86) 0px 0px 0px;
-
-}
-
-
 #content {
   flex: 7 200%;
   display: flex;
   flex-direction: column;
-  overflow-y:scroll;
   position: relative;
+  border: 3px solid orange;
+  overflow-y: scroll;
+  height: 450px;
+}
+
+.vote {
+  border: 2px solid green;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.choose {
+  border: 1px solid black;
+}
+
+#killoption {
+  border: none;
+}
+
+form {
+  display: flex;
+}
+
+form * {
+  height: 40px;
+  background: #d7d7d7;
+  color: var(--bg-dark);
+}
+
+
+
+#content::-webkit-scrollbar {
+  display: none; 
 }
 
 .textbox {
   border: 3px solid black;
+  position: relative;
+}
+
+#new-message {
+  position: absolute;
+}
+
+#disabled {
+  text-align: center;
+  background-color: black;
+  color: white;
+  opacity: 0.6;
+  visibility: hidden;
 }
 
 .indicator {
@@ -185,12 +282,12 @@
 }
 
 #muted {
-  background: red;
-  animation: blinkred 1.4s infinite;
+  background: orange;
 }
 
 #dead {
   background: black;
+  animation: blinkblack 1.4s infinite;
 }
 
 @keyframes blinkimage {
@@ -199,10 +296,10 @@
   100% {opacity: 1}
 }
 
-@keyframes blinkred{
-  0%		{ background-color: red}
+@keyframes blinkblack{
+  0%		{ background-color: black}
   50%		{ background-color: #e5e5e5}
-  100%  { background-color: red}
+  100%  { background-color: black}
 }
 
 @keyframes blinkgreen{
@@ -211,16 +308,6 @@
   100%  { background-color: green}
 }
 
-form {
-  display: flex;
-  border-top: 2px solid #242424;
-}
-
-form * {
-  height: 40px;
-  background: #d7d7d7;
-  color: var(--bg-dark);
-}
 
 
 

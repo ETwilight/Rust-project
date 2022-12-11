@@ -15,10 +15,18 @@ function closeHost() {
   document.getElementById("f1").style.display = "none";
 }
 
+function ChangeRoom() {
+  location.replace('Room.html#Top');
+}
+
 function HostInput() {
+  window.location.href = "./Room.html#top";
   let form = document.querySelector('#hostform');
   form.addEventListener("submit", (e) => {
     //e.preventDefault();
+    ClientInfoSubscribe("/clientInfo");
+
+    window.location.href = "Room.html#top";
     let data = new FormData(form);
     var object = {};
     data.forEach(function (value, key) {
@@ -36,9 +44,7 @@ function HostInput() {
     }).then((response) => {
       if (response.ok) console.log("Host Form Sent");
     });
-
     return;
-
   })
 
 }
@@ -47,6 +53,8 @@ function ClientInput() {
   let form = document.querySelector('#clientform');
   form.addEventListener("submit", (e) => {
     //e.preventDefault();
+    ClientInfoSubscribe("/clientInfo");
+
     let data = new FormData(form);
     var object = {};
     data.forEach(function (value, key) {
@@ -56,7 +64,6 @@ function ClientInput() {
     var parsedjson = JSON.parse(jsondata);
     const username = parsedjson["username"];
     const serverip = parsedjson["serverip"];
-    //const clientip = parsedjson["clientip"];
     console.log("username: "+username);
     console.log("serverip: "+serverip);
     fetch("/playerInfo", {
@@ -71,3 +78,38 @@ function ClientInput() {
 }
 
 
+
+function ClientInfoSubscribe(uri) {
+  var retryTime = 1;
+  function Connect(uri) {
+    const events = new EventSource(uri);
+    events.addEventListener("message", (ev) => {
+      const msg = JSON.parse(ev.data);
+      console.log("decoded data", JSON.stringify(msg));
+      if (!"username" in msg || !"room_name" in msg || !"client_addr" in msg || !"idx" in msg) return;
+      localStorage.setItem('room_name', msg.room_name);
+      localStorage.setItem('username', msg.username);
+      localStorage.setItem('client_addr', msg.client_addr);
+      localStorage.setItem('idx', msg.idx);
+      ChangeRoom();
+    });
+
+    events.addEventListener("open", () => {
+      SetConnectedStatus(true);
+      console.log(`connected to event stream at ${uri}`);
+      retryTime = 1;
+    });
+
+    events.addEventListener("error", () => {
+      SetConnectedStatus(false);
+      events.close();
+
+      let timeout = retryTime;
+      retryTime = Math.min(64, retryTime * 2);
+      console.log(`connection lost. attempting to reconnect in ${timeout}s`);
+      setTimeout(() => Connect(uri), (() => timeout * 1000)());
+    });
+  }
+
+  Connect(uri);
+}
