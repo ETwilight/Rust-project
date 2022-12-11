@@ -110,7 +110,7 @@ pub async fn client_send_room(server_addr: &String, room: String) -> Result<(), 
 }
 
 pub async fn client_send_gme(server_addr: &String, gme: String) -> Result<(), ()>{
-    print!("Client Send GME");
+    print!("Client Send GME \n");
     let address = format!("{}{}", server_addr, ":8080");
     let cstream = TcpStream::connect(address).await;
     if cstream.is_err() {
@@ -122,6 +122,7 @@ pub async fn client_send_gme(server_addr: &String, gme: String) -> Result<(), ()
 }
 
 pub async fn client_receive_room(room: &String, sender: Sender<Room>) {
+    print!("Client Receive Room \n");
     let value= string_to_struct(room);
     send_room(sender, value).unwrap();
 }
