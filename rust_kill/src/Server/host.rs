@@ -77,26 +77,29 @@ pub async fn start() -> Result<JoinHandle<()>, ()>{
             let (mut reader, _) = socket.into_split();
             let (k, v) = utils::read_all(BufReader::new(&mut reader)).await.unwrap();
             print!("Get results:{:?}", (k.clone(),v.clone()));
-            let mut send_key = "";
-            let mut send_val = "";
+            let mut send_key = "".to_string();
+            let mut send_val = "".to_string();
             if k == "GME".to_string() {
                 print!("{}\n", v.clone());
                 receive_from_server(&mut room, &v.to_string());
                 let room_json = struct_to_string(&room);
-                send_key = "ROOM";
-                send_val = room_json.0.as_str();
+                print!("Howdy Room");
+                print!("{:?}", room_json.0);
+                send_key = "ROOM".to_string();
+                send_val = room_json.0;
             }
             if k == "MSG".to_string() {
                 print!("{}\n", v.clone());
-                send_key = "MSG";
-                send_val = v.as_str();
+                send_key = "MSG".to_string();
+                send_val = v;
             }
             for caddr in clients.iter() {
+                print!("Server Write");
                 let cstrm = TcpStream::connect(caddr).await;
                 if cstrm.is_err() {continue};
                 let cstream = cstrm.unwrap();
                 let writer = &mut cstream.into_split().1;
-                utils::server_write(writer, encode(k.as_str(), v.as_str()).as_str()).await.unwrap();
+                utils::server_write(writer, encode(send_key.as_str(), send_val.as_str()).as_str()).await.unwrap();
             }
         }
     });
@@ -104,6 +107,6 @@ pub async fn start() -> Result<JoinHandle<()>, ()>{
 }
 
 pub fn receive_from_server(room:&mut Room, game_event:&String) {
-    print!("Client Receive GME");
+    print!("Server Receive GME!\n");
     update(room, game_event);
 }

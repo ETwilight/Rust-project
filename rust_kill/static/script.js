@@ -97,12 +97,14 @@ function RoomSubscribe(uri) {
       roomjson['messages'].forEach(function(val){
         room.messages.push(val);
       });
+   
       room.messages.forEach(function(val){
         AddMessage(room.room_name, val.username, 
           val.message, true);
           scrollToBottom();
       });
       
+
       console.log(room.messages);
       if(localStorage.getItem("idx") == null){
         AssignPlayerid(roomjson);
