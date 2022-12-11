@@ -28,6 +28,7 @@ $commands =
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 "Start-Process cargo 'run 50000'",
 "Start-Sleep -Seconds 5.0"
 # prevent 8002, 8013
@@ -51,6 +52,10 @@ $commands =
 >>>>>>> parent of 4b962c0 (Fix Lobby.js)
 =======
 >>>>>>> parent of 4b962c0 (Fix Lobby.js)
+=======
+"Start-Process cargo 'run 8002'",
+"Start-Sleep -Seconds 5.0"
+>>>>>>> parent of 23ff710 (Merge pull request #63 from ETwilight/ETwilight)
 # Run the commands using the iex cmdlet
 foreach ($command in $commands) {
     iex $command

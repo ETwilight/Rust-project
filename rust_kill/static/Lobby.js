@@ -41,7 +41,6 @@ if(hForm) {
     }).then((response) => {
       if (response.ok) console.log("Host Form Sent");
     });
-    ClientInfoSubscribe("/clientInfo");
     return;
   })
 } else{
@@ -78,7 +77,7 @@ if(hForm) {
   
 
 function ClientInfoSubscribe(uri) {
-  var retryTime = 1000;
+  var retryTime = 1;
   function Connect(uri) {
     const events = new EventSource(uri);
     events.addEventListener("message", (ev) => {
@@ -105,7 +104,7 @@ function ClientInfoSubscribe(uri) {
     events.addEventListener("error", () => {
       events.close();
       let timeout = retryTime;
-      //retryTime = Math.min(64, retryTime * 2);
+      retryTime = Math.min(64, retryTime * 2);
       console.log(`connection lost. attempting to reconnect in ${timeout}s`);
       setTimeout(() => Connect(uri), (() => timeout * 1000)());
     });
@@ -114,6 +113,5 @@ function ClientInfoSubscribe(uri) {
   Connect(uri);
 
 }
-
 
 ClientInfoSubscribe("/clientInfo");

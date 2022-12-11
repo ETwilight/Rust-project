@@ -112,9 +112,7 @@ var room = {
   game_state : GameState,
 }
 
-
 //refreshing content/////////
-
 var STATE = {
   currentRoom: "rustkill",
   rooms: {}, //A dictionary
@@ -128,7 +126,6 @@ function scrollToBottom() {
     }, 50);   
 }
 
-
 ////////////////////////////////////////////////////////////////
 function RoomSubscribe(uri) {
   var retryTime = 1;
@@ -137,13 +134,9 @@ function RoomSubscribe(uri) {
     events.addEventListener("message", (ev) => {
       const roomjson = JSON.parse(ev.data);
       console.log("decoded data", JSON.stringify(roomjson));
-      if (!room_name || !players || !game_state in room) return;
+      if (!"room_name" || !"players"|| !"game_state in room") return;
       //initialize
-      room.room_name = roomjson.room_name;
-      for (let i = 0, emp = roomjson.players[i]; i < roomjson.players.length; ++i){
-        room.players[emp.id] = emp;
-      }
-      room.game_state = roomjson.game_state;
+
       console.log("ROOM OBJECT: " + room);
     });
 
@@ -347,7 +340,6 @@ function AddMessageEventListener(){
       }
     })
 }
-
 
 function AddRoomListener(){
    // Set up the new room handler.
