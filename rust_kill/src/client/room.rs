@@ -12,10 +12,12 @@ use crate::game_info::ClientInfo;
 
 use rocket::{tokio::sync::broadcast::Sender, serde::json::Json};
 use crate::{client::room::game_info::Player, data::{Message, VisibleType}};
+use crate::client::game::utils::send_client_info;
 
 
 // tell the javascript that it should connect to an empty room with name given in the room info
-pub async fn connect_room(cinfo: ClientInfo, sender: Sender<Message>) {
+pub async fn connect_room(cinfo: ClientInfo, sender: Sender<ClientInfo>) {
     print!("Successfully connect to room: {} \n", cinfo.room_name);
+    send_client_info(sender, cinfo.clone());
     //game::utils::send_delay_message(sender, "Howdy".to_string(), name, VisibleType::All, 15000).await.unwrap();
 }

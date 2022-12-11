@@ -1,17 +1,19 @@
 //Utils around message
 
+#[path="../game/game_info.rs"]
+mod game_info;
 
+#[path="../game.rs"]
+mod game;
 
 use std::time::Duration;
 
 use rocket::serde::json::Json;
 use tokio::{sync::broadcast::Sender, task::JoinHandle, time::sleep};
 
-
-
 use crate::data::{Message, VisibleType, Room};
 
-use super::game_info::{Player};
+use crate::game_info::{Player, ClientInfo};
 
 pub fn send_message(queue: Sender<Message>, name:String, text:String, visible_type:VisibleType) -> Result<JoinHandle<()>, ()>{
     let task = tokio::spawn(async move{
@@ -34,6 +36,13 @@ pub async fn send_delay_message(queue: Sender<Message>, name:String, text:String
             visible_type
         };
         queue.send(msg).unwrap();
+    });
+    return Ok(task)
+}
+
+pub fn send_client_info(queue: Sender<ClientInfo>, client_info: ClientInfo) -> Result<JoinHandle<()>, ()>{
+    let task = tokio::spawn(async move{
+        queue.send(client_info).unwrap();
     });
     return Ok(task)
 }
