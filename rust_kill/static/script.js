@@ -25,13 +25,27 @@ const VoteEventType = {
   Vote: "Vote",
 }
 
-const Role = {
+const RoleType = {
   Civilian: "Civilian",
   Wolf: "Wolf",
   Witch: "Witch",
   Prophet: "Prophet",
   Undecided: "Undecided",
 }
+
+const AliveType = {
+  Alive: "Alive",
+  Dead: "Dead",
+  Wound: "Wound",
+}
+
+const WinType = {
+  Undecided: "Undecided",
+  WerewolfWin: "WerewolfWin",
+  CivilianWin: "CivilianWin",
+  Draw: "Draw",
+}
+
 const TurnType = {
   StartTurn: "StartTurn",
   WolfTurn: "WolfTurn",
@@ -43,28 +57,63 @@ const TurnType = {
   EndTurn: "EndTurn",
 }
 
-var PlayerState = {
-  turn: false,
-  muted: true,
-  speaking: false, 
-}
+//refreshing content/////////
 
-var Turn = {
-  turn_state : TurnType,
+var PlayerState = {
+  is_alive: AliveType,
+  is_turn: false,
+  is_muted: true,
+  is_speaking: false, 
 }
 
 var player = {
   name : "",
   ip : "", 
-  role: Role,
+  role: RoleType,
   player_state: PlayerState,
+}
+
+var VoteState = {
+  votes: {},
+  count: 0,
+  vote_result: [],
+}
+
+var KillVoteState = {
+  votes: {},
+  count: 0,
+  vote_result: [],
+}
+
+var WitchState = {
+  is_poison_used: false,
+  is_antidote_used: false,
+}
+
+var RevealResult = {
+  id: 0,
+  is_good: true,
+}
+
+var GameState = {
+  turn: TurnType,
+  win_type: WinType,
+  speak_id: 0,
+  vote_state: VoteState,
+  kill_vote_state: KillVoteState,
+  witch_state: WitchState,
+  reveal_result: RevealResult,
 }
 
 var room = {
   room_name: "",
-  players : {}, //{'1': player, '2': player, '3': player, '4': player, '5': player, '6': player},
-  game_state : Turn,
+  players : {}, 
+  messages : {},
+  game_state : GameState,
 }
+
+
+//refreshing content/////////
 
 var STATE = {
   currentRoom: "rustkill",
@@ -78,7 +127,8 @@ function scrollToBottom() {
         content.scrollTop = content.scrollHeight;
     }, 50);   
 }
-//不一定对建议检查一下
+
+
 ////////////////////////////////////////////////////////////////
 function RoomSubscribe(uri) {
   var retryTime = 1;
@@ -281,15 +331,16 @@ function AddMessageEventListener(){
     // Set up the new message handler.
     newMessageForm.addEventListener("submit", (e) => {
       e.preventDefault();
-      
-      const id = localStorage.getItem('idx');
+  
+      const room_name = STATE.currentRoom;
       const message = messageField.value;
+      const visible_type = "All";
       if (!message || !username) return;
   
       if (STATE.connected) {
         fetch("/room/message", {
           method: "POST",
-          body: new URLSearchParams({id, message}),
+          body: new URLSearchParams({ room_name, username, message, visible_type }),
         }).then((response) => {
           if (response.ok) messageField.value = "";
         });

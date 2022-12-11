@@ -1,4 +1,3 @@
-
 function openClient() {
   document.getElementById("f2").style.display = "block";
 }
@@ -16,14 +15,15 @@ function closeHost() {
 }
 
 function ChangePage() {
-  location.replace('Room.html#Top');
+  location.assign('Room.html#Top');
 }
 
 function HostInput() {
-  let form = document.querySelector('#hostform');
-  form.addEventListener("submit", (e) => {
+  localStorage.setItem('is_input', true);
+  let hForm = document.getElementById('hostform');
+  hForm.addEventListener("submit", (e) => {
     //e.preventDefault();
-    let data = new FormData(form);
+    let data = new FormData(hForm);
     var object = {};
     data.forEach(function (value, key) {
       object[key] = value;
@@ -32,68 +32,75 @@ function HostInput() {
     var parsedjson = JSON.parse(jsondata);
     const username = parsedjson["username"];
     const serverip = parsedjson["serverip"];
-    console.log("username: "+username);
-    console.log("serverip: "+serverip);
+    console.log("username: " + username);
+    console.log("serverip: " + serverip);
     fetch("/room/host", {
       method: "POST",
-      body: new URLSearchParams({username, serverip}),
+      body: new URLSearchParams({ username, serverip }),
     }).then((response) => {
       if (response.ok) console.log("Host Form Sent");
     });
+
+
   })
 
 }
 
 function ClientInput() {
-  let form = document.querySelector('#clientform');
-  form.addEventListener("submit", (e) => {
-    //e.preventDefault();
-    let data = new FormData(form);
-    var object = {};
-    data.forEach(function (value, key) {
-      object[key] = value;
-    });
-    var jsondata = JSON.stringify(object);
-    var parsedjson = JSON.parse(jsondata);
-    const username = parsedjson["username"];
-    const serverip = parsedjson["serverip"];
-    console.log("username: "+username);
-    console.log("serverip: "+serverip);
-    fetch("/room/join", {
-      method: "POST",
-      body: new URLSearchParams({username, serverip}),
-    }).then((response) => {
-      if (response.ok) console.log("Client Form Sent");
-    });
-  })
-
+  localStorage.setItem('is_input', true);
+  let cForm = document.getElementById('clientform');
+  if (cForm) {
+    cForm.addEventListener("submit", (e) => {
+      //e.preventDefault();
+      let data = new FormData(cForm);
+      var object = {};
+      data.forEach(function (value, key) {
+        object[key] = value;
+      });
+      var jsondata = JSON.stringify(object);
+      var parsedjson = JSON.parse(jsondata);
+      const username = parsedjson["username"];
+      const serverip = parsedjson["serverip"];
+      console.log("username: " + username);
+      console.log("serverip: " + serverip);
+      fetch("/room/join", {
+        method: "POST",
+        body: new URLSearchParams({ username, serverip }),
+      }).then((response) => {
+        if (response.ok) console.log("Client Form Sent");
+      });
+    })
+  } else {
+    console.log("Client Form Failed");
+  }
 }
-
-
 
 function ClientInfoSubscribe(uri) {
   var retryTime = 1000;
   function Connect(uri) {
     const events = new EventSource(uri);
+    console.log(events);
     events.addEventListener("message", (ev) => {
-      console.log("message: ");
-      console.log(ev);
+      //ev.preventDefault();
       const msg = JSON.parse(ev.data);
       console.log(msg);
-      //localStorage.setItem('msgs', msg);
+      localStorage.setItem('msgs', msg);
       //console.log("decoded data", JSON.stringify(msg));
       //if (!"username" in msg && !"room_name" in msg && !"client_addr" in msg && !"idx" in msg) return;
-      //localStorage.setItem('room_name', msg.room_name);
-      //localStorage.setItem('username', msg.username);
-      //localStorage.setItem('client_addr', msg.client_addr);
-      //localStorage.setItem('idx', msg.idx);
+      localStorage.clear();
+      localStorage.setItem('room_name', msg.room_name);
+      localStorage.setItem('username', msg.username);
+      localStorage.setItem('client_addr', msg.client_addr);
+      localStorage.setItem('idx', msg.idx);
       ChangePage();
     });
-    events.addEventListener("open", () => {
+    events.addEventListener("open", (ev) => {
       console.log(`connected to event stream at ${uri}`);
-      if (window.localStorage.length != 0) {
-        retryTime = 1;
-        ChangePage();
+      console.log(ev);
+      console.log(window.localStorage);
+      //const msg = JSON.parse(ev.data);
+      if (window.localStorage.getItem('is_input') == true) {
+        ChangeRoom();
       }
     });
 
@@ -105,7 +112,14 @@ function ClientInfoSubscribe(uri) {
       setTimeout(() => Connect(uri), (() => timeout * 1000)());
     });
   }
+
   Connect(uri);
+
 }
 
-ClientInfoSubscribe("/clientInfo");
+function Init() {
+  //localStorage.clear();
+  ClientInfoSubscribe("/clientInfo");
+}
+
+Init();

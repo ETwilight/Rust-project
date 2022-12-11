@@ -19,6 +19,7 @@ mod post_event;
 
 use std::io;
 
+use mini_redis::client::Client;
 use tokio::join;
 use client::client_send_gme;
 use tokio::time::Duration;
@@ -40,13 +41,18 @@ use tokio::time::sleep;
 
 
 #[post("/room/host", data = "<form>")]
-async fn post_host_room(form: Form<UserConnectEvent>, qs: &State<tokio::sync::mpsc::Sender<(bool, String, String)>>) {
-    qs.inner().clone().send((true, form.serverip.clone(), form.username.clone())).await.unwrap();
+async fn post_host_room(form: Form<UserConnectEvent>, mc: &State<Sender<Message>>, rc: &State<Sender<Room>>, cc: &State<Sender<ClientInfo>>) {
+    let host_event = form.into_inner();
+
+    let _ = server::host::start().await.unwrap();
+    let _ = client::connect(&host_event.serverip, &host_event.username, mc.inner().clone(), rc.inner().clone(), cc.inner().clone()).await.unwrap();
+   
 }
 
 #[post("/room/join", data = "<form>")]
-async fn post_join_room(form: Form<UserConnectEvent>, qs: &State<tokio::sync::mpsc::Sender<(bool, String, String)>>){
-    qs.inner().clone().send((false, form.serverip.clone(), form.username.clone())).await.unwrap();
+async fn post_join_room(form: Form<UserConnectEvent>, mc: &State<Sender<Message>>, rc: &State<Sender<Room>>, cc: &State<Sender<ClientInfo>>){
+    let join_event = form.into_inner();
+    let _ = client::connect(&join_event.serverip, &join_event.username, mc.inner().clone(), rc.inner().clone(), cc.inner().clone()).await.unwrap();
 }
 
 #[post("/game/event", data = "<form>")]
@@ -99,22 +105,32 @@ async fn post_player_info(form: Form<UserInfo>, queue: &State<Sender<UserInfo>>)
 
 #[get("/clientInfo")]
 async fn event_client_info(queue: &State<Sender<ClientInfo>>, mut end: Shutdown) -> EventStream![] {
-    print!("Get ClientInfo");
     let mut rx = queue.subscribe();
     EventStream! {
         loop {
             let msg = select! {
                 msg = rx.recv() => match msg {
                     Ok(msg) => msg,
-                    Err(RecvError::Closed) => break,
-                    Err(RecvError::Lagged(_)) => continue,
+                    Err(RecvError::Closed) => 
+                    {
+                        print!("lagged");
+                        break;
+                    },
+                    Err(RecvError::Lagged(_)) => {
+                        print!("lagged");
+                        continue;
+                    },
                 },
                _ = &mut end => break,
             };
+            print!("---------Event Stream: Get ClientInfo----------");
             yield Event::json(&msg);
         }
     }
 }
+
+
+
 #[get("/playerInfo/event")]
 async fn event_player_info(queue: &State<Sender<UserInfo>>, mut end: Shutdown) -> EventStream![] {
     print!("Get event");
@@ -157,7 +173,7 @@ async fn events(queue: &State<Sender<Message>>, mut end: Shutdown) -> EventStrea
 }
 
 #[deprecated]
-fn server_addr() -> String {"192.168.38.83".to_string()}
+fn server_addr() -> String {"10.214.0.22".to_string()}
 
 use std::env;
 
@@ -175,31 +191,6 @@ async fn main() -> Result<(), rocket::Error> {
     let message_channel = channel::<Message>(1024).0;
     let room_channel = channel::<Room>(1024).0;
     let cinfo_channel = channel::<ClientInfo>(1024).0;
-    let (tx, mut rx) = tokio::sync::mpsc::channel::<(bool, String, String)>(2);
-
-    let mc = message_channel.clone();
-    let rc = room_channel.clone();
-    let cc = cinfo_channel.clone();
-    let recth = tokio::spawn(async move{
-        print!("in thread\n");
-        let result;
-        loop{
-            let rec = rx.recv().await;
-            if rec.is_none() {continue;}
-            result = rec.unwrap();
-            break;
-        }
-        if result.0 {
-            print!("Try Host {:?}", result.1.clone());
-            let _ = server::host::start().await.unwrap();
-            let _ = client::connect(result.1.as_str(), &result.2, mc, rc, cc).await.unwrap();
-        }
-        else {
-            print!("Try Join {:?}", result.1.clone());
-            let _ = client::connect(result.1.as_str(), &result.2, mc, rc, cc).await.unwrap();
-        }
-    });
-    print!("should not be blocked\n");
     let figment = rocket::Config::figment()
         .merge(("address", client_addr))
         .merge(("port", port))
@@ -212,11 +203,9 @@ async fn main() -> Result<(), rocket::Error> {
         .manage(room_channel)
         .mount("/", routes![event_room])
         .manage(cinfo_channel)
-        .mount("/", routes![event_client_info])
-        .manage(tx)
         .mount("/", routes![post_host_room, post_join_room])
-        .mount("/", FileServer::from(relative!("/static"))).launch();
-    join!(recth, rocket).0.unwrap();
+        .mount("/", routes![event_client_info])
+        .mount("/", FileServer::from(relative!("/static"))).launch().await.unwrap();
     // a custom rocket build
     //let event_channel = channel::<GameEvent>(1024).0;
     //let _ = client::connect(server_addr().as_str(), "ThgilTac1", message_channel.clone(), room_channel.clone()).await.unwrap();
