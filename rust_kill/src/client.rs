@@ -26,7 +26,7 @@ mod utils;
 #[path="game.rs"]
 mod game;
 
-pub async fn connect(server_addr: &str, client_name: &str, sender_msg: Sender<Message>, sender_room: Sender<Room>, sender_cinfo: Sender<ClientInfo>) -> Result<JoinHandle<()>, ()>{
+pub async fn connect(server_addr: &str, client_name: &str, sender_room: Sender<Room>, sender_cinfo: Sender<ClientInfo>) -> Result<JoinHandle<()>, ()>{
     let clt = TcpStream::connect((server_addr.to_string() + ":8080").as_str()).await.unwrap();
     let (mut reader, mut writer) = clt.into_split();
     let player = Player {
@@ -41,7 +41,6 @@ pub async fn connect(server_addr: &str, client_name: &str, sender_msg: Sender<Me
         panic!("cannot serialize into playerInfo")
     }
     utils::client_write(&mut writer, utils::encode("REG", player_info.unwrap().as_str()).as_str()).await.unwrap();
-    let inner_sender = sender_msg.clone();
     let client = tokio::spawn(async move{
         let auth = match utils::client_response(BufReader::new(&mut reader), queue!["AUTH".to_string(), "CLI".to_string()], "client get").await {
             Ok(r) => r,
@@ -54,10 +53,10 @@ pub async fn connect(server_addr: &str, client_name: &str, sender_msg: Sender<Me
         connect_room(cinfo.clone(), sender_cinfo).await;
         client_addr(cinfo.client_addr, cinfo.idx)
     }).await.unwrap();
-    Ok(main_task(client, sender_msg.clone(), sender_room.clone()).await)
+    Ok(main_task(client, sender_room.clone()).await)
 }
 
-pub async fn main_task(client_addr: String, sender_msg: Sender<Message>, sender_room: Sender<Room>) -> JoinHandle<()>{
+pub async fn main_task(client_addr: String,  sender_room: Sender<Room>) -> JoinHandle<()>{
     tokio::spawn(async move {
         let listener = TcpListener::bind(client_addr.clone()).await.unwrap();
         loop {
@@ -70,10 +69,7 @@ pub async fn main_task(client_addr: String, sender_msg: Sender<Message>, sender_
             // Process Server Events
             let (mut reader, _writer) = socket.into_split();
             let (k, v) = utils::read_all(BufReader::new(&mut reader)).await.unwrap();
-            if k == "MSG".to_string() {
-                client_receive_msg(&v, sender_msg.clone()).await;
-            }
-            else if k == "ROOM".to_string() {
+            if k == "ROOM".to_string() {
                 client_receive_room(&v, sender_room.clone()).await;
             }
         }
@@ -124,7 +120,7 @@ pub async fn client_send_gme(server_addr: &String, gme: String) -> Result<(), ()
 }
 
 pub async fn client_receive_room(room: &String, sender: Sender<Room>) {
-    let value: Room = string_to_struct(room);
+    let value= string_to_struct(room);
     send_room(sender, value).unwrap();
 }
 
