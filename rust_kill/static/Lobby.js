@@ -20,13 +20,9 @@ function ChangeRoom() {
 }
 
 function HostInput() {
-  window.location.href = "./Room.html#top";
   let form = document.querySelector('#hostform');
   form.addEventListener("submit", (e) => {
     //e.preventDefault();
-    ClientInfoSubscribe("/clientInfo");
-
-    window.location.href = "Room.html#top";
     let data = new FormData(form);
     var object = {};
     data.forEach(function (value, key) {
@@ -38,12 +34,13 @@ function HostInput() {
     const serverip = parsedjson["serverip"];
     console.log("username: "+username);
     console.log("serverip: "+serverip);
-    fetch("/playerInfo", {
+    fetch("/room/host", {
       method: "POST",
       body: new URLSearchParams({username, serverip}),
     }).then((response) => {
       if (response.ok) console.log("Host Form Sent");
     });
+    ClientInfoSubscribe("/clientInfo");
     return;
   })
 
@@ -53,7 +50,6 @@ function ClientInput() {
   let form = document.querySelector('#clientform');
   form.addEventListener("submit", (e) => {
     //e.preventDefault();
-    ClientInfoSubscribe("/clientInfo");
 
     let data = new FormData(form);
     var object = {};
@@ -66,12 +62,13 @@ function ClientInput() {
     const serverip = parsedjson["serverip"];
     console.log("username: "+username);
     console.log("serverip: "+serverip);
-    fetch("/playerInfo", {
+    fetch("/room/join", {
       method: "POST",
       body: new URLSearchParams({username, serverip}),
     }).then((response) => {
       if (response.ok) console.log("Client Form Sent");
     });
+    ClientInfoSubscribe("/clientInfo");
     return;
   })
 
@@ -91,6 +88,10 @@ function ClientInfoSubscribe(uri) {
       localStorage.setItem('username', msg.username);
       localStorage.setItem('client_addr', msg.client_addr);
       localStorage.setItem('idx', msg.idx);
+      console.log(localStorage.getItem('room_name'), 
+                  localStorage.getItem('username'), 
+                  localStorage.getItem('client_addr'), 
+                  localStorage.getItem('idx'));
       ChangeRoom();
     });
 
