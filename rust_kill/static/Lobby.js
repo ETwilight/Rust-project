@@ -41,9 +41,43 @@ if(hForm) {
     }).then((response) => {
       if (response.ok) console.log("Host Form Sent");
     });
+    ClientInfoSubscribe("/clientInfo");
+    return;
   })
+<<<<<<< HEAD
 } else{
   console.log("Host Form Failed");
+=======
+
+}
+
+function ClientInput() {
+  let form = document.querySelector('#clientform');
+  form.addEventListener("submit", (e) => {
+    //e.preventDefault();
+
+    let data = new FormData(form);
+    var object = {};
+    data.forEach(function (value, key) {
+      object[key] = value;
+    });
+    var jsondata = JSON.stringify(object);
+    var parsedjson = JSON.parse(jsondata);
+    const username = parsedjson["username"];
+    const serverip = parsedjson["serverip"];
+    console.log("username: "+username);
+    console.log("serverip: "+serverip);
+    fetch("/room/join", {
+      method: "POST",
+      body: new URLSearchParams({username, serverip}),
+    }).then((response) => {
+      if (response.ok) console.log("Client Form Sent");
+    });
+    ClientInfoSubscribe("/clientInfo");
+    return;
+  })
+
+>>>>>>> parent of 4b962c0 (Fix Lobby.js)
 }
 
   let cForm = document.querySelector('#clientform');
@@ -107,8 +141,13 @@ function ClientInfoSubscribe(uri) {
       setTimeout(() => Connect(uri), (() => timeout * 1000)());
     });
   }
+
   Connect(uri);
+<<<<<<< HEAD
 }
 
 
 ClientInfoSubscribe("/clientInfo");
+=======
+}
+>>>>>>> parent of 4b962c0 (Fix Lobby.js)
