@@ -47,7 +47,7 @@ impl Default for UserInfo {
     }
 }
 
-#[derive(Debug, Clone, FromForm, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
 pub struct Room {
     #[field(validate = len(..30))]
@@ -56,4 +56,15 @@ pub struct Room {
     pub messages: Vec<Message>,
     pub game_state: GameState,
     //pub Listmessage
+}
+
+impl Default for Room {
+    fn default() -> Self {
+        Room {
+            room_name: "rust_kill".to_string(),
+            players: vec![],
+            messages: vec![],
+            game_state: Default::default(),
+        }
+    }
 }
