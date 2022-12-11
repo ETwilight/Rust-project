@@ -63,52 +63,52 @@ const TurnType = {
 
 //refreshing content/////////
 
-var PlayerState = {
-  is_alive: AliveType,
-  is_turn: false,
-  is_muted: true,
-  is_speaking: false, 
-}
+// var PlayerState = {
+//   is_alive: AliveType,
+//   is_turn: false,
+//   is_muted: true,
+//   is_speaking: false, 
+// }
 
-var player = {
-  name : "",
-  ip : 0,
-  role: RoleType,
-  player_state: PlayerState,
-  id: 0,
-}
+// var player = {
+//   name : "",
+//   ip : 0,
+//   role: RoleType,
+//   player_state: PlayerState,
+//   id: 0,
+// }
 
-var VoteState = {
-  votes: {},
-  count: 0,
-  vote_result: [],
-}
+// var VoteState = {
+//   votes: {},
+//   count: 0,
+//   vote_result: [],
+// }
 
-var KillVoteState = {
-  votes: {},
-  count: 0,
-  vote_result: [],
-}
+// var KillVoteState = {
+//   votes: {},
+//   count: 0,
+//   vote_result: [],
+// }
 
-var WitchState = {
-  is_poison_used: false,
-  is_antidote_used: false,
-}
+// var WitchState = {
+//   is_poison_used: false,
+//   is_antidote_used: false,
+// }
 
-var RevealResult = {
-  id: 0,
-  is_good: true,
-}
+// var RevealResult = {
+//   id: 0,
+//   is_good: true,
+// }
 
-var GameState = {
-  turn: TurnType,
-  win_type: WinType,
-  speak_id: 0,
-  vote_state: VoteState,
-  kill_vote_state: KillVoteState,
-  witch_state: WitchState,
-  reveal_result: RevealResult,
-}
+// var GameState = {
+//   turn: TurnType,
+//   win_type: WinType,
+//   speak_id: 0,
+//   vote_state: VoteState,
+//   kill_vote_state: KillVoteState,
+//   witch_state: WitchState,
+//   reveal_result: RevealResult,
+// }
 
 var room = {
   room_name: "",
@@ -138,16 +138,20 @@ function RoomSubscribe(uri) {
     events.addEventListener("message", (ev) => {
       const roomjson = JSON.parse(ev.data);
       console.log("decoded data", JSON.stringify(roomjson));
-
+      localStorage.setItem("roomjson", roomjson);
+      
+      room.room_name = roomjson['room_name'];
       roomjson['messages'].forEach(function(val){
         room.messages.push(val);
       });
+      var l = room.messages.length - 1;
+      AddMessage(room.room_name, room.messages[l].username, 
+        room.messages[l].message, true);
+      scrollToBottom();
       console.log(room.messages);
       if(localStorage.getItem("idx") == null){
         AssignPlayerid(roomjson);
       }
-
-
     });
 
     events.addEventListener("open", () => {
@@ -487,8 +491,6 @@ function replace(turnparam) {
 }
 
 /* => GAME LOOP*/ 
-
-// for each to check which to mute and which to unmute 
 function mute(){
   var w = document.getElementById('disabled').style.visibility = "visible";
   document.querySelector('.textmessage').disabled = true;
@@ -504,20 +506,17 @@ function AssignPlayerid(roomjson){
     if(player.id != '7'){
       count++;
     }
+    let i = 1;
+    for(;i<=count;){
+      document.querySelector(".player"+(i).toString()).style.visibility = "visible";
+      i++;
+    }
   })
   localStorage.setItem("idx", count);
 }
 
 /*Utilities*/
 
-var slider = document.getElementById("myRange");
-slider.onchange = function() {
-  let i = 1;
-  for(;i<=this.value;){
-      document.querySelector(".player"+(i).toString()).style.visibility = "visible";
-      i++;
-  }
-}
 
 
 
@@ -563,8 +562,6 @@ function Init() {
   RoomSubscribe("/event/room")
   
 }
-
-// export {AddMessage, GetStatus};
 
 
 Init();
