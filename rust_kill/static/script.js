@@ -510,9 +510,9 @@ slider.onchange = function() {
 
 function findTurn(){
   console.log("");
-  /*switch(room.game_state.TurnType){
+  switch(room.game_state.TurnType){
     case WolfTurn:
-      //if is wolf
+      
       replace(1);
       break;
     case WitchTurn:
@@ -532,7 +532,7 @@ function findTurn(){
       break;
     default:
       break;
-  }*/
+  }
 }
 
 function Init() {
