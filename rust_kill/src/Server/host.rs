@@ -83,6 +83,8 @@ pub async fn start() -> Result<JoinHandle<()>, ()>{
                 print!("{}\n", v.clone());
                 receive_from_server(&mut room, &v.to_string());
                 let room_json = struct_to_string(&room);
+                print!("Howdy Room");
+                print!("{:?}", room_json.0);
                 send_key = "ROOM";
                 send_val = room_json.0.as_str();
             }
@@ -92,6 +94,7 @@ pub async fn start() -> Result<JoinHandle<()>, ()>{
                 send_val = v.as_str();
             }
             for caddr in clients.iter() {
+                print!("Server Write");
                 let cstrm = TcpStream::connect(caddr).await;
                 if cstrm.is_err() {continue};
                 let cstream = cstrm.unwrap();

@@ -56,27 +56,26 @@ async fn post_join_room(form: Form<UserConnectEvent>, rc: &State<Sender<Room>>, 
 }
 
 #[post("/game/event", data = "<form>")]
-fn post_game_event(form: Form<VoteEvent>) {
+async fn post_game_event(form: Form<VoteEvent>) {
     let vote_event = form.into_inner();
     let s = struct_to_string(&vote_event).0;
-    client_send_gme(&server_addr(), s);
+    client_send_gme(&server_addr(), s).await.unwrap();
 }
 
 #[post("/game/endSpeak", data = "<form>")]
-fn post_end_speak(form: Form<EndSpeakEvent>) {
+async fn post_end_speak(form: Form<EndSpeakEvent>) {
     let end_speak_event = form.into_inner();
     let s = struct_to_string(&end_speak_event).0;
-    client_send_gme(&server_addr(), s);
+    client_send_gme(&server_addr(), s).await.unwrap();
 }
 
 /// Receive a message from a form submission and broadcast it to any receivers.
 #[post("/room/message", data = "<form>")]
-fn post_message(form: Form<MessageEvent>) {
+async fn post_message(form: Form<MessageEvent>) {
     //A send "fails" if there are no active subscribers
-    print!("---------Send ClientInfo----------");
     let message_event = form.into_inner();
     let s = struct_to_string(&message_event).0;
-    client_send_gme(&server_addr(), s);
+    client_send_gme(&server_addr(), s).await.unwrap();
 }
 
 #[get("/event/room")]
