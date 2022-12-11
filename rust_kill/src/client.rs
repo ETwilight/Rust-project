@@ -1,5 +1,8 @@
+use std::time::Duration;
+
 use queues::queue;
 use tokio::net::TcpListener;
+use tokio::time::sleep;
 use tokio::{net::TcpStream, task::JoinHandle, io::BufReader};
 
 pub mod room;
@@ -16,7 +19,7 @@ use rocket::tokio::sync::broadcast::Sender;
 use queues::Queue;
 use queues::IsQueue;
 
-use self::game::utils::{send_message, send_delay_room};
+use self::game::utils::{send_message, send_delay_room, send_room};
 #[path="utils.rs"]
 mod utils;
 
@@ -58,7 +61,12 @@ pub async fn main_task(client_addr: String, sender_msg: Sender<Message>, sender_
     tokio::spawn(async move {
         let listener = TcpListener::bind(client_addr.clone()).await.unwrap();
         loop {
-            let (socket, _) = listener.accept().await.unwrap();
+            let soc = listener.accept().await;
+            if soc.is_err() {
+                print!("Unable to connect server!\n");
+                continue;
+            }
+            let (socket, _) = soc.unwrap();
             // Process Server Events
             let (mut reader, _writer) = socket.into_split();
             let (k, v) = utils::read_all(BufReader::new(&mut reader)).await.unwrap();
@@ -75,33 +83,46 @@ pub async fn main_task(client_addr: String, sender_msg: Sender<Message>, sender_
 #[deprecated]
 pub async fn client_send_message(server_addr: &String, msg: String) -> Result<(), ()>{
     let address = format!("{}{}", server_addr, ":8080");
-    let cstream = TcpStream::connect(address).await.unwrap();
-    let writer = &mut cstream.into_split().1;
+    let cstream = TcpStream::connect(address).await;
+    if cstream.is_err() {
+        print!("Unable to connect server while sending msg!\n");
+        return Err(());
+    }
+    let writer = &mut cstream.unwrap().into_split().1;
+    print!("Try to send message\n");
     utils::client_write(writer, encode("MSG", msg.as_str()).as_str()).await
 }
 
 #[deprecated]
 pub async fn client_receive_msg(msg: &String, sender: Sender<Message>) {
     let msg:Message = string_to_struct(&msg);
-    send_message(sender, msg.username, msg.message, VisibleType::All).unwrap();
+    send_message(sender, msg.id,msg.username, msg.message, VisibleType::All).unwrap();
 }
 
 #[deprecated]
 pub async fn client_send_room(server_addr: &String, room: String) -> Result<(), ()>{
     let address = format!("{}{}", server_addr, ":8080");
-    let cstream = TcpStream::connect(address).await.unwrap();
-    let writer = &mut cstream.into_split().1;
+    let cstream = TcpStream::connect(address).await;
+    if cstream.is_err() {
+        print!("Unable to connect server while sending room!\n");
+        return Err(());
+    }
+    let writer = &mut cstream.unwrap().into_split().1;
     utils::client_write(writer, encode("ROOM", room.as_str()).as_str()).await
 }
 
 pub async fn client_send_gme(server_addr: &String, gme: String, tpe: String) -> Result<(), ()>{
     let address = format!("{}{}", server_addr, ":8080");
-    let cstream = TcpStream::connect(address).await.unwrap();
-    let writer = &mut cstream.into_split().1;
+    let cstream = TcpStream::connect(address).await;
+    if cstream.is_err() {
+        print!("Unable to connect server while sending game event!\n");
+        return Err(());
+    }
+    let writer = &mut cstream.unwrap().into_split().1;
     utils::client_write(writer, encode("GME", encode_type(gme.as_str(), tpe.as_str()).as_str()).as_str()).await
 }
 
 pub async fn client_receive_room(room: &String, sender: Sender<Room>) {
     let value: Room = string_to_struct(&room);
-    send_delay_room(sender, value, 10000).await.unwrap();
+    send_room(sender, value).unwrap();
 }

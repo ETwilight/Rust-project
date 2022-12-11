@@ -20,7 +20,6 @@ function ChangePage() {
 }
 
 function HostInput() {
-  window.location.href = "./Room.html#top";
   let form = document.querySelector('#hostform');
   form.addEventListener("submit", (e) => {
     //e.preventDefault();
@@ -35,7 +34,7 @@ function HostInput() {
     const serverip = parsedjson["serverip"];
     console.log("username: "+username);
     console.log("serverip: "+serverip);
-    fetch("/playerInfo", {
+    fetch("/room/host", {
       method: "POST",
       body: new URLSearchParams({username, serverip}),
     }).then((response) => {
@@ -62,7 +61,7 @@ function ClientInput() {
     const serverip = parsedjson["serverip"];
     console.log("username: "+username);
     console.log("serverip: "+serverip);
-    fetch("/playerInfo", {
+    fetch("/room/join", {
       method: "POST",
       body: new URLSearchParams({username, serverip}),
     }).then((response) => {
