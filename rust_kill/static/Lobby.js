@@ -40,8 +40,6 @@ function HostInput() {
     }).then((response) => {
       if (response.ok) console.log("Host Form Sent");
     });
-    ClientInfoSubscribe("/clientInfo");
-    return;
   })
 
 }
@@ -68,8 +66,6 @@ function ClientInput() {
     }).then((response) => {
       if (response.ok) console.log("Client Form Sent");
     });
-    ClientInfoSubscribe("/clientInfo");
-    return;
   })
 
 }
@@ -94,7 +90,7 @@ function ClientInfoSubscribe(uri) {
                   localStorage.getItem('idx'));
       ChangeRoom();
     });
-
+    
     events.addEventListener("open", () => {
       SetConnectedStatus(true);
       console.log(`connected to event stream at ${uri}`);
@@ -111,6 +107,8 @@ function ClientInfoSubscribe(uri) {
       setTimeout(() => Connect(uri), (() => timeout * 1000)());
     });
   }
-
   Connect(uri);
 }
+
+
+ClientInfoSubscribe("/clientInfo");
