@@ -26,7 +26,7 @@ use queues::IsQueue;
 #[path="utils.rs"]
 mod utils;
 
-pub async fn connect(server_addr: &str, client_name: &str, sender_msg: Sender<Message>, sender_room: Sender<Room>) -> Result<JoinHandle<()>, ()>{
+pub async fn connect(server_addr: &str, client_name: &str, sender_msg: Sender<Message>, sender_room: Sender<Room>, sender_cinfo: Sender<ClientInfo>) -> Result<JoinHandle<()>, ()>{
     let clt = TcpStream::connect((server_addr.to_string() + ":8080").as_str()).await.unwrap();
     let (mut reader, mut writer) = clt.into_split();
     let player = Player {
@@ -51,7 +51,7 @@ pub async fn connect(server_addr: &str, client_name: &str, sender_msg: Sender<Me
             print!("ERR! Cannot Authorize!\n");
         }
         let cinfo : ClientInfo = serde_json::from_str(&auth).expect("json deserialize failed");
-        connect_room(cinfo.clone(), inner_sender).await;
+        connect_room(cinfo.clone(), sender_cinfo).await;
         client_addr(cinfo.client_addr, cinfo.idx)
     }).await.unwrap();
     Ok(main_task(client, sender_msg.clone(), sender_room.clone()).await)

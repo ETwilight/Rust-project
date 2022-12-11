@@ -32,23 +32,25 @@ use rocket::serde::json::Json;
 use crate::client::client_send_message;
 use crate::utils::struct_to_string;
 use crate::data::{Message, UserInfo, Room};
+use crate::game_info::ClientInfo;
 
 static mut MESSAGE_CHANNEL : Option<Sender<Message>> = None;
 static mut ROOM_CHANNEL : Option<Sender<Room>> = None;
+static mut CINFO_CHANNEL: Option<Sender<ClientInfo>> = None;
 
 
 async fn post_host_room(form: Form<UserConnectEvent>) {
     print!("Try Host {:?}", form.serverip.clone());
     let _ = server::host::start().await.unwrap();
     unsafe{
-        let _ = client::connect(form.serverip.as_str(), &form.username, MESSAGE_CHANNEL.clone().unwrap(), ROOM_CHANNEL.clone().unwrap()).await.unwrap();
+        let _ = client::connect(form.serverip.as_str(), &form.username, MESSAGE_CHANNEL.clone().unwrap(), ROOM_CHANNEL.clone().unwrap(), CINFO_CHANNEL.clone().unwrap()).await.unwrap();
     }
 }
 
 #[post("/room/join", data = "<form>")]
 async fn post_join_room(form: Form<UserConnectEvent>){
     unsafe{
-        let _ = client::connect(form.serverip.as_str(), &form.username, MESSAGE_CHANNEL.clone().unwrap(), ROOM_CHANNEL.clone().unwrap()).await.unwrap();
+        let _ = client::connect(form.serverip.as_str(), &form.username, MESSAGE_CHANNEL.clone().unwrap(), ROOM_CHANNEL.clone().unwrap(), CINFO_CHANNEL.clone().unwrap()).await.unwrap();
     }
     
 }
@@ -106,6 +108,25 @@ async fn event_room(queue: &State<Sender<Room>>, mut end: Shutdown) -> EventStre
 
 
 
+ 
+ #[get("/clientInfo")]
+ async fn event_client_info(queue: &State<Sender<ClientInfo>>, mut end: Shutdown) -> EventStream![] {
+    print!("Get ClientInfo");
+      let mut rx = queue.subscribe();
+      EventStream! {
+          loop {
+              let msg = select! {
+                  msg = rx.recv() => match msg {
+                      Ok(msg) => msg,
+                      Err(RecvError::Closed) => break,
+                      Err(RecvError::Lagged(_)) => continue,
+                  },
+                 _ = &mut end => break,
+              };
+              yield Event::json(&msg);
+          }
+      }
+  }
   #[get("/playerInfo/event")]
  async fn event_player_info(queue: &State<Sender<UserInfo>>, mut end: Shutdown) -> EventStream![] {
     print!("Get event");
@@ -172,6 +193,7 @@ async fn main() -> Result<(), rocket::Error> {
     unsafe{
         MESSAGE_CHANNEL = Some(channel::<Message>(1024).0);
         ROOM_CHANNEL = Some(channel::<Room>(1024).0);
+        CINFO_CHANNEL = Some(channel::<ClientInfo>(1024).0);
         let figment = rocket::Config::figment()
             .merge(("address", client_addr))
             .merge(("port", port))
@@ -183,6 +205,8 @@ async fn main() -> Result<(), rocket::Error> {
             .mount("/", routes![post_player_info, event_player_info])
             .manage(ROOM_CHANNEL.clone().unwrap())
             .mount("/", routes![event_room])
+            .manage("/", CINFO_CHANNEL.clone().unwrap())
+            .mount("/", routes![event_client_info])
             .mount("/", FileServer::from(relative!("/static"))).launch().await.unwrap();
     }
     // a custom rocket build
