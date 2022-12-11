@@ -24,8 +24,6 @@ impl Default for VisibleType{
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
 pub struct Message {
-    #[field(validate = len(..30))]
-    pub room_name: String, //Maximum Length is 30 for a roomName
     #[field(validate = len(..20))]
     pub username: String, //Maximum Length is 20 for a username
     pub message: String,

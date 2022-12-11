@@ -20,6 +20,20 @@ impl Default for RoleType{
 
 #[derive(Debug, Clone, FromFormField, Serialize, Deserialize)]
 #[serde(crate = "rocket::serde")]
+pub enum AliveType {
+    Alive,
+    Dead,
+    Wound,
+}
+
+impl Default for AliveType{
+    fn default() -> Self{
+        AliveType::Alive
+    }
+}
+
+#[derive(Debug, Clone, FromFormField, Serialize, Deserialize)]
+#[serde(crate = "rocket::serde")]
 pub enum WinType {
     Undecided,
     WerewolfWin,
@@ -35,9 +49,23 @@ impl Default for WinType{
 
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize, Default)]
 #[serde(crate = "rocket::serde")]
+pub struct VoteResult {
+    pub is_vote: bool,
+    pub voter_id: usize, 
+    pub target_id: usize, 
+}
+
+#[derive(Debug, Clone, FromForm, Serialize, Deserialize, Default)]
+#[serde(crate = "rocket::serde")]
 pub struct RevealResult {
     pub id: usize,
     pub is_good: bool,
+}
+#[derive(Debug, Clone, FromForm, Serialize, Deserialize, Default)]
+#[serde(crate = "rocket::serde")]
+pub struct WitchState {
+    pub is_poison_used: bool,
+    pub is_antidote_used: bool,
 }
 
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize, Default)]
@@ -100,9 +128,26 @@ impl TurnType {
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize, Default)]
 #[serde(crate = "rocket::serde")]
 pub struct ClientInfo {
-    pub room: Room,
-    pub ts: TurnType,
+    pub room_name: String,
+    pub username: String,
+    pub client_addr: String, 
     pub idx: usize,
+}
+
+#[derive(Debug, Clone, FromForm, Serialize, Deserialize, Default)]
+#[serde(crate = "rocket::serde")]
+pub struct KillVoteState {
+    pub votes: Vec<VoteResult>,
+    pub count: usize,
+    pub vote_result: (usize, usize),
+}
+
+#[derive(Debug, Clone, FromForm, Serialize, Deserialize, Default)]
+#[serde(crate = "rocket::serde")]
+pub struct VoteState {
+    pub votes: Vec<VoteResult>,
+    pub count: usize,
+    pub vote_result: (usize, usize), //前者是id，后者是票数
 }
 
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize, Default)]
@@ -110,16 +155,18 @@ pub struct ClientInfo {
 pub struct GameState {
     pub turn: TurnType,
     pub win_type: WinType,
-    pub vote_map: HashMap<usize, usize>,
-    pub kill_vote_map: HashMap<usize, usize>,
+    pub speak_id: usize, //The one speaking now
+    pub vote_state: VoteState,
+    pub kill_vote_state: KillVoteState,
+    pub witch_state: WitchState,
     pub reveal_result: RevealResult,
 }
 
 #[derive(Debug, Clone, FromForm, Serialize, Deserialize, Default)]
 #[serde(crate = "rocket::serde")]
 pub struct PlayerState {
+    pub is_alive: AliveType,
     pub is_turn: bool,
     pub is_muted: bool,
     pub is_speaking: bool,
-    pub is_alive: bool,
 }
