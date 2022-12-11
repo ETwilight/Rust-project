@@ -9,7 +9,7 @@ use tokio::time::sleep;
 use tokio::{net::TcpListener, task::JoinHandle, sync::mpsc, io::BufReader};
 
 use crate::data::Room;
-
+use crate::game_main::update;
 use crate::server::client_manager::receive;
 use crate::game_info::{Player, GameState, TurnType, ClientInfo, RevealResult};
 use crate::server::host::utils::decode_type;
@@ -104,5 +104,5 @@ pub async fn start() -> Result<JoinHandle<()>, ()>{
 }
 
 pub fn receive_from_server(room:&mut Room, game_event:&String, tpe:&String) {
-    todo!()
+    update(room, game_event);
 }

@@ -19,6 +19,7 @@ mod post_event;
 
 use std::io;
 
+use client::client_send_gme;
 use tokio::time::Duration;
 use rocket::{State, Shutdown};
 use rocket::fs::{relative, FileServer};
@@ -28,16 +29,14 @@ use crate::game_info::ClientInfo;
 use crate::utils::struct_to_string;
 use post_event::{EndSpeakEvent, MessageEvent, UserConnectEvent, VoteEvent, VoteEventType};
 use rocket::form::Form;
-use rocket::fs::{relative, FileServer};
 use rocket::log::LogLevel;
 use rocket::response::stream::{Event, EventStream};
 use rocket::serde::json::Json;
 use rocket::serde::{Deserialize, Serialize};
 use rocket::tokio::select;
 use rocket::tokio::sync::broadcast::{channel, error::RecvError, Sender};
-use rocket::{Shutdown, State};
 use tokio::time::sleep;
-use tokio::time::Duration;
+
 
 #[post("/room/host", data = "<form>")]
 async fn post_host_room(form: Form<UserConnectEvent>, qm: &State<Sender<Message>>, qr: &State<Sender<Room>>, qc: &State<Sender<ClientInfo>>) {
@@ -57,10 +56,18 @@ async fn post_join_room(form: Form<UserConnectEvent>, qm: &State<Sender<Message>
 }
 
 #[post("/game/event", data = "<form>")]
-fn post_game_event(form: Form<VoteEvent>) {}
+fn post_game_event(form: Form<VoteEvent>) {
+    let vote_event = form.into_inner();
+    let s = struct_to_string(&vote_event).0;
+    //client_send_gme(s);
+}
 
 #[post("/game/endSpeak", data = "<form>")]
-fn post_end_speak(form: Form<EndSpeakEvent>) {}
+fn post_end_speak(form: Form<EndSpeakEvent>) {
+    let end_speak_event = form.into_inner();
+    let s = struct_to_string(&end_speak_event).0;
+    //client_send_gme(s);
+}
 
 /// Receive a message from a form submission and broadcast it to any receivers.
 #[post("/room/message", data = "<form>")]
@@ -156,7 +163,7 @@ async fn events(queue: &State<Sender<Message>>, mut end: Shutdown) -> EventStrea
 }
 
 #[deprecated]
-fn server_addr() -> String {"10.213.0.64".to_string()}
+fn server_addr() -> String {"192.168.38.127".to_string()}
 
 use std::env;
 
