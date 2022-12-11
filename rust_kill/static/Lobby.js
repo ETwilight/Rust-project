@@ -90,15 +90,18 @@ function ClientInfoSubscribe(uri) {
                   localStorage.getItem('idx'));
       ChangeRoom();
     });
-    
+
     events.addEventListener("open", () => {
-      SetConnectedStatus(true);
       console.log(`connected to event stream at ${uri}`);
+      console.log(localStorage.getItem('room_name'), 
+                  localStorage.getItem('username'), 
+                  localStorage.getItem('client_addr'), 
+                  localStorage.getItem('idx'));
       retryTime = 1;
+      ChangeRoom();
     });
 
     events.addEventListener("error", () => {
-      SetConnectedStatus(false);
       events.close();
 
       let timeout = retryTime;

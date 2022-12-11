@@ -157,7 +157,7 @@ async fn events(queue: &State<Sender<Message>>, mut end: Shutdown) -> EventStrea
 }
 
 #[deprecated]
-fn server_addr() -> String {"192.168.38.127".to_string()}
+fn server_addr() -> String {"192.168.38.83".to_string()}
 
 use std::env;
 
