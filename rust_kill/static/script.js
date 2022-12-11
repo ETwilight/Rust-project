@@ -69,6 +69,7 @@ var room = {
  
 var role;
 
+
 //refreshing content/////////
 var STATE = {
   currentRoom: "rust_kill",
