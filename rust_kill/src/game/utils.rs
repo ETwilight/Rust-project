@@ -46,7 +46,8 @@ pub fn send_client_info(queue: Sender<ClientInfo>, client_info: ClientInfo) -> R
 
 pub fn send_room(queue: Sender<Room>, room: Room) -> Result<JoinHandle<()>, ()>{
     let task = tokio::spawn(async move{
-        queue.send(room).unwrap();
+        print!("{:?}", room.clone());
+        queue.send(room);
     });
     return Ok(task)
 }

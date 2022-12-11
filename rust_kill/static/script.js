@@ -331,9 +331,8 @@ function AddMessageEventListener(){
     // Set up the new message handler.
     newMessageForm.addEventListener("submit", (e) => {
       e.preventDefault();
-  
       const message = messageField.value;
-      if (!message || !username) return;
+      if (!message) return;
   
       if (STATE.connected) {
         fetch("/room/message", {
@@ -549,7 +548,7 @@ function Init() {
 
   // Subscribe to server-sent events.
   MessageSubscribe("/message/event");
-  PlayerInfoSubscribe("/playerInfo/event")
+  RoomSubscribe("/event/room")
   
 }
 
