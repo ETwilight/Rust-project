@@ -26,7 +26,6 @@ pub struct VoteEvent {
 pub struct UserConnectEvent {
     pub username: String,
     pub serverip: String,
-    pub is_host: bool,
 }
 
 
