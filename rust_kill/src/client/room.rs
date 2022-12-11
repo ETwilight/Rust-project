@@ -1,19 +1,9 @@
 #[path="../utils.rs"]
 mod utils;
 
-#[path="../game/game_info.rs"]
-mod game_info;
+use crate::{game_info::ClientInfo, client::game::utils::send_client_info};
 
-#[path="../game.rs"]
-mod game;
-
-use crate::game_info::ClientInfo;
-
-
-use rocket::{tokio::sync::broadcast::Sender, serde::json::Json};
-use crate::{client::room::game_info::Player, data::{Message, VisibleType}};
-use crate::client::game::utils::send_client_info;
-
+use rocket::tokio::sync::broadcast::Sender;
 
 // tell the javascript that it should connect to an empty room with name given in the room info
 pub async fn connect_room(cinfo: ClientInfo, sender: Sender<ClientInfo>) {
