@@ -71279,3 +71279,16 @@ POST /room/message application/x-www-form-urlencoded:
    >> Outcome: Failure
    >> No 422 catcher registered. Using Rocket default.
    >> Response succeeded.
+POST /room/message application/x-www-form-urlencoded:
+   >> Matched: (post_message) POST /room/message
+   >> url-encoded field: ("id", "null")
+   >> url-encoded field: ("message", "awegaewgawegawegty")
+   >> Data guard `Form < MessageEvent >` failed: Errors([Error { name: Some("room_name"), value: None, kind: Missing, entity: Field }, Error { name: Some("username"), value: None, kind: Missing, entity: Field }]).
+   >> Outcome: Failure
+   >> No 422 catcher registered. Using Rocket default.
+   >> Response succeeded.
+deregistering event source from poller
+deregistering event source from poller
+   >> Remote left: channel closed.
+   >> Remote left: channel closed.
+deregistering event source from poller
