@@ -15,6 +15,10 @@ let roomNameField = newRoomForm.querySelector("#name");
 var content = document.getElementById("content"); 
 var username = "guest";
 
+const id = parseInt(localStorage.idx);
+var profile = document.getElementById("showid");
+profile.innerHTML = "<b> CURRENT USER ID: " + id + "<b>";
+
 const VoteEventType = {
   Kill: 'Kill',
   WerewolfGiveUp: "WerewolfGiveUp",
@@ -68,9 +72,10 @@ var PlayerState = {
 
 var player = {
   name : "",
-  ip : "", 
+  ip : 0,
   role: RoleType,
   player_state: PlayerState,
+  id: 0,
 }
 
 var VoteState = {
@@ -112,9 +117,7 @@ var room = {
   game_state : GameState,
 }
 
-
 //refreshing content/////////
-
 var STATE = {
   currentRoom: "rustkill",
   rooms: {}, //A dictionary
@@ -128,7 +131,6 @@ function scrollToBottom() {
     }, 50);   
 }
 
-
 ////////////////////////////////////////////////////////////////
 function RoomSubscribe(uri) {
   var retryTime = 1;
@@ -137,13 +139,9 @@ function RoomSubscribe(uri) {
     events.addEventListener("message", (ev) => {
       const roomjson = JSON.parse(ev.data);
       console.log("decoded data", JSON.stringify(roomjson));
-      if (!room_name || !players || !game_state in room) return;
+      if (!"room_name" || !"players"|| !"game_state in room") return;
       //initialize
-      room.room_name = roomjson.room_name;
-      for (let i = 0, emp = roomjson.players[i]; i < roomjson.players.length; ++i){
-        room.players[emp.id] = emp;
-      }
-      room.game_state = roomjson.game_state;
+
       console.log("ROOM OBJECT: " + room);
     });
 
@@ -340,14 +338,13 @@ function AddMessageEventListener(){
       if (STATE.connected) {
         fetch("/room/message", {
           method: "POST",
-          body: new URLSearchParams({ room_name, username, message, visible_type }),
+          body: new URLSearchParams({room_name, id}),
         }).then((response) => {
           if (response.ok) messageField.value = "";
         });
       }
     })
 }
-
 
 function AddRoomListener(){
    // Set up the new room handler.
@@ -379,7 +376,7 @@ function WolfListener(){
       if (form.value == 'None'){
           event_type = VoteEventType.WerewolfGiveUp;
           target_id = 7;
-      var voter_id = parseInt(localStorage.getItem('idx'));
+      var voter_id = id;
       fetch("/game/event", {
           method: "POST",
           body: new URLSearchParams({event_type, voter_id, target_id}),
@@ -398,7 +395,7 @@ function ProphetListener(){
       if (form.value == 'None'){
           target_id = 7;
       }
-      var voter_id = parseInt(localStorage.getItem('idx'));
+      var voter_id = id;
       var event_type = VoteEventType.Reveal;
       fetch("/game/event", {
           method: "POST",
@@ -425,7 +422,7 @@ function WitchListener(){
           event_type = VoteEventType.WitchGiveUp;
           target_id = 7; 
       }
-      var voter_id = parseInt(localStorage.getItem('idx'));
+      var voter_id = id;
       fetch("/game/event", {
           method: "POST",
           body: new URLSearchParams({event_type, voter_id, target_id}),
@@ -444,7 +441,7 @@ function VoteListener(){
       if (form.value == 'None'){
           target_id = 7;
       }
-      var voter_id = parseInt(localStorage.getItem('idx'));
+      var voter_id = id;
       var event_type = VoteEventType.Vote;
       fetch("/game/event", {
           method: "POST",
@@ -459,7 +456,6 @@ function VoteListener(){
 function EndSpeakTurnListener(){
   var endspeak = document.getElementById("endspeakturn");
   endspeak.addEventListener("submit", () => {
-      var id = localStorage.getItem("idx");
       fetch("/game/endspeak", {
           method: "POST",
           body: new URLSearchParams({id}),
@@ -502,15 +498,6 @@ function unmute(){
 }
 /*Utilities*/
 
-const heightOutput = document.querySelector("#height");
-const widthOutput = document.querySelector("#width");
-function reportWindowSize() {
-  heightOutput.textContent = window.innerHeight;
-  widthOutput.textContent = window.innerWidth;
-}
-window.onresize = reportWindowSize;
-
-
 var slider = document.getElementById("myRange");
 slider.onchange = function() {
   let i = 1;
@@ -521,6 +508,32 @@ slider.onchange = function() {
 }
 
 
+function findTurn(){
+  console.log("");
+  /*switch(room.game_state.TurnType){
+    case WolfTurn:
+      //if is wolf
+      replace(1);
+      break;
+    case WitchTurn:
+
+      replace(2);
+      break;
+    case ProphetTurn:
+      //if is prophet
+      replace(3);
+      break;
+    case VoteTurn:
+      //disable false
+      break;
+    case SpeakTurn:
+      //if id matches
+      unmute();
+      break;
+    default:
+      break;
+  }*/
+}
 
 function Init() {
   // Initialize the room.
@@ -530,6 +543,8 @@ function Init() {
 
   AddMessageEventListener();
   AddRoomListener();
+  findTurn();
+
 
   // Subscribe to server-sent events.
   MessageSubscribe("/message/event");
