@@ -559,7 +559,6 @@ function Init() {
 
 
   // Subscribe to server-sent events.
-  MessageSubscribe("/message/event");
   RoomSubscribe("/event/room")
   
 }

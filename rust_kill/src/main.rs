@@ -41,18 +41,18 @@ use tokio::time::sleep;
 
 
 #[post("/room/host", data = "<form>")]
-async fn post_host_room(form: Form<UserConnectEvent>, mc: &State<Sender<Message>>, rc: &State<Sender<Room>>, cc: &State<Sender<ClientInfo>>) {
+async fn post_host_room(form: Form<UserConnectEvent>, rc: &State<Sender<Room>>, cc: &State<Sender<ClientInfo>>) {
     let host_event = form.into_inner();
 
     let _ = server::host::start().await.unwrap();
-    let _ = client::connect(&host_event.serverip, &host_event.username, mc.inner().clone(), rc.inner().clone(), cc.inner().clone()).await.unwrap();
+    let _ = client::connect(&host_event.serverip, &host_event.username, rc.inner().clone(), cc.inner().clone()).await.unwrap();
    
 }
 
 #[post("/room/join", data = "<form>")]
-async fn post_join_room(form: Form<UserConnectEvent>, mc: &State<Sender<Message>>, rc: &State<Sender<Room>>, cc: &State<Sender<ClientInfo>>){
+async fn post_join_room(form: Form<UserConnectEvent>, rc: &State<Sender<Room>>, cc: &State<Sender<ClientInfo>>){
     let join_event = form.into_inner();
-    let _ = client::connect(&join_event.serverip, &join_event.username, mc.inner().clone(), rc.inner().clone(), cc.inner().clone()).await.unwrap();
+    let _ = client::connect(&join_event.serverip, &join_event.username, rc.inner().clone(), cc.inner().clone()).await.unwrap();
 }
 
 #[post("/game/event", data = "<form>")]
@@ -71,8 +71,9 @@ fn post_end_speak(form: Form<EndSpeakEvent>) {
 
 /// Receive a message from a form submission and broadcast it to any receivers.
 #[post("/room/message", data = "<form>")]
-async fn post_message(form: Form<MessageEvent>, queue: &State<Sender<Message>>) {
+fn post_message(form: Form<MessageEvent>) {
     //A send "fails" if there are no active subscribers
+    print!("---------Send ClientInfo----------");
     let message_event = form.into_inner();
     let s = struct_to_string(&message_event).0;
     client_send_gme(&server_addr(), s);
@@ -95,12 +96,6 @@ async fn event_room(queue: &State<Sender<Room>>, mut end: Shutdown) -> EventStre
             yield Event::json(&msg);
         }
     }
-}
-
-#[post("/playerInfo", data = "<form>")]
-async fn post_player_info(form: Form<UserInfo>, queue: &State<Sender<UserInfo>>) {
-    sleep(Duration::from_millis(1000)).await;
-    let _res = queue.send(form.into_inner());
 }
 
 #[get("/clientInfo")]
@@ -130,46 +125,6 @@ async fn event_client_info(queue: &State<Sender<ClientInfo>>, mut end: Shutdown)
 
 
 
-#[get("/playerInfo/event")]
-async fn event_player_info(queue: &State<Sender<UserInfo>>, mut end: Shutdown) -> EventStream![] {
-    print!("Get event");
-    let mut rx = queue.subscribe();
-    EventStream! {
-        loop {
-            let msg = select! {
-                msg = rx.recv() => match msg {
-                    Ok(msg) => msg,
-                    Err(RecvError::Closed) => break,
-                    Err(RecvError::Lagged(_)) => continue,
-                },
-               _ = &mut end => break,
-            };
-            yield Event::json(&msg);
-        }
-    }
-}
-
-/// Returns an infinite stream of server-sent events. Each event is a message
-/// pulled from a broadcast queue sent by the `post` handler.
-
-#[get("/message/event")]
-async fn events(queue: &State<Sender<Message>>, mut end: Shutdown) -> EventStream![] {
-    let mut rx = queue.subscribe();
-    EventStream! {
-        loop {
-            let msg = select! {
-                msg = rx.recv() => match msg {
-                    Ok(msg) => msg,
-                    Err(RecvError::Closed) => break,
-                    Err(RecvError::Lagged(_)) => continue,
-                },
-                _ = &mut end => break,
-            };
-            let event = Event::json(&msg);
-            yield event;
-        }
-    }
-}
 
 #[deprecated]
 fn server_addr() -> String {"10.214.0.22".to_string()}
@@ -195,12 +150,10 @@ async fn main() -> Result<(), rocket::Error> {
         .merge(("port", port))
         .merge(("log_level", LogLevel::Debug));
     let rocket = rocket::custom(figment)
-        .manage(message_channel) //Store the sender 
-        .mount("/", routes![post_message, events])
-        .manage(channel::<UserInfo>(1024).0)
-        .mount("/", routes![post_player_info, event_player_info])
         .manage(room_channel)
         .mount("/", routes![event_room])
+        .mount("/", routes![post_message, post_end_speak, post_game_event])
+        .manage(message_channel) 
         .manage(cinfo_channel)
         .mount("/", routes![post_host_room, post_join_room])
         .mount("/", routes![event_client_info])
