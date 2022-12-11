@@ -5,8 +5,9 @@ $commands =
 "cd rust_kill",
 "Start-Process cargo 'run 8007'",
 "Start-Process cargo 'run 8001'",
-"Start-Process cargo 'run 8002'",
+"Start-Process cargo 'run 50000'",
 "Start-Sleep -Seconds 5.0"
+# prevent 8002, 8013
 # Run the commands using the iex cmdlet
 foreach ($command in $commands) {
     iex $command
