@@ -30,15 +30,23 @@ use crate::client::client_send_message;
 use crate::utils::struct_to_string;
 use crate::data::{Message, UserInfo, Room};
 
-
+static mut MESSAGE_CHANNEL : Option<Sender<Message>> = None;
+static mut ROOM_CHANNEL : Option<Sender<Room>> = None;
 
 #[post("/room/host", data = "<form>")]
-fn post_host_room(form: Form<UserConnectEvent>){
-   
-} 
+async fn post_host_room(form: Form<UserConnectEvent>) {
+    print!("Try Host {:?}", form.serverip.clone());
+    let _ = server::host::start().await.unwrap();
+    unsafe{
+        let _ = client::connect(form.serverip.as_str(), &form.username, MESSAGE_CHANNEL.clone().unwrap(), ROOM_CHANNEL.clone().unwrap()).await.unwrap();
+    }
+}
 
 #[post("/room/join", data = "<form>")]
-fn post_join_room(form: Form<UserConnectEvent>){
+async fn post_join_room(form: Form<UserConnectEvent>){
+    unsafe{
+        let _ = client::connect(form.serverip.as_str(), &form.username, MESSAGE_CHANNEL.clone().unwrap(), ROOM_CHANNEL.clone().unwrap()).await.unwrap();
+    }
     
 } 
 
@@ -146,6 +154,7 @@ async fn events(queue: &State<Sender<Message>>, mut end: Shutdown) -> EventStrea
     }
 }
 
+#[deprecated]
 fn server_addr() -> String {"10.214.0.22".to_string()}
 
 use std::env;
@@ -155,32 +164,36 @@ async fn main() -> Result<(), rocket::Error> {
     //server_addr tbd1
     let client_addr = "127.0.0.1";
     let arg = env::args().nth(1);
-    let server_run = env::args().nth(2).unwrap().trim().parse::<bool>().unwrap();
+    //let server_run = env::args().nth(2).unwrap().trim().parse::<bool>().unwrap();
     let port = arg.unwrap().trim().parse::<i32>().unwrap();
     // server connection in parallel, currently in main, will be transferred
+    /*
     if server_run {
         let _ = server::host::start().await.unwrap();
     }
+    */
     // a custom rocket build
     //let room_channel = channel::<Room>(1024).0;
-    let message_channel = channel::<Message>(1024).0;
+    unsafe{
+        MESSAGE_CHANNEL = Some(channel::<Message>(1024).0);
+        ROOM_CHANNEL = Some(channel::<Room>(1024).0);
+        let figment = rocket::Config::figment()
+            .merge(("address", client_addr))
+            .merge(("port", port))
+            .merge(("log_level", LogLevel::Debug));
+        let _rocket = rocket::custom(figment)
+            .manage(MESSAGE_CHANNEL.clone().unwrap()) //Store the sender 
+            .mount("/", routes![post_message, events])
+            .manage(channel::<UserInfo>(1024).0)
+            .mount("/", routes![post_player_info, event_player_info])
+            .manage(ROOM_CHANNEL.clone().unwrap())
+            .mount("/", routes![event_room])
+            .mount("/", FileServer::from(relative!("/static"))).launch().await.unwrap();
+    }
     // a custom rocket build
-    let room_channel = channel::<Room>(1024).0;
     //let event_channel = channel::<GameEvent>(1024).0;
-    let _ = client::connect(server_addr().as_str(), "ThgilTac1", message_channel.clone(), room_channel.clone()).await.unwrap();
+    //let _ = client::connect(server_addr().as_str(), "ThgilTac1", message_channel.clone(), room_channel.clone()).await.unwrap();
    
-    let figment = rocket::Config::figment()
-        .merge(("address", client_addr))
-        .merge(("port", port))
-        .merge(("log_level", LogLevel::Debug));
-    let _rocket = rocket::custom(figment)
-        .manage(message_channel) //Store the sender 
-        .mount("/", routes![post_message, events])
-        .manage(channel::<UserInfo>(1024).0)
-        .mount("/", routes![post_player_info, event_player_info])
-        .manage(room_channel)
-        .mount("/", routes![event_room])
-        .mount("/", FileServer::from(relative!("/static"))).launch().await.unwrap();
 
     Ok(())
 }

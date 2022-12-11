@@ -51,13 +51,9 @@ pub async fn start() -> Result<JoinHandle<()>, ()>{
                     let pjson = struct_to_string(&player);
                     txc.send(pjson.0).await.unwrap();
                     let cinfo = ClientInfo {
-                        room: Room {
-                            room_name: "rust_kill".to_string(), 
-                            messages:Vec::new(),
-                            players:vec![player],
-                            game_state: Default::default(),
-                        },
-                        ts: TurnType::StartTurn,
+                        room_name: "rust_kill".to_string(),
+                        username: player.user_info.username.clone(),
+                        client_addr: ip.clone(),
                         idx: num,
                     };
                     let cjson = serde_json::to_string(&cinfo).unwrap();
