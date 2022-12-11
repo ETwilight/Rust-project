@@ -507,33 +507,32 @@ slider.onchange = function() {
   }
 }
 
+// function findTurn(){
+//   console.log("");
+//   switch(room.game_state.TurnType){
+//     case WolfTurn:
 
-function findTurn(){
-  console.log("");
-  switch(room.game_state.TurnType){
-    case WolfTurn:
-      
-      replace(1);
-      break;
-    case WitchTurn:
+//       replace(1);
+//       break;
+//     case WitchTurn:
 
-      replace(2);
-      break;
-    case ProphetTurn:
-      //if is prophet
-      replace(3);
-      break;
-    case VoteTurn:
-      //disable false
-      break;
-    case SpeakTurn:
-      //if id matches
-      unmute();
-      break;
-    default:
-      break;
-  }
-}
+//       replace(2);
+//       break;
+//     case ProphetTurn:
+//       //if is prophet
+//       replace(3);
+//       break;
+//     case VoteTurn:
+//       //disable false
+//       break;
+//     case SpeakTurn:
+//       //if id matches
+//       unmute();
+//       break;
+//     default:
+//       break;
+//   }
+// }
 
 function Init() {
   // Initialize the room.
@@ -543,7 +542,7 @@ function Init() {
 
   AddMessageEventListener();
   AddRoomListener();
-  findTurn();
+  // findTurn();
 
 
   // Subscribe to server-sent events.
