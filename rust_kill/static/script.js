@@ -69,6 +69,7 @@ var room = {
  
 var role;
 
+
 //refreshing content/////////
 var STATE = {
   currentRoom: "rustkill",
@@ -182,9 +183,9 @@ function ChangeRoom(name) {
 
 // Add `message` from `username` to `room`. If `push`, then actually store the
 // message. If the current room is `room`, render the message.
-function AddMessage(room, username, message, push = false) {
+function AddMessage(room_, username, message, push = false) {
   if (push) {
-    STATE.rooms[room].push({ username, message })
+    STATE.rooms[room_].push({ username, message })
   }
 
   if (STATE.currentRoom == room) {
