@@ -87,15 +87,12 @@ function ClientInfoSubscribe(uri) {
     });
     
     events.addEventListener("open", () => {
-      SetConnectedStatus(true);
       console.log(`connected to event stream at ${uri}`);
       retryTime = 1;
     });
 
     events.addEventListener("error", () => {
-      SetConnectedStatus(false);
       events.close();
-
       let timeout = retryTime;
       retryTime = Math.min(64, retryTime * 2);
       console.log(`connection lost. attempting to reconnect in ${timeout}s`);
