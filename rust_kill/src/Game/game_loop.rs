@@ -9,7 +9,6 @@ use crate::game_info::{RoleType, Player, TurnType, WinType, RevealResult};
 
 use rand::prelude::*;
 
-
 pub fn update(event:GameEvent, room:&mut Room){
     match room.game_state.turn{
         TurnType::StartTurn => {

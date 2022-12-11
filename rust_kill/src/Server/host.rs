@@ -9,8 +9,10 @@ use tokio::time::sleep;
 use tokio::{net::TcpListener, task::JoinHandle, sync::mpsc, io::BufReader};
 
 use crate::data::Room;
+
 use crate::server::client_manager::receive;
 use crate::game_info::{Player, GameState, TurnType, ClientInfo, RevealResult};
+use crate::server::host::utils::decode_type;
 use crate::server::host::utils::encode;
 use crate::server::host::utils::string_to_struct;
 use crate::server::host::utils::struct_to_string;
@@ -18,8 +20,8 @@ use crate::server::host::utils::struct_to_string;
 #[path="../utils.rs"]
 mod utils;
 
-#[path="../game/game_info.rs"]
-mod game_info;
+#[path="../game/game_loop.rs"]
+mod game_loop;
 
 pub fn port() -> u16 {8080}
 pub fn client_addr(ip:String, id:usize)->String {ip + ":" + (port() + id as u16 + 1).to_string().as_str()}
@@ -71,23 +73,40 @@ pub async fn start() -> Result<JoinHandle<()>, ()>{
         sleep(Duration::from_millis(1000)).await;
         let main_tcp = TcpListener::bind(server_addr()).await.unwrap();
         let clients = r2.1;
+        let mut room = r2.0;
         loop {
             // Process Client Events
             let (socket, _) = main_tcp.accept().await.unwrap();
             let (mut reader, _) = socket.into_split();
             let (k, v) = utils::read_all(BufReader::new(&mut reader)).await.unwrap();
             print!("Get results:{:?}", (k.clone(),v.clone()));
-            if k == "MSG".to_string() || k == "ROOM".to_string() {
+            let mut send_key = "";
+            let mut send_val = "";
+            if k == "GME".to_string() {
                 print!("{}\n", v.clone());
-                for caddr in clients.iter() {
-                    let cstrm = TcpStream::connect(caddr).await;
-                    if cstrm.is_err() {continue};
-                    let cstream = cstrm.unwrap();
-                    let writer = &mut cstream.into_split().1;
-                    utils::server_write(writer, encode(k.as_str(), v.as_str()).as_str()).await.unwrap();
-                }
+                let (gme, tpe) = decode_type(&v);
+                receive_from_server(&mut room, &gme.to_string(), &tpe.to_string());
+                let room_json = struct_to_string(&room);
+                send_key = "ROOM";
+                send_val = room_json.0.as_str();
+            }
+            if k == "MSG".to_string() {
+                print!("{}\n", v.clone());
+                send_key = "MSG";
+                send_val = v.as_str();
+            }
+            for caddr in clients.iter() {
+                let cstrm = TcpStream::connect(caddr).await;
+                if cstrm.is_err() {continue};
+                let cstream = cstrm.unwrap();
+                let writer = &mut cstream.into_split().1;
+                utils::server_write(writer, encode(k.as_str(), v.as_str()).as_str()).await.unwrap();
             }
         }
     });
     Ok(task)
+}
+
+pub fn receive_from_server(room:&mut Room, game_event:&String, tpe:&String) {
+    todo!()
 }
