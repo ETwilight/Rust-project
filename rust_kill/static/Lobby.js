@@ -144,10 +144,14 @@ function ClientInfoSubscribe(uri) {
 
   Connect(uri);
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
 
 
 ClientInfoSubscribe("/clientInfo");
+=======
+}
+>>>>>>> parent of 4b962c0 (Fix Lobby.js)
 =======
 }
 >>>>>>> parent of 4b962c0 (Fix Lobby.js)
