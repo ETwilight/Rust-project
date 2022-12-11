@@ -59,14 +59,14 @@ async fn post_join_room(form: Form<UserConnectEvent>, mc: &State<Sender<Message>
 fn post_game_event(form: Form<VoteEvent>) {
     let vote_event = form.into_inner();
     let s = struct_to_string(&vote_event).0;
-    //client_send_gme(s);
+    client_send_gme(&server_addr(), s);
 }
 
 #[post("/game/endSpeak", data = "<form>")]
 fn post_end_speak(form: Form<EndSpeakEvent>) {
     let end_speak_event = form.into_inner();
     let s = struct_to_string(&end_speak_event).0;
-    //client_send_gme(s);
+    client_send_gme(&server_addr(), s);
 }
 
 /// Receive a message from a form submission and broadcast it to any receivers.
@@ -75,7 +75,7 @@ async fn post_message(form: Form<MessageEvent>, queue: &State<Sender<Message>>) 
     //A send "fails" if there are no active subscribers
     let message_event = form.into_inner();
     let s = struct_to_string(&message_event).0;
-    client_send_message(&server_addr(), s).await.unwrap();
+    client_send_gme(&server_addr(), s);
 }
 
 #[get("/event/room")]
@@ -123,7 +123,6 @@ async fn event_client_info(queue: &State<Sender<ClientInfo>>, mut end: Shutdown)
                 },
                _ = &mut end => break,
             };
-            print!("---------Event Stream: Get ClientInfo----------");
             yield Event::json(&msg);
         }
     }

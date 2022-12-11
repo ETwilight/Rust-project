@@ -17,6 +17,7 @@ pub fn update(room: &mut Room, json_string: &String) {
         }
         Ok(PostEventType::UserConnectEvent(event)) => {}
         Ok(PostEventType::MessageEvent(event)) => {
+            print!("-------Add Message------\n");
             add_message(&event, room);
         }
         Ok(PostEventType::EndSpeakEvent(event)) => {

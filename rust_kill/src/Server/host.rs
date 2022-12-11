@@ -81,8 +81,7 @@ pub async fn start() -> Result<JoinHandle<()>, ()>{
             let mut send_val = "";
             if k == "GME".to_string() {
                 print!("{}\n", v.clone());
-                let (gme, tpe) = decode_type(&v);
-                receive_from_server(&mut room, &gme.to_string(), &tpe.to_string());
+                receive_from_server(&mut room, &v.to_string());
                 let room_json = struct_to_string(&room);
                 send_key = "ROOM";
                 send_val = room_json.0.as_str();
@@ -104,6 +103,6 @@ pub async fn start() -> Result<JoinHandle<()>, ()>{
     Ok(task)
 }
 
-pub fn receive_from_server(room:&mut Room, game_event:&String, tpe:&String) {
+pub fn receive_from_server(room:&mut Room, game_event:&String) {
     update(room, game_event);
 }

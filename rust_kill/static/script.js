@@ -329,16 +329,14 @@ function AddMessageEventListener(){
     // Set up the new message handler.
     newMessageForm.addEventListener("submit", (e) => {
       e.preventDefault();
-  
-      const room_name = STATE.currentRoom;
+
       const message = messageField.value;
-      const visible_type = "All";
-      if (!message || !username) return;
+      if (!message) return;
   
       if (STATE.connected) {
         fetch("/room/message", {
           method: "POST",
-          body: new URLSearchParams({room_name, id}),
+          body: new URLSearchParams({id, message}),
         }).then((response) => {
           if (response.ok) messageField.value = "";
         });
@@ -547,7 +545,7 @@ function Init() {
 
   // Subscribe to server-sent events.
   MessageSubscribe("/message/event");
-  PlayerInfoSubscribe("/playerInfo/event")
+  RoomSubscribe("/event/room")
   
 }
 
