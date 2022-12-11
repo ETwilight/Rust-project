@@ -69997,6 +69997,7 @@ thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err`
    >> Remote left: client disconnect before response started.
    >> Remote left: channel closed.
    >> Remote left: channel closed.
+<<<<<<< HEAD
 deregistering event source from poller
 deregistering event source from poller
 thread 'rocket-worker-thread' panicked at 'called `Result::unwrap()` on an `Err` value: Os { code: 61, kind: ConnectionRefused, message: "Connection refused" }', src/client.rs:76:53
@@ -75772,3 +75773,5 @@ GET /clientInfo text/event-stream:
    >> No 404 catcher registered. Using Rocket default.
    >> Response succeeded.
 deregistering event source from poller
+=======
+>>>>>>> parent of e573a1f (Post to Rust)

@@ -90,7 +90,8 @@ function ClientInfoSubscribe(uri) {
       localStorage.setItem('username', msg.username);
       localStorage.setItem('client_addr', msg.client_addr);
       localStorage.setItem('idx', msg.idx);
-      ChangePage();
+      console.log(localStorage.getItem('room_name'), localStorage.getItem('username'), localStorage.getItem('client_addr'), localStorage.getItem('idx'));
+      ChangeRoom();
     });
 
     events.addEventListener("open", () => {
@@ -111,19 +112,8 @@ function ClientInfoSubscribe(uri) {
   }
 
   Connect(uri);
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 }
 
 
 ClientInfoSubscribe("/clientInfo");
-=======
-}
->>>>>>> parent of 4b962c0 (Fix Lobby.js)
-=======
-}
->>>>>>> parent of 4b962c0 (Fix Lobby.js)
-=======
-}
->>>>>>> parent of 4b962c0 (Fix Lobby.js)
