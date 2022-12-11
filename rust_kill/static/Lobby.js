@@ -20,6 +20,7 @@ function ChangePage() {
 
 function HostInput() {
   localStorage.setItem('is_input', true);
+  localStorage.setItem('idx', '0');
   let hForm = document.getElementById('hostform');
   hForm.addEventListener("submit", (e) => {
     //e.preventDefault();

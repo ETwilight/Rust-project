@@ -112,8 +112,8 @@ var GameState = {
 
 var room = {
   room_name: "",
-  players : {}, 
-  messages : {},
+  players : [],
+  messages : [],
   game_state : GameState,
 }
 
@@ -139,10 +139,13 @@ function RoomSubscribe(uri) {
     events.addEventListener("message", (ev) => {
       const roomjson = JSON.parse(ev.data);
       console.log("decoded data", JSON.stringify(roomjson));
-      if (!"room_name" || !"players"|| !"game_state in room") return;
-      //initialize
 
-      console.log("ROOM OBJECT: " + room);
+      roomjson['messages'].forEach(function(val){
+        room.messages.push(val);
+      });
+      console.log(room.messages);
+
+
     });
 
     events.addEventListener("open", () => {
@@ -209,7 +212,6 @@ function ChangeRoom(name) {
   STATE.currentRoom = name;
   oldRoom.classList.remove("active");
   newRoom.classList.add("active");
-
   messagesDiv.querySelectorAll(".message").forEach((msg) => {
     messagesDiv.removeChild(msg)
   });
@@ -329,7 +331,6 @@ function AddMessageEventListener(){
     // Set up the new message handler.
     newMessageForm.addEventListener("submit", (e) => {
       e.preventDefault();
-
       const message = messageField.value;
       if (!message) return;
   
@@ -504,6 +505,8 @@ slider.onchange = function() {
       i++;
   }
 }
+
+
 
 // function findTurn(){
 //   console.log("");
