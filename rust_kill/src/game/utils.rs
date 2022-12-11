@@ -37,7 +37,6 @@ pub async fn send_delay_message(queue: Sender<Message>, id:usize, name:String, t
 
 pub fn send_client_info(queue: Sender<ClientInfo>, client_info: ClientInfo) -> Result<JoinHandle<()>, ()>{
     let task = tokio::spawn(async move{
-         print!("{:?}", queue.clone());
          queue.send(client_info).unwrap();
     });
     print!("---------Send ClientInfo----------");
@@ -47,7 +46,7 @@ pub fn send_client_info(queue: Sender<ClientInfo>, client_info: ClientInfo) -> R
 pub fn send_room(queue: Sender<Room>, room: Room) -> Result<JoinHandle<()>, ()>{
     let task = tokio::spawn(async move{
         print!("{:?}", room.clone());
-        queue.send(room);
+        queue.send(room).unwrap();
     });
     return Ok(task)
 }
