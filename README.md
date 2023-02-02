@@ -1,4 +1,5 @@
-# RustKill
+# RustKill 
+CS128 Honors
 [Gamestate & Description Doc](https://docs.google.com/document/d/1cfV9vRisjSao56QPLooyyAIHvg3fE0QyBqc-j96xIwU/edit)
 
 **Team MemoryLeak**: Yichen Liu (yichen32), Peiyang Guo (pg22), Weijia Zhang (weijia4)
